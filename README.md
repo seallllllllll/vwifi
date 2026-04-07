@@ -652,7 +652,10 @@ Enter the top directory of the Linux kernel source and use the following command
 ```shell
 $ make menuconfig
 ```
-The default kernel configuration will work for our testing environment, so just click `save` and we get `.config` on the top directory.
+To allow virtio device to be bound to vwifi driver, please ensure the virtio network driver is disabled before you click `save`. By excluding the virtio network driver, you should spot `CONFIG_VIRTIO_NET=n` in the `.config` file on the top directory.
+```
+Device Drivers ---> Network device support ---> Virtio network driver ---> no
+```
 
 Before building the kernel, please ensure that all the needed packages or libraries have been installed in your machine.
 
@@ -748,6 +751,11 @@ Attach three `tap` devices on `bridge` device:
 $ sudo ip link set tap0 master br0
 $ sudo ip link set tap1 master br0
 $ sudo ip link set tap2 master br0
+```
+
+Start `bridge` device:
+```shell
+$ sudo ip link set br0 up
 ```
 
 ### Start VM with Qemu
