@@ -80,6 +80,15 @@ enum sme_state { SME_DISCONNECTED, SME_CONNECTING, SME_CONNECTED };
  */
 static atomic_t vwifi_wiphy_counter = ATOMIC_INIT(0);
 
+/* Current HT rate state reported through station information. */
+struct vwifi_rate_state {
+    u8 mcs;
+    u8 bw;
+    bool short_gi;
+    bool configured;
+};
+
+
 /* Virtual interface pointed to by netdev_priv(). Fields in the structure are
  * interface-dependent. Every interface has its own vwifi_vif, regardless of the
  * interface mode (STA, AP, IBSS...).
@@ -200,7 +209,24 @@ struct vwifi_vif {
 
     /* Transmit power */
     s32 tx_power;
+
+    /* HT rate state reported by get_station and dump_station. */
+    struct vwifi_rate_state rate_state;
+
 };
+
+/* Initialize the default transmission rate parameters for the virtual interface. */
+static void vwifi_init_rate_state(struct vwifi_vif *vif)
+{
+    /* Keep the default station dump rate compatible with the old behavior. */
+    vif->rate_state.mcs = 31;
+    vif->rate_state.bw = RATE_INFO_BW_20;
+    vif->rate_state.short_gi = false;
+    vif->rate_state.configured = false;
+}
+
+
+
 
 static int station = 2;
 module_param(station, int, 0444);
@@ -1407,7 +1433,7 @@ static int vwifi_get_station(struct wiphy *wiphy,
     sinfo->signal = rand_int_smooth(-100, -30, jiffies);
     sinfo->inactive_time = jiffies_to_msecs(jiffies - vif->active_time);
     /*
-     * Using 802.11n (HT) as the PHY, configure as follows:
+     * By default (using MCS 31 and 20MHz BW in 802.11n), it configures as follows:
      *
      * Modulation: 64-QAM
      * Data Bandwidth: 20MHz
@@ -1426,13 +1452,13 @@ static int vwifi_get_station(struct wiphy *wiphy,
      * IEEE 802.11n : https://zh.wikipedia.org/zh-tw/IEEE_802.11n
      */
     sinfo->rxrate.flags |= RATE_INFO_FLAGS_MCS;
-    sinfo->rxrate.mcs = 31;
-    sinfo->rxrate.bw = RATE_INFO_BW_20;
+    sinfo->rxrate.mcs = vif->rate_state.mcs;
+    sinfo->rxrate.bw = vif->rate_state.bw;
     sinfo->rxrate.n_bonded_ch = 1;
 
     sinfo->txrate.flags |= RATE_INFO_FLAGS_MCS;
-    sinfo->txrate.mcs = 31;
-    sinfo->txrate.bw = RATE_INFO_BW_20;
+    sinfo->txrate.mcs = vif->rate_state.mcs;
+    sinfo->txrate.bw = vif->rate_state.bw;
     sinfo->txrate.n_bonded_ch = 1;
     return 0;
 }
@@ -1490,6 +1516,9 @@ static struct wireless_dev *vwifi_interface_add(struct wiphy *wiphy, int if_idx)
     /* fill private data of network context. */
     vif = ndev_get_vwifi_vif(ndev);
     vif->ndev = ndev;
+    /* Initialize default transmission rate parameters for this interface. */
+    vwifi_init_rate_state(vif);
+
 
     /* fill wireless_dev context.
      * wireless_dev with net_device can be represented as inherited class of

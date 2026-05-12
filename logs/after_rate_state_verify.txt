@@ -1,0 +1,114 @@
+Installing Module vwifi.ko
+Failed to create interface mon.vw0: -95 (Operation not supported)
+vw0: interface state UNINITIALIZED->ENABLED
+vw0: AP-ENABLED 
+
+================================================================================
+Ping Test: STA vw1 (10.0.0.2) (not connected) <--> STA vw2 (10.0.0.3) (not connected)
+
+(should fail, because they haven't connected to AP vw0 (10.0.0.1))
+(be patient, it will take some time to route...)
+================================================================================
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+From 10.0.0.2 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.3 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+
+==================================
+vw1 connected to AP TestAP (vw0)
+==================================
+
+==================================
+vw2 connected to AP TestAP (vw0)
+==================================
+
+================================================================================
+Ping Test: STA vw1 (10.0.0.2) (connected) <--> STA vw2 (10.0.0.3) (connected)
+
+(should succeed, packet will be relayed by AP vw0 (10.0.0.1))
+================================================================================
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.077 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.041 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.031 ms
+64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.028 ms
+
+--- 10.0.0.3 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3104ms
+rtt min/avg/max/mdev = 0.028/0.044/0.077/0.019 ms
+
+================================================================================
+Ping Test: STA vw2 (10.0.0.3) (connected) <--> AP vw0 (10.0.0.1)
+
+(should succeed, packet will directly send/receive between STA vw2 and AP vw0)
+================================================================================
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.059 ms
+64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.022 ms
+64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.022 ms
+64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.032 ms
+
+--- 10.0.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3061ms
+rtt min/avg/max/mdev = 0.022/0.033/0.059/0.015 ms
+
+==============
+vw3 join ibss1
+==============
+Successfully initialized wpa_supplicant
+
+==============
+vw4 join ibss1
+==============
+Successfully initialized wpa_supplicant
+
+==================================
+vw5 join ibss2 (00:76:77:35:00:00)
+==================================
+
+================================================================================
+Ping Test: IBSS vw3 (10.0.0.4) (in ibss1) <--> STA vw2 (10.0.0.3)
+
+(should fail)
+(be patient, it will take some time to route...)
+================================================================================
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+From 10.0.0.4 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.3 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+
+================================================================================
+Ping Test: IBSS vw3 (10.0.0.4) (in ibss1) <--> IBSS vw5 (10.0.0.6) (in ibss2)
+
+(should fail)
+(be patient, it will take some time to route...)
+================================================================================
+PING 10.0.0.6 (10.0.0.6) 56(84) bytes of data.
+From 10.0.0.4 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.6 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+
+================================================================================
+Ping Test: IBSS vw3 (10.0.0.4) (in ibss1) <--> IBSS vw4 (10.0.0.5) (in ibss1)
+
+(should succeed)
+(be patient, it will take some time to route...)
+================================================================================
+PING 10.0.0.5 (10.0.0.5) 56(84) bytes of data.
+64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=0.054 ms
+
+--- 10.0.0.5 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.054/0.054/0.054/0.000 ms
+
+
+######## collecting RSSI information of vw0, please wait... ##########
+Stop Hostapd
+Removing Module vwifi
+==== Test PASSED ====

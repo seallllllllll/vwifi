@@ -248,7 +248,10 @@ if [ $final_ret -eq 0 ]; then
     fi
 
     # TestAP performs station dump
-    sudo ip netns exec ns0 iw dev vw0 station dump > station_dump_result.log
+    # sudo ip netns exec ns0 iw dev vw0 station dump > station_dump_result.log
+
+    mkdir -p logs
+    sudo ip netns exec ns0 iw dev vw0 station dump | tee logs/station_dump_current.txt > station_dump_result.log    
     for num in {1..2}; do
         cat station_dump_result.log | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'| sed -n "${num}p" > dump_ssid.log
         sudo ip netns exec "ns${num}" iw dev | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}' > station_ssid.log

@@ -1,0 +1,58 @@
+make -C /lib/modules/6.17.0-22-generic/build M=/home/suniachiu/Documents/vwifi/vwifi modules
+make[1]: Entering directory '/usr/src/linux-headers-6.17.0-22-generic'
+make[2]: Entering directory '/home/suniachiu/Documents/vwifi/vwifi'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+  You are using:           gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+  CC [M]  vwifi.o
+  MODPOST Module.symvers
+  CC [M]  vwifi.mod.o
+  CC [M]  .module-common.o
+  LD [M]  vwifi.ko
+  BTF [M] vwifi.ko
+Skipping BTF generation for vwifi.ko due to unavailability of vmlinux
+make[2]: Leaving directory '/home/suniachiu/Documents/vwifi/vwifi'
+make[1]: Leaving directory '/usr/src/linux-headers-6.17.0-22-generic'
+cc -std=gnu99 -Wno-declaration-after-statement -o vwifi-tool vwifi-tool.c
+phy#29
+	Interface vw5
+		ifindex 34
+		wdev 0x1d00000001
+		addr 00:76:77:35:00:00
+		type managed
+		txpower 0.00 dBm
+phy#28
+	Interface vw4
+		ifindex 33
+		wdev 0x1c00000001
+		addr 00:76:77:34:00:00
+		type managed
+		txpower 0.00 dBm
+phy#27
+	Interface vw3
+		ifindex 32
+		wdev 0x1b00000001
+		addr 00:76:77:33:00:00
+		type managed
+		txpower 0.00 dBm
+phy#26
+	Interface vw2
+		ifindex 31
+		wdev 0x1a00000001
+		addr 00:76:77:32:00:00
+		type managed
+		txpower 0.00 dBm
+phy#25
+	Interface vw1
+		ifindex 30
+		wdev 0x1900000001
+		addr 00:76:77:31:00:00
+		type managed
+		txpower 0.00 dBm
+phy#24
+	Interface vw0
+		ifindex 29
+		wdev 0x1800000001
+		addr 00:76:77:30:00:00
+		type managed
+		txpower 0.00 dBm
