@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 make -C /lib/modules/6.17.0-22-generic/build M=/home/suniachiu/Documents/vwifi/vwifi modules
 make[1]: Entering directory '/usr/src/linux-headers-6.17.0-22-generic'
 make[2]: Entering directory '/home/suniachiu/Documents/vwifi/vwifi'
@@ -56,3 +57,75 @@ phy#24
 		addr 00:76:77:30:00:00
 		type managed
 		txpower 0.00 dBm
+=======
+make -C /lib/modules/6.8.0-110-generic/build M=/home/suniachiu/vwifi/vwifi modules
+make[1]: Entering directory '/usr/src/linux-headers-6.8.0-110-generic'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04.3) 12.3.0
+  You are using:           gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04.3) 12.3.0
+  CC [M]  /home/suniachiu/vwifi/vwifi/vwifi.o
+  MODPOST /home/suniachiu/vwifi/vwifi/Module.symvers
+  CC [M]  /home/suniachiu/vwifi/vwifi/vwifi.mod.o
+  LD [M]  /home/suniachiu/vwifi/vwifi/vwifi.ko
+  BTF [M] /home/suniachiu/vwifi/vwifi/vwifi.ko
+Skipping BTF generation for /home/suniachiu/vwifi/vwifi/vwifi.ko due to unavailability of vmlinux
+make[1]: Leaving directory '/usr/src/linux-headers-6.8.0-110-generic'
+cc -std=gnu99 -Wno-declaration-after-statement -o vwifi-tool vwifi-tool.c
+Command 'iw' not found, but can be installed with:
+sudo apt install iw
+insmod: ERROR: could not insert module vwifi.ko: File exists
+phy#6
+	Interface vw5
+		ifindex 11
+		wdev 0x600000001
+		addr 00:76:77:35:00:00
+		type managed
+		txpower 0.00 dBm
+phy#5
+	Interface vw4
+		ifindex 10
+		wdev 0x500000001
+		addr 00:76:77:34:00:00
+		type managed
+		txpower 0.00 dBm
+phy#4
+	Interface vw3
+		ifindex 9
+		wdev 0x400000001
+		addr 00:76:77:33:00:00
+		type managed
+		txpower 0.00 dBm
+phy#3
+	Interface vw2
+		ifindex 8
+		wdev 0x300000001
+		addr 00:76:77:32:00:00
+		type managed
+		txpower 0.00 dBm
+phy#2
+	Interface vw1
+		ifindex 7
+		wdev 0x200000001
+		addr 00:76:77:31:00:00
+		type managed
+		txpower 0.00 dBm
+phy#1
+	Interface vw0
+		ifindex 6
+		wdev 0x100000001
+		addr 00:76:77:30:00:00
+		type managed
+		txpower 0.00 dBm
+phy#0
+	Interface wlp4s0
+		ifindex 3
+		wdev 0x1
+		addr 00:41:0e:2b:ed:ad
+		ssid CHT1338
+		type managed
+		channel 6 (2437 MHz), width: 20 MHz, center1: 2437 MHz
+		txpower 3.00 dBm
+		multicast TXQ:
+			qsz-byt	qsz-pkt	flows	drops	marks	overlmt	hashcol	tx-bytes	tx-packets
+			0	0	0	0	0	0	0	0		0
+>>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
