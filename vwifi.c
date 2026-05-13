@@ -85,6 +85,7 @@ struct vwifi_rate_state {
     u8 mcs;
     u8 bw;
     bool short_gi;
+    u32 bitrate_kbps;
     bool configured;
 };
 
@@ -222,6 +223,7 @@ static void vwifi_init_rate_state(struct vwifi_vif *vif)
     vif->rate_state.mcs = 31;
     vif->rate_state.bw = RATE_INFO_BW_20;
     vif->rate_state.short_gi = false;
+    vif->rate_state.bitrate_kbps = 260000;
     vif->rate_state.configured = false;
 }
 
@@ -1359,6 +1361,8 @@ static int vwifi_disconnect(struct wiphy *wiphy,
     return 0;
 }
 
+
+
 /* Callback called by the kernel when the user requests information about
  * a specific station. The information includes the number and bytes of
  * transmitted and received packets, signal strength, and timing information
@@ -1371,20 +1375,25 @@ static int vwifi_get_station(struct wiphy *wiphy,
                              struct station_info *sinfo)
 {
     struct vwifi_vif *vif = ndev_get_vwifi_vif(dev);
+    struct vwifi_vif *report_vif = vif;
 
     bool found_sta = false;
     switch (dev->ieee80211_ptr->iftype) {
     case NL80211_IFTYPE_AP:;
         struct vwifi_vif *sta_vif = NULL;
-        list_for_each_entry (sta_vif, &vif->bss_list, bss_list) {
+        /* Locate the target station by MAC address and store it in report_vif. */
+	list_for_each_entry (sta_vif, &vif->bss_list, bss_list) {
             if (!memcmp(mac, sta_vif->ndev->dev_addr, ETH_ALEN)) {
+                report_vif = sta_vif;
                 found_sta = true;
                 break;
             }
         }
+	/*
         if (!memcmp(mac, sta_vif->ndev->dev_addr, ETH_ALEN))
             found_sta = true;
-        break;
+        */
+	break;
     case NL80211_IFTYPE_STATION:
         if (!memcmp(mac, vif->bssid, ETH_ALEN))
             found_sta = true;
@@ -1452,13 +1461,13 @@ static int vwifi_get_station(struct wiphy *wiphy,
      * IEEE 802.11n : https://zh.wikipedia.org/zh-tw/IEEE_802.11n
      */
     sinfo->rxrate.flags |= RATE_INFO_FLAGS_MCS;
-    sinfo->rxrate.mcs = vif->rate_state.mcs;
-    sinfo->rxrate.bw = vif->rate_state.bw;
+    sinfo->rxrate.mcs = report_vif->rate_state.mcs;
+    sinfo->rxrate.bw = report_vif->rate_state.bw;
     sinfo->rxrate.n_bonded_ch = 1;
 
     sinfo->txrate.flags |= RATE_INFO_FLAGS_MCS;
-    sinfo->txrate.mcs = vif->rate_state.mcs;
-    sinfo->txrate.bw = vif->rate_state.bw;
+    sinfo->txrate.mcs = report_vif->rate_state.mcs;
+    sinfo->txrate.bw = report_vif->rate_state.bw;
     sinfo->txrate.n_bonded_ch = 1;
     return 0;
 }

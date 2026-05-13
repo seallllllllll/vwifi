@@ -232,14 +232,37 @@ if [ $final_ret -eq 0 ]; then
 
     # plot the distribution of RSSI of vw0
     echo -e "\n\n######## collecting RSSI information of vw0, please wait... ##########"
-    vw0_mac=$(sudo ip netns exec ns0 iw dev | grep -E 'vw0$' -A 3 | grep addr | awk '{print $2}')
-    counts=1000 # do get_station 1000 times
+    #vw0_mac=$(sudo ip netns exec ns0 iw dev | grep -E 'vw0$' -A 3 | grep addr | awk '{print $2}')
+    #counts=1000 # do get_station 1000 times
 
-    for i in $(seq 1 1 $counts); do
-        vw0_signal=$(sudo ip netns exec ns0 \
-            iw dev vw0 station get $vw0_mac | grep "signal" | awk '{print $2}')
-        echo $vw0_signal >> rssi.txt
-    done
+    #for i in $(seq 1 1 $counts); do
+        #vw0_signal=$(sudo ip netns exec ns0 \
+        #    iw dev vw0 station get $vw0_mac | grep "signal" | awk '{print $2}')
+        #echo $vw0_signal >> rssi.txt
+    #done
+    
+    sta_mac=$(sudo ip netns exec ns0 iw dev vw0 station dump | awk '/^Station / {print $2; exit}')
+    counts=1000
+ 
+    if [ -z "$sta_mac" ]; then
+        echo "No station associated with vw0"
+        final_ret=10
+    else
+        rm -f rssi.txt
+
+        for i in $(seq 1 1 $counts); do
+            vw0_signal=$(sudo ip netns exec ns0 \
+                iw dev vw0 station get "$sta_mac" | awk '/^[[:space:]]*signal:/ {print $2; exit}')
+
+            if [ -z "$vw0_signal" ]; then
+                echo "Failed to get signal for station $sta_mac"
+                final_ret=10
+                break
+            fi
+
+            echo "$vw0_signal" >> rssi.txt
+        done
+    fi
 
     python3 $ROOT/scripts/plot_rssi.py
     plot_rc=$?
