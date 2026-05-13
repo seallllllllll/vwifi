@@ -216,6 +216,53 @@ struct vwifi_vif {
 
 };
 
+/*
+ * 802.11n (HT) 20MHz Look-Up Tables for Data Rates (in kbps).
+ * The index corresponds to the MCS (Modulation and Coding Scheme) value (0-31),
+ * which covers up to 4 spatial streams (8 MCS indices per stream).
+ */
+
+/* Rates for Long Guard Interval (LGI, 800ns) */
+static const u32 vwifi_ht20_lgi_kbps[32] = {
+    6500, 13000, 19500, 26000, 39000, 52000, 58500, 65000,
+    13000, 26000, 39000, 52000, 78000, 104000, 117000, 130000,
+    19500, 39000, 58500, 78000, 117000, 156000, 175500, 195000,
+    26000, 52000, 78000, 104000, 156000, 208000, 234000, 260000,
+};
+
+/* Rates for Short Guard Interval (SGI, 400ns) - Approximately 11% faster than LGI */
+static const u32 vwifi_ht20_sgi_kbps[32] = {
+    7200, 14400, 21700, 28900, 43300, 57800, 65000, 72200,
+    14400, 28900, 43300, 57800, 86700, 115600, 130000, 144400,
+    21700, 43300, 65000, 86700, 130000, 173300, 195000, 216700,
+    28900, 57800, 86700, 115600, 173300, 231100, 260000, 288900,
+};
+
+/**
+ * vwifi_ht_mcs_rate_kbps - Convert HT MCS index to data rate in kbps
+ * @mcs: The MCS index (0-31 for 802.11n)
+ * @short_gi: True if Short Guard Interval (400ns) is used, false for LGI (800ns)
+ * @bw: The channel bandwidth (e.g., RATE_INFO_BW_20)
+ *
+ * Return: The corresponding PHY data rate in kbps, or 0 if the parameters
+ * are out of bounds or unsupported.
+ */
+static u32 vwifi_ht_mcs_rate_kbps(u8 mcs, bool short_gi, enum rate_info_bw bw)
+{
+    /* Prevent array out-of-bounds access to avoid kernel panic */
+    if (mcs >= ARRAY_SIZE(vwifi_ht20_lgi_kbps))
+        return 0;
+
+    /* Currently, only 20MHz bandwidth lookups are supported in this table */
+    if (bw != RATE_INFO_BW_20)
+        return 0;
+
+    /* Fetch the rate from the appropriate Guard Interval table */
+    return short_gi ? vwifi_ht20_sgi_kbps[mcs] : vwifi_ht20_lgi_kbps[mcs];
+}
+
+
+
 /* Initialize the default transmission rate parameters for the virtual interface. */
 static void vwifi_init_rate_state(struct vwifi_vif *vif)
 {
@@ -223,7 +270,10 @@ static void vwifi_init_rate_state(struct vwifi_vif *vif)
     vif->rate_state.mcs = 31;
     vif->rate_state.bw = RATE_INFO_BW_20;
     vif->rate_state.short_gi = false;
-    vif->rate_state.bitrate_kbps = 260000;
+    /* Look up table */
+    vif->rate_state.bitrate_kbps = vwifi_ht_mcs_rate_kbps(vif->rate_state.mcs,
+                               vif->rate_state.short_gi,
+                               vif->rate_state.bw);
     vif->rate_state.configured = false;
 }
 
@@ -1417,30 +1467,30 @@ static int vwifi_get_station(struct wiphy *wiphy,
                     BIT_ULL(NL80211_STA_INFO_RX_BITRATE) |
                     BIT_ULL(NL80211_STA_INFO_TX_BITRATE);
 
-    if (vif->sme_state == SME_CONNECTED) {
+    if (report_vif->sme_state == SME_CONNECTED) {
         sinfo->filled |= BIT_ULL(NL80211_STA_INFO_CONNECTED_TIME);
         sinfo->connected_time =
-            jiffies_to_msecs(jiffies - vif->conn_time) / 1000;
+            jiffies_to_msecs(jiffies - report_vif->conn_time) / 1000;
 
-        if (mutex_lock_interruptible(&vif->ap->lock))
+        if (mutex_lock_interruptible(&report_vif->ap->lock))
             return -ENONET;
 
         sinfo->bss_param.beacon_interval =
-            cpu_to_le16(vif->ap->beacon_int / 1024);
+            cpu_to_le16(report_vif->ap->beacon_int / 1024);
         sinfo->bss_param.dtim_period = 1;
 
-        mutex_unlock(&vif->ap->lock);
+        mutex_unlock(&report_vif->ap->lock);
         sinfo->bss_param.flags |= BSS_PARAM_FLAGS_SHORT_PREAMBLE;
     }
 
-    sinfo->tx_packets = vif->stats.tx_packets;
-    sinfo->rx_packets = vif->stats.rx_packets;
-    sinfo->tx_failed = vif->stats.tx_dropped;
-    sinfo->tx_bytes = vif->stats.tx_bytes;
-    sinfo->rx_bytes = vif->stats.rx_bytes;
+    sinfo->tx_packets = report_vif->stats.tx_packets;
+    sinfo->rx_packets = report_vif->stats.rx_packets;
+    sinfo->tx_failed = report_vif->stats.tx_dropped;
+    sinfo->tx_bytes = report_vif->stats.tx_bytes;
+    sinfo->rx_bytes = report_vif->stats.rx_bytes;
     /* For CFG80211_SIGNAL_TYPE_MBM, value is expressed in dBm */
     sinfo->signal = rand_int_smooth(-100, -30, jiffies);
-    sinfo->inactive_time = jiffies_to_msecs(jiffies - vif->active_time);
+    sinfo->inactive_time = jiffies_to_msecs(jiffies - report_vif->active_time);
     /*
      * By default (using MCS 31 and 20MHz BW in 802.11n), it configures as follows:
      *
@@ -1469,6 +1519,12 @@ static int vwifi_get_station(struct wiphy *wiphy,
     sinfo->txrate.mcs = report_vif->rate_state.mcs;
     sinfo->txrate.bw = report_vif->rate_state.bw;
     sinfo->txrate.n_bonded_ch = 1;
+    /* Append the Short GI flag to both RX and TX rates if enabled. */
+    if (report_vif->rate_state.short_gi) {
+        sinfo->rxrate.flags |= RATE_INFO_FLAGS_SHORT_GI;
+        sinfo->txrate.flags |= RATE_INFO_FLAGS_SHORT_GI;
+    }
+
     return 0;
 }
 
@@ -2376,8 +2432,15 @@ static struct wiphy *vwifi_cfg80211_add(void)
         switch (band) {
         case NL80211_BAND_2GHZ:
             nf_band_2ghz.ht_cap.cap = IEEE80211_HT_CAP_SGI_20;
-            nf_band_2ghz.ht_cap.ht_supported = false;
-            nf_band_2ghz.channels =
+            nf_band_2ghz.ht_cap.ht_supported = true;
+	    
+            nf_band_2ghz.ht_cap.mcs.rx_mask[0] = 0xff; /* MCS 0-7 */
+	    nf_band_2ghz.ht_cap.mcs.rx_mask[1] = 0xff; /* MCS 8-15 */
+   	    nf_band_2ghz.ht_cap.mcs.rx_mask[2] = 0xff; /* MCS 16-23 */
+      	    nf_band_2ghz.ht_cap.mcs.rx_mask[3] = 0xff; /* MCS 24-31 */
+   	    nf_band_2ghz.ht_cap.mcs.tx_params = IEEE80211_HT_MCS_TX_DEFINED;
+            
+	    nf_band_2ghz.channels =
                 kmemdup(vwifi_supported_channels_2ghz,
                         sizeof(vwifi_supported_channels_2ghz), GFP_KERNEL);
             nf_band_2ghz.n_channels = ARRAY_SIZE(vwifi_supported_channels_2ghz);
