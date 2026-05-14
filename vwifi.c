@@ -212,8 +212,9 @@ struct vwifi_vif {
     s32 tx_power;
 
     /* HT rate state reported by get_station and dump_station. */
+    struct cfg80211_bitrate_mask bitrate_mask;
     struct vwifi_rate_state rate_state;
-
+    
 };
 
 /*
@@ -2262,6 +2263,127 @@ static int vwifi_leave_ibss(struct wiphy *wiphy, struct net_device *ndev)
     return 0;
 }
 
+/**
+ * vwifi_select_ht_mcs_2ghz - Find the highest allowed 2.4GHz HT MCS index
+ * @mask: The bitrate mask provided by cfg80211 containing allowed rates
+ * @selected_mcs: Pointer to store the highest found MCS index
+ *
+ * This function scans the 2.4GHz HT MCS bitmask in reverse order (from 31
+ * down to 0) to deterministically select the highest permitted MCS rate.
+ *
+ * Return: 0 on success (a valid MCS was found), or -EINVAL if no HT MCS
+ * rates are allowed by the mask.
+ */
+static int vwifi_select_ht_mcs_2ghz(const struct cfg80211_bitrate_mask *mask,
+                                    u8 *selected_mcs)
+{
+    /* Extract the 2.4GHz HT MCS bitmask array from the control block */
+    const u8 *ht_mcs = mask->control[NL80211_BAND_2GHZ].ht_mcs;
+    int mcs;
+
+    /* 
+     * Iterate backwards from the maximum HT MCS index (31) to 0.
+     * This ensures we prioritize and select the highest allowed bitrate.
+     */
+    for (mcs = 31; mcs >= 0; mcs--) {
+        /* 
+         * Locate the specific bit for this MCS index.
+         * mcs / 8 gives the byte index in the array.
+         * BIT(mcs % 8) targets the exact bit within that byte.
+         */
+        if (ht_mcs[mcs / 8] & BIT(mcs % 8)) {
+            *selected_mcs = mcs;
+            return 0; /* Successfully found the highest authorized MCS */
+        }
+    }
+
+    /* Return an error if no allowed HT MCS bit was found in the mask */
+    return -EINVAL;
+}
+
+/**
+ * vwifi_set_bitrate_mask - cfg80211 callback to set the transmission bitrate mask
+ * @wiphy: The wireless hardware representation
+ * @dev: The network device (virtual interface) being configured
+ * @link_id: Link ID for multi-link operation (unused here)
+ * @peer: The MAC address of a specific peer (NULL for per-interface configuration)
+ * @mask: The requested bitrate limitations from user-space
+ *
+ * This function processes the 'iw dev <iface> set bitrates' command.
+ * For this MVP, we only support per-interface configurations (peer == NULL),
+ * and we deterministically select the highest allowed 2.4GHz HT MCS.
+ */
+static int vwifi_set_bitrate_mask(struct wiphy *wiphy,
+                                  struct net_device *dev,
+                                  unsigned int link_id,
+                                  const u8 *peer,
+                                  const struct cfg80211_bitrate_mask *mask)
+{
+    struct vwifi_vif *vif = ndev_get_vwifi_vif(dev);
+    struct vwifi_rate_state new_state;
+    u8 mcs;
+    bool short_gi = false;
+    u32 rate;
+
+    /* Basic sanity checks */
+    if (!vif || !mask)
+        return -EINVAL;
+
+    /* MVP limit: We do not support per-station (peer) bitrates yet */
+    if (peer)
+        return -EOPNOTSUPP;
+
+    /* Extract the highest allowed HT MCS index from the mask */
+    if (vwifi_select_ht_mcs_2ghz(mask, &mcs))
+        return -EINVAL;
+
+    /* Parse Guard Interval (GI) configuration */
+    switch (mask->control[NL80211_BAND_2GHZ].gi) {
+    case NL80211_TXRATE_FORCE_SGI:
+        short_gi = true;
+        break;
+    case NL80211_TXRATE_FORCE_LGI:
+    case NL80211_TXRATE_DEFAULT_GI:
+        short_gi = false;
+        break;
+    default:
+        return -EINVAL;
+    }
+
+    /* Validate that the selected MCS and GI produce a valid physical rate */
+    rate = vwifi_ht_mcs_rate_kbps(mcs, short_gi, RATE_INFO_BW_20);
+    if (!rate)
+        return -EINVAL;
+
+    /* Prepare the new rate state */
+    new_state.mcs = mcs;
+    new_state.bw = RATE_INFO_BW_20;
+    new_state.short_gi = short_gi;
+    new_state.bitrate_kbps = rate;
+    new_state.configured = true;
+
+    /* 
+     * Safely apply the new state. 
+     * Acquire the mutex to prevent race conditions with data path / TX tasks.
+     */
+    if (mutex_lock_interruptible(&vif->lock))
+        return -ERESTARTSYS;
+
+    memcpy(&vif->bitrate_mask, mask, sizeof(*mask));
+    vif->rate_state = new_state;
+
+    mutex_unlock(&vif->lock);
+
+    /* Log the successful configuration to dmesg for debugging */
+    pr_info("vwifi: %s set HT MCS %u, %s GI, %u Kbps\n",
+            dev->name,
+            new_state.mcs,
+            new_state.short_gi ? "short" : "long",
+            new_state.bitrate_kbps);
+
+    return 0;
+}
+
 /* Structure of functions for FullMAC 80211 drivers. Functions implemented
  * along with fields/flags in the wiphy structure represent driver features.
  * This module can only perform "scan" and "connect". Some functions cannot
@@ -2284,6 +2406,7 @@ static struct cfg80211_ops vwifi_cfg_ops = {
     .change_station = vwifi_change_station,
     .set_tx_power = vwifi_set_tx_power,
     .get_tx_power = vwifi_get_tx_power,
+    .set_bitrate_mask = vwifi_set_bitrate_mask,
     .join_ibss = vwifi_join_ibss,
     .leave_ibss = vwifi_leave_ibss,
 };
