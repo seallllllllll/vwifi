@@ -30,14 +30,14 @@ Ping Test: STA vw1 (10.0.0.2) (connected) <--> STA vw2 (10.0.0.3) (connected)
 (should succeed, packet will be relayed by AP vw0 (10.0.0.1))
 ================================================================================
 PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.077 ms
-64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.041 ms
-64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.031 ms
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.067 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.033 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.030 ms
 64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.028 ms
 
 --- 10.0.0.3 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3104ms
-rtt min/avg/max/mdev = 0.028/0.044/0.077/0.019 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3100ms
+rtt min/avg/max/mdev = 0.028/0.039/0.067/0.016 ms
 
 ================================================================================
 Ping Test: STA vw2 (10.0.0.3) (connected) <--> AP vw0 (10.0.0.1)
@@ -45,14 +45,14 @@ Ping Test: STA vw2 (10.0.0.3) (connected) <--> AP vw0 (10.0.0.1)
 (should succeed, packet will directly send/receive between STA vw2 and AP vw0)
 ================================================================================
 PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
-64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.059 ms
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.073 ms
 64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.022 ms
-64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.022 ms
-64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.032 ms
+64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.021 ms
+64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.020 ms
 
 --- 10.0.0.1 ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3061ms
-rtt min/avg/max/mdev = 0.022/0.033/0.059/0.015 ms
+rtt min/avg/max/mdev = 0.020/0.034/0.073/0.022 ms
 
 ==============
 vw3 join ibss1
@@ -101,14 +101,26 @@ Ping Test: IBSS vw3 (10.0.0.4) (in ibss1) <--> IBSS vw4 (10.0.0.5) (in ibss1)
 (be patient, it will take some time to route...)
 ================================================================================
 PING 10.0.0.5 (10.0.0.5) 56(84) bytes of data.
-64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=0.054 ms
+64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=0.048 ms
 
 --- 10.0.0.5 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.054/0.054/0.054/0.000 ms
+rtt min/avg/max/mdev = 0.048/0.048/0.048/0.000 ms
 
 
 ######## collecting RSSI information of vw0, please wait... ##########
-Stop Hostapd
-Removing Module vwifi
 ==== Test PASSED ====
+==== Keep vwifi module, hostapd, and namespaces for debugging ====
+
+Namespaces:
+ns5 (id: 5)
+ns4 (id: 4)
+ns3 (id: 3)
+ns2 (id: 2)
+ns1 (id: 1)
+ns0 (id: 0)
+
+Try:
+  sudo ip netns exec ns0 iw dev vw0 station dump
+  sudo ip netns exec ns1 iw dev vw1 set bitrates ht-mcs-2.4 7
+  sudo ip netns exec ns0 iw dev vw0 station dump

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Installing Module cfg80211
-=======
->>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
 Installing Module vwifi.ko
 Failed to create interface mon.vw0: -95 (Operation not supported)
 vw0: interface state UNINITIALIZED->ENABLED
@@ -34,25 +30,14 @@ Ping Test: STA vw1 (10.0.0.2) (connected) <--> STA vw2 (10.0.0.3) (connected)
 (should succeed, packet will be relayed by AP vw0 (10.0.0.1))
 ================================================================================
 PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
-<<<<<<< HEAD
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.068 ms
-64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.035 ms
-64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.028 ms
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.064 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.032 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.027 ms
 64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.028 ms
 
 --- 10.0.0.3 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3058ms
-rtt min/avg/max/mdev = 0.028/0.039/0.068/0.016 ms
-=======
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.096 ms
-64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.100 ms
-64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.101 ms
-64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.111 ms
-
---- 10.0.0.3 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3077ms
-rtt min/avg/max/mdev = 0.096/0.102/0.111/0.005 ms
->>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
+4 packets transmitted, 4 received, 0% packet loss, time 3094ms
+rtt min/avg/max/mdev = 0.027/0.037/0.064/0.015 ms
 
 ================================================================================
 Ping Test: STA vw2 (10.0.0.3) (connected) <--> AP vw0 (10.0.0.1)
@@ -60,25 +45,14 @@ Ping Test: STA vw2 (10.0.0.3) (connected) <--> AP vw0 (10.0.0.1)
 (should succeed, packet will directly send/receive between STA vw2 and AP vw0)
 ================================================================================
 PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
-<<<<<<< HEAD
-64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.055 ms
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.054 ms
 64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.023 ms
 64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.021 ms
-64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.036 ms
+64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.022 ms
 
 --- 10.0.0.1 ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3062ms
-rtt min/avg/max/mdev = 0.021/0.033/0.055/0.013 ms
-=======
-64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.081 ms
-64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.082 ms
-64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.098 ms
-64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.082 ms
-
---- 10.0.0.1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3053ms
-rtt min/avg/max/mdev = 0.081/0.085/0.098/0.007 ms
->>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
+rtt min/avg/max/mdev = 0.021/0.030/0.054/0.013 ms
 
 ==============
 vw3 join ibss1
@@ -127,19 +101,11 @@ Ping Test: IBSS vw3 (10.0.0.4) (in ibss1) <--> IBSS vw4 (10.0.0.5) (in ibss1)
 (be patient, it will take some time to route...)
 ================================================================================
 PING 10.0.0.5 (10.0.0.5) 56(84) bytes of data.
-<<<<<<< HEAD
 64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=0.050 ms
 
 --- 10.0.0.5 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
 rtt min/avg/max/mdev = 0.050/0.050/0.050/0.000 ms
-=======
-64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=0.065 ms
-
---- 10.0.0.5 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.065/0.065/0.065/0.000 ms
->>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
 
 
 ######## collecting RSSI information of vw0, please wait... ##########

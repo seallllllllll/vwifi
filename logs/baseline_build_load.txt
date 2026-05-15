@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-make -C /lib/modules/6.17.0-22-generic/build M=/home/suniachiu/Documents/vwifi/vwifi modules
-make[1]: Entering directory '/usr/src/linux-headers-6.17.0-22-generic'
+==== build vwifi ====
+make -C /lib/modules/6.17.0-23-generic/build M=/home/suniachiu/Documents/vwifi/vwifi modules
+make[1]: Entering directory '/usr/src/linux-headers-6.17.0-23-generic'
 make[2]: Entering directory '/home/suniachiu/Documents/vwifi/vwifi'
 warning: the compiler differs from the one used to build the kernel
   The kernel was built by: x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
@@ -13,119 +13,58 @@ warning: the compiler differs from the one used to build the kernel
   BTF [M] vwifi.ko
 Skipping BTF generation for vwifi.ko due to unavailability of vmlinux
 make[2]: Leaving directory '/home/suniachiu/Documents/vwifi/vwifi'
-make[1]: Leaving directory '/usr/src/linux-headers-6.17.0-22-generic'
+make[1]: Leaving directory '/usr/src/linux-headers-6.17.0-23-generic'
 cc -std=gnu99 -Wno-declaration-after-statement -o vwifi-tool vwifi-tool.c
-phy#29
+
+==== load cfg80211 ====
+cfg80211             1462272  1 vwifi
+
+==== load vwifi ====
+vwifi                  57344  0
+cfg80211             1462272  1 vwifi
+
+==== iw dev ====
+phy#77
 	Interface vw5
-		ifindex 34
-		wdev 0x1d00000001
+		ifindex 82
+		wdev 0x4d00000001
 		addr 00:76:77:35:00:00
 		type managed
 		txpower 0.00 dBm
-phy#28
+phy#76
 	Interface vw4
-		ifindex 33
-		wdev 0x1c00000001
+		ifindex 81
+		wdev 0x4c00000001
 		addr 00:76:77:34:00:00
 		type managed
 		txpower 0.00 dBm
-phy#27
+phy#75
 	Interface vw3
-		ifindex 32
-		wdev 0x1b00000001
+		ifindex 80
+		wdev 0x4b00000001
 		addr 00:76:77:33:00:00
 		type managed
 		txpower 0.00 dBm
-phy#26
+phy#74
 	Interface vw2
-		ifindex 31
-		wdev 0x1a00000001
+		ifindex 79
+		wdev 0x4a00000001
 		addr 00:76:77:32:00:00
 		type managed
 		txpower 0.00 dBm
-phy#25
+phy#73
 	Interface vw1
-		ifindex 30
-		wdev 0x1900000001
+		ifindex 78
+		wdev 0x4900000001
 		addr 00:76:77:31:00:00
 		type managed
 		txpower 0.00 dBm
-phy#24
+phy#72
 	Interface vw0
-		ifindex 29
-		wdev 0x1800000001
+		ifindex 77
+		wdev 0x4800000001
 		addr 00:76:77:30:00:00
 		type managed
 		txpower 0.00 dBm
-=======
-make -C /lib/modules/6.8.0-110-generic/build M=/home/suniachiu/vwifi/vwifi modules
-make[1]: Entering directory '/usr/src/linux-headers-6.8.0-110-generic'
-warning: the compiler differs from the one used to build the kernel
-  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04.3) 12.3.0
-  You are using:           gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04.3) 12.3.0
-  CC [M]  /home/suniachiu/vwifi/vwifi/vwifi.o
-  MODPOST /home/suniachiu/vwifi/vwifi/Module.symvers
-  CC [M]  /home/suniachiu/vwifi/vwifi/vwifi.mod.o
-  LD [M]  /home/suniachiu/vwifi/vwifi/vwifi.ko
-  BTF [M] /home/suniachiu/vwifi/vwifi/vwifi.ko
-Skipping BTF generation for /home/suniachiu/vwifi/vwifi/vwifi.ko due to unavailability of vmlinux
-make[1]: Leaving directory '/usr/src/linux-headers-6.8.0-110-generic'
-cc -std=gnu99 -Wno-declaration-after-statement -o vwifi-tool vwifi-tool.c
-Command 'iw' not found, but can be installed with:
-sudo apt install iw
-insmod: ERROR: could not insert module vwifi.ko: File exists
-phy#6
-	Interface vw5
-		ifindex 11
-		wdev 0x600000001
-		addr 00:76:77:35:00:00
-		type managed
-		txpower 0.00 dBm
-phy#5
-	Interface vw4
-		ifindex 10
-		wdev 0x500000001
-		addr 00:76:77:34:00:00
-		type managed
-		txpower 0.00 dBm
-phy#4
-	Interface vw3
-		ifindex 9
-		wdev 0x400000001
-		addr 00:76:77:33:00:00
-		type managed
-		txpower 0.00 dBm
-phy#3
-	Interface vw2
-		ifindex 8
-		wdev 0x300000001
-		addr 00:76:77:32:00:00
-		type managed
-		txpower 0.00 dBm
-phy#2
-	Interface vw1
-		ifindex 7
-		wdev 0x200000001
-		addr 00:76:77:31:00:00
-		type managed
-		txpower 0.00 dBm
-phy#1
-	Interface vw0
-		ifindex 6
-		wdev 0x100000001
-		addr 00:76:77:30:00:00
-		type managed
-		txpower 0.00 dBm
-phy#0
-	Interface wlp4s0
-		ifindex 3
-		wdev 0x1
-		addr 00:41:0e:2b:ed:ad
-		ssid CHT1338
-		type managed
-		channel 6 (2437 MHz), width: 20 MHz, center1: 2437 MHz
-		txpower 3.00 dBm
-		multicast TXQ:
-			qsz-byt	qsz-pkt	flows	drops	marks	overlmt	hashcol	tx-bytes	tx-packets
-			0	0	0	0	0	0	0	0		0
->>>>>>> 8bfd60502eb5fb0f0e504749b7ecd080f842d2f6
+
+==== unload vwifi ====
