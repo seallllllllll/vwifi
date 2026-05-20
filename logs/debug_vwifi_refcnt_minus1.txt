@@ -1,0 +1,24 @@
+==== date ====
+Mon May 18 04:28:26 PM CST 2026
+
+==== /proc/modules ====
+
+==== sysfs module ====
+
+==== holders ====
+
+==== namespaces ====
+
+==== links ====
+lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP> 
+enp4s0           DOWN           18:31:bf:45:76:82 <NO-CARRIER,BROADCAST,MULTICAST,UP> 
+enp5s0           UP             18:31:bf:45:76:83 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+tailscale0       UNKNOWN        <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> 
+
+==== wifi interfaces ====
+
+==== processes ====
+1150 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+
+==== dmesg tail ====
+dmesg: read kernel buffer failed: Operation not permitted

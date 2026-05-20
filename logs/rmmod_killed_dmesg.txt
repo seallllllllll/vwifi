@@ -1,0 +1,300 @@
+[Sun May 17 05:59:59 2026] audit: type=1400 audit(1778968800.960:191): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=9256 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 08:59:59 2026] audit: type=1400 audit(1778979600.965:192): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=9773 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 11:59:59 2026] audit: type=1400 audit(1778990400.972:193): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=10242 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 14:59:59 2026] audit: type=1400 audit(1779001200.967:194): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=10613 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 17:59:59 2026] audit: type=1400 audit(1779012000.966:195): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=10999 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 20:59:58 2026] audit: type=1400 audit(1779022800.970:196): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=11397 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 23:59:58 2026] audit: type=1400 audit(1779033600.969:197): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=11780 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Sun May 17 23:59:58 2026] audit: type=1400 audit(1779033601.011:198): apparmor="DENIED" operation="capable" class="cap" profile="/usr/sbin/cupsd" pid=11873 comm="cupsd" capability=12  capname="net_admin"
+[Mon May 18 02:59:58 2026] audit: type=1400 audit(1779044400.965:199): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=12806 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Mon May 18 05:22:26 2026] loop22: detected capacity change from 0 to 505096
+[Mon May 18 05:22:29 2026] audit: type=1400 audit(1779052952.236:200): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="/snap/snapd/26865/usr/lib/snapd/snap-confine" pid=13387 comm="apparmor_parser"
+[Mon May 18 05:22:30 2026] audit: type=1400 audit(1779052952.701:201): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap-update-ns.firefox" pid=13389 comm="apparmor_parser"
+[Mon May 18 05:22:30 2026] audit: type=1400 audit(1779052953.031:202): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.firefox" pid=13390 comm="apparmor_parser"
+[Mon May 18 05:22:30 2026] audit: type=1400 audit(1779052953.208:203): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.hook.configure" pid=13392 comm="apparmor_parser"
+[Mon May 18 05:22:30 2026] audit: type=1400 audit(1779052953.323:204): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.hook.disconnect-plug-host-hunspell" pid=13393 comm="apparmor_parser"
+[Mon May 18 05:22:31 2026] audit: type=1400 audit(1779052953.444:205): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.hook.install" pid=13394 comm="apparmor_parser"
+[Mon May 18 05:22:31 2026] audit: type=1400 audit(1779052953.508:206): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.geckodriver" pid=13391 comm="apparmor_parser"
+[Mon May 18 05:22:31 2026] audit: type=1400 audit(1779052953.559:207): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.firefox.hook.post-refresh" pid=13395 comm="apparmor_parser"
+[Mon May 18 05:22:31 2026] audit: type=1400 audit(1779052953.563:208): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="snap-update-ns.mesa-2404" pid=13397 comm="apparmor_parser"
+[Mon May 18 05:22:31 2026] audit: type=1400 audit(1779052953.564:209): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="snap.mesa-2404.component-monitor" pid=13398 comm="apparmor_parser"
+[Mon May 18 05:59:58 2026] kauditd_printk_skb: 4 callbacks suppressed
+[Mon May 18 05:59:58 2026] audit: type=1400 audit(1779055200.966:214): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=13735 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Mon May 18 08:59:58 2026] audit: type=1400 audit(1779066000.965:215): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=14270 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Mon May 18 11:59:58 2026] audit: type=1400 audit(1779076800.969:216): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=14730 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Mon May 18 14:59:58 2026] audit: type=1400 audit(1779087600.969:217): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=15120 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[Mon May 18 16:28:27 2026] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[Mon May 18 16:28:27 2026] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[Mon May 18 16:28:27 2026] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[Mon May 18 16:29:15 2026] vwifi: loading out-of-tree module taints kernel.
+[Mon May 18 16:29:15 2026] vwifi: module verification failed: signature and/or required key missing - tainting kernel
+[Mon May 18 16:29:17 2026] vwifi: vw0 start acting in AP mode.
+[Mon May 18 16:29:17 2026] ctrlchn=6, center=2437, bw=0, beacon_interval=100, dtim_period=1,
+[Mon May 18 16:29:17 2026] ssid=test\x08(4), auth_type=8, inactivity_timeout=0
+[Mon May 18 16:29:17 2026] vwifi_start_ap: privacy = 1, head_ie_len (before TIM IE) = 15, tail_ie_len = 28
+[Mon May 18 16:29:17 2026] vwifi: vw0 center freq: 2437
+[Mon May 18 16:29:17 2026] vwifi: init beacon_timer.
+[Mon May 18 16:29:20 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 16:29:20 2026] vwifi: vw1 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] vwifi: vw2 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 16:29:20 2026] vwifi: vw2 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: is_multicast_ether_addr
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:21 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:21 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:22 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:22 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: is_multicast_ether_addr
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:23 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:24 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:24 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 relay:
+[Mon May 18 16:29:25 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:25 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Mon May 18 16:29:26 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:26 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:26 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:26 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:26 2026] vwifi: vw5 start acting in IBSS mode.
+[Mon May 18 16:29:26 2026] vwifi : vw5 join ibss2.
+[Mon May 18 16:29:27 2026] vwifi: vw3 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:27 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 16:29:27 2026] vwifi: vw3 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Mon May 18 16:29:27 2026] cap = 2, beacon_ie_len = 0
+[Mon May 18 16:29:27 2026] vwifi: vw3 start acting in IBSS mode.
+[Mon May 18 16:29:27 2026] vwifi : vw3 join ibss1.
+[Mon May 18 16:29:27 2026] vwifi: vw4 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:27 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 16:29:27 2026] vwifi: vw4 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Mon May 18 16:29:27 2026] cap = 2, beacon_ie_len = 0
+[Mon May 18 16:29:27 2026] vwifi: vw4 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Mon May 18 16:29:27 2026] cap = 18, beacon_ie_len = 35
+[Mon May 18 16:29:27 2026] vwifi: vw4 start acting in IBSS mode.
+[Mon May 18 16:29:27 2026] vwifi : vw4 join ibss1.
+[Mon May 18 16:29:27 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:27 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:28 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:28 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:29 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:29 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:29 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[Mon May 18 16:29:29 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Mon May 18 16:29:29 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:29 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:31 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:31 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:32 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:32 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Mon May 18 16:29:33 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 16:29:33 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 16:29:33 2026] vwifi: vw1 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Mon May 18 16:29:33 2026] cap = 2, beacon_ie_len = 0
+[Mon May 18 16:29:33 2026] ------------[ cut here ]------------
+[Mon May 18 16:29:33 2026] UBSAN: invalid-load in vwifi.c:649:17
+[Mon May 18 16:29:33 2026] load of value 245 is not a valid value for type '_Bool'
+[Mon May 18 16:29:33 2026] CPU: 0 UID: 0 PID: 15406 Comm: kworker/0:0 Tainted: G           OE       6.17.0-23-generic #23~24.04.1-Ubuntu PREEMPT(voluntary) 
+[Mon May 18 16:29:33 2026] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[Mon May 18 16:29:33 2026] Hardware name: ASUSTeK COMPUTER INC. ESC500 G4/P10S WS, BIOS 3801 11/19/2019
+[Mon May 18 16:29:33 2026] Workqueue: events vwifi_scan_timeout_work [vwifi]
+[Mon May 18 16:29:33 2026] Call Trace:
+[Mon May 18 16:29:33 2026]  <TASK>
+[Mon May 18 16:29:33 2026]  dump_stack_lvl+0x76/0xa0
+[Mon May 18 16:29:33 2026]  dump_stack+0x10/0x20
+[Mon May 18 16:29:33 2026]  __ubsan_handle_load_invalid_value+0xea/0x110
+[Mon May 18 16:29:33 2026]  vwifi_scan_timeout_work.cold+0x10/0x2a [vwifi]
+[Mon May 18 16:29:33 2026]  process_one_work+0x18e/0x3e0
+[Mon May 18 16:29:33 2026]  worker_thread+0x2e3/0x420
+[Mon May 18 16:29:33 2026]  ? _raw_spin_lock_irqsave+0xe/0x20
+[Mon May 18 16:29:33 2026]  ? __pfx_worker_thread+0x10/0x10
+[Mon May 18 16:29:33 2026]  kthread+0x10a/0x230
+[Mon May 18 16:29:33 2026]  ? __pfx_kthread+0x10/0x10
+[Mon May 18 16:29:33 2026]  ret_from_fork+0x121/0x140
+[Mon May 18 16:29:33 2026]  ? __pfx_kthread+0x10/0x10
+[Mon May 18 16:29:33 2026]  ret_from_fork_asm+0x1a/0x30
+[Mon May 18 16:29:33 2026]  </TASK>
+[Mon May 18 16:29:33 2026] ---[ end trace ]---
+[Mon May 18 16:29:33 2026] vwifi: vw1 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] cap = 18, beacon_ie_len = 35
+[Mon May 18 16:29:33 2026] vwifi: vw1 performs scan, found vw4 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Mon May 18 16:29:33 2026] cap = 18, beacon_ie_len = 35
+[Mon May 18 16:29:33 2026] Dump station at the idx 0
+[Mon May 18 16:29:33 2026] Dump station at the idx 1
+[Mon May 18 16:29:33 2026] Dump station at the idx 2
+[Mon May 18 16:29:38 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:38 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Mon May 18 16:29:38 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
+[Mon May 18 16:29:38 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Mon May 18 16:29:48 2026] Dump station at the idx 0
+[Mon May 18 16:29:48 2026] Dump station at the idx 1
+[Mon May 18 16:29:48 2026] Dump station at the idx 2
+[Mon May 18 17:02:28 2026] vwifi: vw0 stop acting in AP mode.
+[Mon May 18 17:02:28 2026] vwifi : vw3 leave ibss1.
+[Mon May 18 17:02:28 2026] vwifi : vw4 leave ibss1.
+[Mon May 18 17:02:28 2026] vwifi: vw1 disconnected from AP vw0
+[Mon May 18 17:02:28 2026] vwifi: vw2 disconnected from AP vw0
+[Mon May 18 17:02:28 2026] vwifi : vw5 leave ibss2.
+[Mon May 18 17:02:28 2026] BUG: kernel NULL pointer dereference, address: 0000000000000061
+[Mon May 18 17:02:28 2026] #PF: supervisor read access in kernel mode
+[Mon May 18 17:02:28 2026] #PF: error_code(0x0000) - not-present page
+[Mon May 18 17:02:28 2026] PGD 0 P4D 0 
+[Mon May 18 17:02:28 2026] Oops: Oops: 0000 [#1] SMP PTI
+[Mon May 18 17:02:28 2026] CPU: 2 UID: 0 PID: 21644 Comm: rmmod Tainted: G           OE       6.17.0-23-generic #23~24.04.1-Ubuntu PREEMPT(voluntary) 
+[Mon May 18 17:02:28 2026] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[Mon May 18 17:02:28 2026] Hardware name: ASUSTeK COMPUTER INC. ESC500 G4/P10S WS, BIOS 3801 11/19/2019
+[Mon May 18 17:02:28 2026] RIP: 0010:cfg80211_scan_done+0x16/0x140 [cfg80211]
+[Mon May 18 17:02:28 2026] Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 55 48 89 e5 41 57 41 56 41 55 41 54 53 48 83 ec 18 <4c> 8b 67 60 65 48 8b 05 b6 07 3a d0 48 89 45 d0 31 c0 4d 85 e4 0f
+[Mon May 18 17:02:28 2026] RSP: 0018:ffffd0980799fa98 EFLAGS: 00010292
+[Mon May 18 17:02:28 2026] RAX: 0000000000000000 RBX: ffff88c91a5b93d8 RCX: 0000000000000000
+[Mon May 18 17:02:28 2026] RDX: 0000000000000000 RSI: ffffd0980799faf8 RDI: 0000000000000001
+[Mon May 18 17:02:28 2026] RBP: ffffd0980799fad8 R08: 0000000000000000 R09: 0000000000000000
+[Mon May 18 17:02:28 2026] R10: 0000000000000000 R11: 0000000000000000 R12: ffff88c91a5b8a80
+[Mon May 18 17:02:28 2026] R13: dead000000000122 R14: dead000000000100 R15: 0000000000000000
+[Mon May 18 17:02:28 2026] FS:  0000797ef2e9d080(0000) GS:ffff88cc4d562000(0000) knlGS:0000000000000000
+[Mon May 18 17:02:28 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[Mon May 18 17:02:28 2026] CR2: 0000000000000061 CR3: 000000019e114006 CR4: 00000000003726f0
+[Mon May 18 17:02:28 2026] Call Trace:
+[Mon May 18 17:02:28 2026]  <TASK>
+[Mon May 18 17:02:28 2026]  vwifi_free+0x224/0x2d0 [vwifi]
+[Mon May 18 17:02:28 2026]  vwifi_exit+0x23/0x290 [vwifi]
+[Mon May 18 17:02:28 2026]  __do_sys_delete_module.isra.0+0x1c0/0x320
+[Mon May 18 17:02:28 2026]  __x64_sys_delete_module+0x12/0x20
+[Mon May 18 17:02:28 2026]  x64_sys_call+0x5fb/0x2680
+[Mon May 18 17:02:28 2026]  do_syscall_64+0x80/0xa20
+[Mon May 18 17:02:28 2026]  ? __x64_sys_close+0x3e/0x90
+[Mon May 18 17:02:28 2026]  ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
+[Mon May 18 17:02:28 2026]  ? do_syscall_64+0xb6/0xa20
+[Mon May 18 17:02:28 2026]  ? do_read_fault+0x10d/0x230
+[Mon May 18 17:02:28 2026]  ? do_fault+0x167/0x280
+[Mon May 18 17:02:28 2026]  ? handle_pte_fault+0x15e/0x200
+[Mon May 18 17:02:28 2026]  ? __handle_mm_fault+0x5ba/0x740
+[Mon May 18 17:02:28 2026]  ? count_memcg_events+0xf0/0x1e0
+[Mon May 18 17:02:28 2026]  ? handle_mm_fault+0x237/0x370
+[Mon May 18 17:02:28 2026]  ? do_user_addr_fault+0x1d2/0x8d0
+[Mon May 18 17:02:28 2026]  ? arch_exit_to_user_mode_prepare.isra.0+0xd/0x100
+[Mon May 18 17:02:28 2026]  ? irqentry_exit_to_user_mode+0x2d/0x1d0
+[Mon May 18 17:02:28 2026]  ? irqentry_exit+0x43/0x50
+[Mon May 18 17:02:28 2026]  ? exc_page_fault+0x90/0x1b0
+[Mon May 18 17:02:28 2026]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[Mon May 18 17:02:28 2026] RIP: 0033:0x797ef252accb
+[Mon May 18 17:02:28 2026] Code: 73 01 c3 48 8b 0d 4d 81 0d 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa b8 b0 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 1d 81 0d 00 f7 d8 64 89 01 48
+[Mon May 18 17:02:28 2026] RSP: 002b:00007ffe92eb2928 EFLAGS: 00000206 ORIG_RAX: 00000000000000b0
+[Mon May 18 17:02:28 2026] RAX: ffffffffffffffda RBX: 000056790ff4a720 RCX: 0000797ef252accb
+[Mon May 18 17:02:28 2026] RDX: 0000000000000000 RSI: 0000000000000800 RDI: 000056790ff4a788
+[Mon May 18 17:02:28 2026] RBP: 00007ffe92eb2950 R08: 1999999999999999 R09: 0000000000000000
+[Mon May 18 17:02:28 2026] R10: 0000797ef25b1fc0 R11: 0000000000000206 R12: 0000000000000000
+[Mon May 18 17:02:28 2026] R13: 00007ffe92eb2ba0 R14: 000056790ff4a720 R15: 0000000000000000
+[Mon May 18 17:02:28 2026]  </TASK>
+[Mon May 18 17:02:28 2026] Modules linked in: vwifi(OE-) cfg80211 xt_connmark xt_conntrack xt_MASQUERADE xt_tcpudp xt_mark nft_compat nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 snd_seq_dummy snd_hrtimer nf_tables qrtr binfmt_misc nls_iso8859_1 snd_hda_codec_intelhdmi snd_hda_codec_hdmi snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_intel snd_soc_avs snd_soc_hda_codec snd_hda_ext_core snd_hda_codec snd_hda_core snd_intel_dspcfg snd_intel_sdw_acpi snd_hwdep snd_soc_core intel_rapl_msr intel_rapl_common intel_uncore_frequency intel_uncore_frequency_common snd_compress intel_tcc_cooling ac97_bus x86_pkg_temp_thermal intel_powerclamp snd_pcm_dmaengine snd_pcm coretemp mei_pxp mei_hdcp snd_seq_midi snd_seq_midi_event ee1004 snd_rawmidi kvm_intel snd_seq joydev input_leds i915 kvm snd_seq_device snd_timer snd irqbypass acpi_pad polyval_clmulni ghash_clmulni_intel aesni_intel drm_buddy soundcore ttm intel_pmc_core drm_display_helper pmt_telemetry pmt_discovery pmt_class eeepc_wmi mei_me cec
+[Mon May 18 17:02:28 2026]  rapl rc_core i2c_i801 i2c_smbus intel_cstate mei mfd_aaeon asus_wmi intel_pmc_ssram_telemetry i2c_mux sparse_keymap intel_vsec wmi_bmof mxm_wmi platform_profile mac_hid sch_fq_codel msr parport_pc ppdev lp parport efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 hid_generic usbhid uas hid usb_storage igb i2c_algo_bit dca ahci libahci video wmi
+[Mon May 18 17:02:28 2026] CR2: 0000000000000061
+[Mon May 18 17:02:28 2026] ---[ end trace 0000000000000000 ]---
+[Mon May 18 17:02:28 2026] RIP: 0010:cfg80211_scan_done+0x16/0x140 [cfg80211]
+[Mon May 18 17:02:28 2026] Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 55 48 89 e5 41 57 41 56 41 55 41 54 53 48 83 ec 18 <4c> 8b 67 60 65 48 8b 05 b6 07 3a d0 48 89 45 d0 31 c0 4d 85 e4 0f
+[Mon May 18 17:02:28 2026] RSP: 0018:ffffd0980799fa98 EFLAGS: 00010292
+[Mon May 18 17:02:28 2026] RAX: 0000000000000000 RBX: ffff88c91a5b93d8 RCX: 0000000000000000
+[Mon May 18 17:02:28 2026] RDX: 0000000000000000 RSI: ffffd0980799faf8 RDI: 0000000000000001
+[Mon May 18 17:02:28 2026] RBP: ffffd0980799fad8 R08: 0000000000000000 R09: 0000000000000000
+[Mon May 18 17:02:28 2026] R10: 0000000000000000 R11: 0000000000000000 R12: ffff88c91a5b8a80
+[Mon May 18 17:02:28 2026] R13: dead000000000122 R14: dead000000000100 R15: 0000000000000000
+[Mon May 18 17:02:28 2026] FS:  0000797ef2e9d080(0000) GS:ffff88cc4d562000(0000) knlGS:0000000000000000
+[Mon May 18 17:02:28 2026] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[Mon May 18 17:02:28 2026] CR2: 0000000000000061 CR3: 000000019e114006 CR4: 00000000003726f0
+[Mon May 18 17:02:28 2026] note: rmmod[21644] exited with irqs disabled
+[Mon May 18 17:02:28 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 17:02:28 2026] cap = 17, beacon_ie_len = 43
+[Mon May 18 17:02:28 2026] vwifi: vw2 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Mon May 18 17:02:28 2026] cap = 17, beacon_ie_len = 43

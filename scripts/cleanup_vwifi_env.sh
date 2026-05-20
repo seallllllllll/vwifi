@@ -1,19 +1,38 @@
 #!/usr/bin/env bash
 set +e
 
-echo "==== kill userspace Wi-Fi processes ===="
-sudo killall hostapd 2>/dev/null || true
-sudo killall wpa_supplicant 2>/dev/null || true
-sudo killall dhclient 2>/dev/null || true
+mkdir -p logs
+
+echo "==== save dmesg before cleanup ===="
+sudo dmesg -T | tail -n 300 | tee logs/before_cleanup_dmesg.txt
+
+echo "==== kill processes inside vwifi namespaces ===="
+for ns in ns0 ns1 ns2 ns3 ns4 ns5; do
+    if sudo ip netns list | grep -q "^${ns}"; then
+        sudo ip netns pids "$ns" 2>/dev/null | xargs -r sudo kill -TERM
+    fi
+done
+
+sleep 1
+
+for ns in ns0 ns1 ns2 ns3 ns4 ns5; do
+    if sudo ip netns list | grep -q "^${ns}"; then
+        sudo ip netns pids "$ns" 2>/dev/null | xargs -r sudo kill -KILL
+    fi
+done
+
+echo "==== unload vwifi before deleting namespaces ===="
+sudo rmmod vwifi
+ret=$?
+echo "rmmod exit code: $ret"
+
+echo "==== save dmesg after rmmod ===="
+sudo dmesg -T | tail -n 300 | tee logs/after_rmmod_dmesg.txt
 
 echo "==== delete namespaces ===="
 for ns in ns0 ns1 ns2 ns3 ns4 ns5; do
-    sudo ip netns pids "$ns" 2>/dev/null | xargs -r sudo kill -9
     sudo ip netns del "$ns" 2>/dev/null || true
 done
-
-echo "==== unload vwifi ===="
-sudo rmmod vwifi 2>/dev/null || true
 
 echo "==== status ===="
 sudo ip netns list

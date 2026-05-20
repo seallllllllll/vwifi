@@ -296,6 +296,7 @@ if [ $final_ret -eq 0 ]; then
     sudo ip netns del ns4
     sudo ip netns del ns5
     rm scan_result.log scan_bssid.log connected.log device.log rssi.txt station_dump_result.log dump_ssid.log station_ssid.log
+    lsmod | grep vwifi || echo "vwifi unloaded"
     echo "==== Test PASSED ===="
     exit 0
 fi

@@ -113,6 +113,9 @@ struct vwifi_vif {
     struct list_head list;
 
     struct mutex lock;
+    /* Whether it's on the list */
+    bool on_ibss_list;
+    bool on_ap_list;
 
     /* Split logic for the interface mode */
     union {
@@ -1840,14 +1843,13 @@ static int vwifi_stop_ap(struct wiphy *wiphy, struct net_device *ndev)
         spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
         vwifi_virtio_disconnect_tx(vif);
 
-        hash_for_each_safe (vif->bss_sta_table, bkt, tmp, sta_ent, node)
+        hash_for_each_safe (vif->bss_sta_table, bkt, tmp, sta_ent, node){
+	    hlist_del_init(&sta_ent->node);
             kfree(sta_ent);
+	}
         vif->bss_sta_table_entry_num = 0;
-
-        spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
-        return 0;
+	return 0;
     }
-
     spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
 
     if (vwifi->state == VWIFI_SHUTDOWN) {
@@ -2069,36 +2071,56 @@ static int vwifi_delete_interface(struct vwifi_vif *vif)
         kfree(sta_ent);
 
     if (vif->wdev.iftype == NL80211_IFTYPE_STATION) {
-        if (mutex_lock_interruptible(&vif->lock))
-            return -ERESTARTSYS;
+        struct cfg80211_scan_request *scan_request = NULL;
 
-        cancel_work_sync(&vif->ws_scan);
-        cancel_work_sync(&vif->ws_scan_timeout);
+	/*
+	* ws_scan may arm scan_timeout, so cancel ws_scan first.
+	*/
+	cancel_work_sync(&vif->ws_scan);
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 84)
         timer_delete_sync(&vif->scan_complete);
+	timer_delete_sync(&vif->scan_timeout);
 #else
         del_timer_sync(&vif->scan_complete);
+	del_timer_sync(&vif->scan_timeout);
 #endif
 
-        /* If there's a pending scan, call cfg80211_scan_done to finish it. */
-        if (vif->scan_request) {
-            struct cfg80211_scan_info info = {.aborted = true};
+    /*
+     * scan_timeout timer may have already queued ws_scan_timeout,
+     * so wait for it after deleting the timer.
+     */
+    cancel_work_sync(&vif->ws_scan_timeout);
 
-            cfg80211_scan_done(vif->scan_request, &info);
-            vif->scan_request = NULL;
-        }
+    /*
+     * These workers also take vif->lock internally, so do not hold
+     * vif->lock while waiting for them.
+     */
+    cancel_work_sync(&vif->ws_connect);
+    cancel_work_sync(&vif->ws_disconnect);
 
-        /* Make sure that no work is queued */
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 84)
-        timer_delete_sync(&vif->scan_timeout);
-#else
-        del_timer_sync(&vif->scan_timeout);
-#endif
-        cancel_work_sync(&vif->ws_connect);
-        cancel_work_sync(&vif->ws_disconnect);
+    /*
+     * Now no scan worker/timer should still touch scan_request.
+     * Steal the pointer under lock, then call cfg80211_scan_done()
+     * outside the lock.
+     */
+    mutex_lock(&vif->lock);
 
-        mutex_unlock(&vif->lock);
+    if (vif->scan_request) {
+        scan_request = vif->scan_request;
+        vif->scan_request = NULL;
     }
+
+    mutex_unlock(&vif->lock);
+
+    if (scan_request) {
+        struct cfg80211_scan_info info = {
+            .aborted = true,
+        };
+
+        cfg80211_scan_done(scan_request, &info);
+    }
+}
 
     /* Deallocate net_device */
     unregister_netdev(vif->ndev);
@@ -2471,6 +2493,28 @@ static struct ieee80211_supported_band nf_band_5ghz;
 /* Unregister and free virtual interfaces and wiphy. */
 static void vwifi_free(void)
 {
+    struct vwifi_vif *vif = NULL;
+
+    spin_lock_bh(&vif_list_lock);
+
+    while (!list_empty(&vwifi->vif_list)) {
+        vif = list_first_entry(&vwifi->vif_list, struct vwifi_vif, list);
+        list_del_init(&vif->list);
+
+        spin_unlock_bh(&vif_list_lock);
+        vwifi_delete_interface(vif);
+        spin_lock_bh(&vif_list_lock);
+    }
+
+    spin_unlock_bh(&vif_list_lock);
+
+    kfree(vwifi->denylist);
+    kfree(vwifi);
+}
+
+/* It might cause use-after-free / list corruption!!! 
+static void vwifi_free(void)
+{
     struct vwifi_vif *vif = NULL, *safe = NULL;
 
     spin_lock_bh(&vif_list_lock);
@@ -2484,6 +2528,7 @@ static void vwifi_free(void)
     kfree(vwifi->denylist);
     kfree(vwifi);
 }
+*/
 
 /* Allocate and register wiphy.
  * Virtual interfaces should be created by nl80211, which will call
