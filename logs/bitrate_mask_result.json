@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "message": "missing interface vw0 in namespace ns0",
+  "before": "logs/bitrate_mask_before.txt",
+  "after_mcs7_lgi": "logs/bitrate_mask_after_mcs7_lgi.txt",
+  "after_mcs7_sgi": "logs/bitrate_mask_after_mcs7_sgi.txt",
+  "after_vw2_mcs3_lgi": "logs/bitrate_mask_after_vw2_mcs3_lgi.txt",
+  "after_reset": "logs/bitrate_mask_after_reset.txt",
+  "dmesg": "logs/bitrate_mask_dmesg.txt"
+}
