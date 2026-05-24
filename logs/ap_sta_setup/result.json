@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "mode": "AP_STA_ONLY",
+  "ap": {
+    "namespace": "ns0",
+    "interface": "vw0",
+    "ip": "10.0.0.1/24"
+  },
+  "sta": [
+    {
+      "namespace": "ns1",
+      "interface": "vw1",
+      "ip": "10.0.0.2/24"
+    },
+    {
+      "namespace": "ns2",
+      "interface": "vw2",
+      "ip": "10.0.0.3/24"
+    }
+  ],
+  "logs": "logs/ap_sta_setup"
+}

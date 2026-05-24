@@ -1,0 +1,3 @@
+vw0_phy=vw_phy0
+vw1_phy=vw_phy1
+vw2_phy=vw_phy2

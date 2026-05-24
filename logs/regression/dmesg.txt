@@ -1,0 +1,4 @@
+[ 4079.780756] vwifi: vw1 set HT MCS 7, long GI, 65000 Kbps
+[ 4079.928114] vwifi: vw1 set HT MCS 7, short GI, 72200 Kbps
+[ 4080.079873] vwifi: vw2 set HT MCS 3, long GI, 26000 Kbps
+[ 4080.267516] vwifi: vw1 set HT MCS 31, long GI, 260000 Kbps

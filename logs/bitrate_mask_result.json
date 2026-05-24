@@ -1,6 +1,6 @@
 {
-  "status": "FAIL",
-  "message": "missing interface vw0 in namespace ns0",
+  "status": "PASS",
+  "message": "bitrate mask updates station dump successfully",
   "before": "logs/bitrate_mask_before.txt",
   "after_mcs7_lgi": "logs/bitrate_mask_after_mcs7_lgi.txt",
   "after_mcs7_sgi": "logs/bitrate_mask_after_mcs7_sgi.txt",

@@ -1,3 +1,11 @@
-[ 3218.825470] vwifi: vw1 set HT MCS 7, long GI, 65000 Kbps
-[ 3248.361911] vwifi: vw1 set HT MCS 7, short GI, 72200 Kbps
-[ 3263.980113] vwifi: vw2 set HT MCS 3, long GI, 26000 Kbps
+[ 4078.853770] VWIFI_TEST_BITRATE_MASK: check test environment
+[ 4079.442694] VWIFI_TEST_BITRATE_MASK: baseline station dump before set bitrates
+[ 4079.646056] VWIFI_TEST_BITRATE_MASK: set vw1 to HT MCS 7 long GI
+[ 4079.780756] vwifi: vw1 set HT MCS 7, long GI, 65000 Kbps
+[ 4079.801794] VWIFI_TEST_BITRATE_MASK: set vw1 to HT MCS 7 short GI
+[ 4079.928114] vwifi: vw1 set HT MCS 7, short GI, 72200 Kbps
+[ 4079.952856] VWIFI_TEST_BITRATE_MASK: set vw2 to HT MCS 3 long GI
+[ 4080.079873] vwifi: vw2 set HT MCS 3, long GI, 26000 Kbps
+[ 4080.105449] VWIFI_TEST_BITRATE_MASK: reset vw1 bitrate mask to default
+[ 4080.267516] vwifi: vw1 set HT MCS 31, long GI, 260000 Kbps
+[ 4080.289321] VWIFI_TEST_BITRATE_MASK: collect dmesg evidence

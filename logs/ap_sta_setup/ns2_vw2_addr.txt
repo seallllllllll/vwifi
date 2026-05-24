@@ -1,0 +1,4 @@
+7: vw2: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT group default qlen 1000
+    link/ether 00:76:77:32:00:00 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.3/24 scope global vw2
+       valid_lft forever preferred_lft forever

@@ -1,0 +1,17 @@
+BSS 00:76:77:30:00:00(on vw2)
+	TSF: 4072553010 usec (0d, 01:07:52)
+	freq: 2437.0
+	beacon interval: 100 TUs
+	capability: ESS Privacy (0x0011)
+	signal: -95.00 dBm
+	last seen: 0 ms ago
+	SSID: test
+	Supported rates: 1.0* 2.0* 5.5 11.0 
+	DS Parameter set: channel 6
+	RSN:	 * Version: 1
+		 * Group cipher: CCMP
+		 * Pairwise ciphers: CCMP
+		 * Authentication suites: PSK
+		 * Capabilities: 1-PTKSA-RC 1-GTKSA-RC (0x0000)
+	Extended capabilities:
+		 * SSID List

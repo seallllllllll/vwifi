@@ -1,0 +1,294 @@
+
+==== preflight checks ====
+
+==== build vwifi ====
+make -C /lib/modules/6.17.0-29-generic/build M=/home/suniachiu/Documents/vwifi/vwifi modules
+make[1]: Entering directory '/usr/src/linux-headers-6.17.0-29-generic'
+make[2]: Entering directory '/home/suniachiu/Documents/vwifi/vwifi'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+  You are using:           gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+  CC [M]  vwifi.o
+  MODPOST Module.symvers
+  CC [M]  vwifi.mod.o
+  CC [M]  .module-common.o
+  LD [M]  vwifi.ko
+  BTF [M] vwifi.ko
+Skipping BTF generation for vwifi.ko due to unavailability of vmlinux
+make[2]: Leaving directory '/home/suniachiu/Documents/vwifi/vwifi'
+make[1]: Leaving directory '/usr/src/linux-headers-6.17.0-29-generic'
+cc -std=gnu99 -Wno-declaration-after-statement -o vwifi-tool vwifi-tool.c
+
+==== load cfg80211 and vwifi ====
+phy#2
+	Interface vw2
+		ifindex 7
+		wdev 0x200000001
+		addr 00:76:77:32:00:00
+		type managed
+		txpower 0.00 dBm
+phy#1
+	Interface vw1
+		ifindex 6
+		wdev 0x100000001
+		addr 00:76:77:31:00:00
+		type managed
+		txpower 0.00 dBm
+phy#0
+	Interface vw0
+		ifindex 5
+		wdev 0x1
+		addr 00:76:77:30:00:00
+		type managed
+		txpower 0.00 dBm
+
+==== set txpower, best effort ====
+
+==== resolve wiphy names before moving namespaces ====
+vw0_phy=vw_phy0
+vw1_phy=vw_phy1
+vw2_phy=vw_phy2
+
+==== create namespaces ====
+
+==== move phys into namespaces ====
+
+==== bring loopback and vwifi interfaces up ====
+Interface vw0
+	ifindex 5
+	wdev 0x1
+	addr 00:76:77:30:00:00
+	type managed
+	wiphy 0
+	txpower 11.00 dBm
+Interface vw1
+	ifindex 6
+	wdev 0x100000001
+	addr 00:76:77:31:00:00
+	type managed
+	wiphy 1
+	txpower 12.00 dBm
+Interface vw2
+	ifindex 7
+	wdev 0x200000001
+	addr 00:76:77:32:00:00
+	type managed
+	wiphy 2
+	txpower 13.00 dBm
+
+==== assign IP addresses ====
+5: vw0: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT group default qlen 1000
+    link/ether 00:76:77:30:00:00 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.1/24 scope global vw0
+       valid_lft forever preferred_lft forever
+6: vw1: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT group default qlen 1000
+    link/ether 00:76:77:31:00:00 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.2/24 scope global vw1
+       valid_lft forever preferred_lft forever
+7: vw2: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT group default qlen 1000
+    link/ether 00:76:77:32:00:00 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.3/24 scope global vw2
+       valid_lft forever preferred_lft forever
+
+==== start AP on ns0/vw0 ====
+Failed to create interface mon.vw0: -95 (Operation not supported)
+vw0: interface state UNINITIALIZED->ENABLED
+vw0: AP-ENABLED 
+
+==== connect STA vw1 and vw2 ====
+
+==== scan from ns1/vw1 ====
+
+==== connect ns1/vw1 to SSID 'test' ====
+Connected to 00:76:77:30:00:00 (on vw1)
+	SSID: test
+	freq: 2437.0
+	RX: 113 bytes (1 packets)
+	TX: 0 bytes (0 packets)
+	signal: -81 dBm
+	rx bitrate: 260.0 MBit/s MCS 31
+	tx bitrate: 260.0 MBit/s MCS 31
+
+==== scan from ns2/vw2 ====
+
+==== connect ns2/vw2 to SSID 'test' ====
+Connected to 00:76:77:30:00:00 (on vw2)
+	SSID: test
+	freq: 2437.0
+	RX: 113 bytes (1 packets)
+	TX: 0 bytes (0 packets)
+	signal: -32 dBm
+	rx bitrate: 260.0 MBit/s MCS 31
+	tx bitrate: 260.0 MBit/s MCS 31
+
+==== sanity ping: vw1 to vw2 through AP ====
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.074 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.031 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.035 ms
+64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.030 ms
+
+--- 10.0.0.3 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3111ms
+rtt min/avg/max/mdev = 0.030/0.042/0.074/0.018 ms
+
+==== sanity ping: vw2 to AP ====
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.061 ms
+64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=0.025 ms
+64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=0.021 ms
+64 bytes from 10.0.0.1: icmp_seq=4 ttl=64 time=0.022 ms
+
+--- 10.0.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3061ms
+rtt min/avg/max/mdev = 0.021/0.032/0.061/0.016 ms
+
+==== station dump from AP ====
+Station 00:76:77:31:00:00 (on vw0)
+	inactive time:	1162 ms
+	rx bytes:	970
+	rx packets:	11
+	tx bytes:	476
+	tx packets:	6
+	tx failed:	0
+	signal:  	-74 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	6 seconds
+	current time:	1779614621363 ms
+Station 00:76:77:32:00:00 (on vw0)
+	inactive time:	10 ms
+	rx bytes:	1362
+	rx packets:	15
+	tx bytes:	910
+	tx packets:	11
+	tx failed:	0
+	signal:  	-74 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	6 seconds
+	current time:	1779614621363 ms
+
+==== collect vwifi dmesg tail ====
+[ 4068.719700] vwifi: loading out-of-tree module taints kernel.
+[ 4068.719705] vwifi: module verification failed: signature and/or required key missing - tainting kernel
+[ 4070.206522] vwifi: vw0 start acting in AP mode.
+[ 4070.206530] vwifi_start_ap: privacy = 1, head_ie_len (before TIM IE) = 15, tail_ie_len = 28
+[ 4070.206532] vwifi: vw0 center freq: 2437
+[ 4070.206533] vwifi: init beacon_timer.
+[ 4072.348659] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[ 4072.360270] vwifi: vw1 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[ 4072.360807] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4072.360814] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4072.460875] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4072.460880] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4072.508556] vwifi: vw2 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[ 4072.523485] vwifi: vw2 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[ 4072.523807] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4072.523811] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4072.581323] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
+[ 4072.581328] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4072.581330] vwifi: is_multicast_ether_addr
+[ 4072.581331] vwifi: AP vw0 relay:
+[ 4072.581333] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (ff:ff:ff:ff:ff:ff)
+[ 4072.581335] vwifi: STA vw2 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4072.581347] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4072.581349] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4072.581350] vwifi: AP vw0 relay:
+[ 4072.581351] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4072.581353] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4072.581358] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[ 4072.581359] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4072.581360] vwifi: AP vw0 relay:
+[ 4072.581361] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4072.581363] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4072.581370] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4072.581372] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4072.581373] vwifi: AP vw0 relay:
+[ 4072.581374] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4072.581375] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4072.623978] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4072.623982] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4073.461773] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4073.461777] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4073.624185] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4073.624189] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4073.644600] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[ 4073.644604] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4073.644606] vwifi: AP vw0 relay:
+[ 4073.644607] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4073.644608] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4073.644617] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4073.644619] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4073.644620] vwifi: AP vw0 relay:
+[ 4073.644621] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4073.644623] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4074.462666] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4074.462671] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4074.624393] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4074.624397] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4074.668585] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[ 4074.668589] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4074.668591] vwifi: AP vw0 relay:
+[ 4074.668592] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4074.668594] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4074.668603] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4074.668605] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4074.668606] vwifi: AP vw0 relay:
+[ 4074.668607] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4074.668609] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4075.692566] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[ 4075.692570] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4075.692572] vwifi: AP vw0 relay:
+[ 4075.692574] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4075.692575] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4075.692583] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4075.692585] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4075.692586] vwifi: AP vw0 relay:
+[ 4075.692587] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4075.692588] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4075.703268] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
+[ 4075.703273] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4075.703275] vwifi: is_multicast_ether_addr
+[ 4075.703276] vwifi: AP vw0 relay:
+[ 4075.703278] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff)
+[ 4075.703280] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4075.703295] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4075.703296] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4075.703299] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[ 4075.703301] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4075.703309] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4075.703310] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4076.716560] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[ 4076.716564] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4076.716574] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4076.716576] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4077.612502] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[ 4077.612506] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4077.612508] vwifi: AP vw0 relay:
+[ 4077.612509] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[ 4077.612511] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[ 4077.612519] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[ 4077.612521] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[ 4077.612522] vwifi: AP vw0 relay:
+[ 4077.612523] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4077.612525] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[ 4077.740548] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[ 4077.740551] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4077.740559] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4077.740561] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+[ 4078.764533] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
+[ 4078.764537] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[ 4078.764545] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[ 4078.764547] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
+
+PASS: AP/STA-only environment is ready.
+
+Next:
+  bash tests/test_bitrate_mask.sh
+
+Logs:
+  logs/ap_sta_setup
+
+Reset policy:
+  use sudo reboot before rerunning this setup

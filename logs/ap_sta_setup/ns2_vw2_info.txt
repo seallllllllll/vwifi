@@ -1,0 +1,7 @@
+Interface vw2
+	ifindex 7
+	wdev 0x200000001
+	addr 00:76:77:32:00:00
+	type managed
+	wiphy 2
+	txpower 13.00 dBm

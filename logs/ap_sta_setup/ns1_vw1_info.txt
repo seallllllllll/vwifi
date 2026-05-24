@@ -1,0 +1,7 @@
+Interface vw1
+	ifindex 6
+	wdev 0x100000001
+	addr 00:76:77:31:00:00
+	type managed
+	wiphy 1
+	txpower 12.00 dBm

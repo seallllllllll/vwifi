@@ -1,0 +1,24 @@
+Station 00:76:77:31:00:00 (on vw0)
+	inactive time:	2022 ms
+	rx bytes:	970
+	rx packets:	11
+	tx bytes:	476
+	tx packets:	6
+	tx failed:	0
+	signal:  	-86 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	7 seconds
+	current time:	1779614622222 ms
+Station 00:76:77:32:00:00 (on vw0)
+	inactive time:	870 ms
+	rx bytes:	1362
+	rx packets:	15
+	tx bytes:	910
+	tx packets:	11
+	tx failed:	0
+	signal:  	-86 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	7 seconds
+	current time:	1779614622222 ms

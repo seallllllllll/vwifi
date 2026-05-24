@@ -1,0 +1,3 @@
+Failed to create interface mon.vw0: -95 (Operation not supported)
+vw0: interface state UNINITIALIZED->ENABLED
+vw0: AP-ENABLED 
