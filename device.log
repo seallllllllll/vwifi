@@ -1,0 +1,42 @@
+phy#5
+	Interface vw5
+		ifindex 10
+		wdev 0x500000001
+		addr 00:76:77:35:00:00
+		type managed
+		txpower 11.00 dBm
+phy#4
+	Interface vw4
+		ifindex 9
+		wdev 0x400000001
+		addr 00:76:77:34:00:00
+		type managed
+		txpower 11.00 dBm
+phy#3
+	Interface vw3
+		ifindex 8
+		wdev 0x300000001
+		addr 00:76:77:33:00:00
+		type managed
+		txpower 11.00 dBm
+phy#2
+	Interface vw2
+		ifindex 7
+		wdev 0x200000001
+		addr 00:76:77:32:00:00
+		type managed
+		txpower 13.00 dBm
+phy#1
+	Interface vw1
+		ifindex 6
+		wdev 0x100000001
+		addr 00:76:77:31:00:00
+		type managed
+		txpower 12.00 dBm
+phy#0
+	Interface vw0
+		ifindex 5
+		wdev 0x1
+		addr 00:76:77:30:00:00
+		type managed
+		txpower 11.00 dBm

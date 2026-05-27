@@ -1,300 +1,300 @@
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 relay:
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 15:54:50 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 relay:
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 15:54:50 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:50 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:51 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:51 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:51 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:51 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:51 2026] vwifi: vw5 start acting in IBSS mode.
-[Wed May 20 15:54:51 2026] vwifi : vw5 join ibss2.
-[Wed May 20 15:54:51 2026] vwifi: vw3 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 15:54:51 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 15:54:51 2026] vwifi: vw3 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 15:54:51 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 15:54:51 2026] vwifi: vw3 start acting in IBSS mode.
-[Wed May 20 15:54:51 2026] vwifi : vw3 join ibss1.
-[Wed May 20 15:54:52 2026] vwifi: vw4 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 15:54:52 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 15:54:52 2026] vwifi: vw4 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 15:54:52 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 15:54:52 2026] vwifi: vw4 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 15:54:52 2026] cap = 18, beacon_ie_len = 35
-[Wed May 20 15:54:52 2026] vwifi: vw4 start acting in IBSS mode.
-[Wed May 20 15:54:52 2026] vwifi : vw4 join ibss1.
-[Wed May 20 15:54:52 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:52 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:53 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:53 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:53 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 15:54:53 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 15:54:53 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:53 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:54 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:54 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:55 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:55 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:56 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:56 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:54:57 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 15:54:58 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 15:54:58 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 15:54:58 2026] vwifi: vw1 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 15:54:58 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 15:54:58 2026] ------------[ cut here ]------------
-[Wed May 20 15:54:58 2026] UBSAN: invalid-load in vwifi.c:652:17
-[Wed May 20 15:54:58 2026] load of value 58 is not a valid value for type '_Bool'
-[Wed May 20 15:54:58 2026] CPU: 3 UID: 0 PID: 2903 Comm: kworker/3:2 Tainted: G           OE       6.17.0-23-generic #23~24.04.1-Ubuntu PREEMPT(voluntary) 
-[Wed May 20 15:54:58 2026] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[Wed May 20 15:54:58 2026] Hardware name: ASUSTeK COMPUTER INC. ESC500 G4/P10S WS, BIOS 3801 11/19/2019
-[Wed May 20 15:54:58 2026] Workqueue: events vwifi_scan_timeout_work [vwifi]
-[Wed May 20 15:54:58 2026] Call Trace:
-[Wed May 20 15:54:58 2026]  <TASK>
-[Wed May 20 15:54:58 2026]  dump_stack_lvl+0x76/0xa0
-[Wed May 20 15:54:58 2026]  dump_stack+0x10/0x20
-[Wed May 20 15:54:58 2026]  __ubsan_handle_load_invalid_value+0xea/0x110
-[Wed May 20 15:54:58 2026]  vwifi_scan_timeout_work.cold+0x10/0x2a [vwifi]
-[Wed May 20 15:54:58 2026]  process_one_work+0x18e/0x3e0
-[Wed May 20 15:54:58 2026]  worker_thread+0x2e3/0x420
-[Wed May 20 15:54:58 2026]  ? __pfx_worker_thread+0x10/0x10
-[Wed May 20 15:54:58 2026]  kthread+0x10a/0x230
-[Wed May 20 15:54:58 2026]  ? __pfx_kthread+0x10/0x10
-[Wed May 20 15:54:58 2026]  ret_from_fork+0x121/0x140
-[Wed May 20 15:54:58 2026]  ? __pfx_kthread+0x10/0x10
-[Wed May 20 15:54:58 2026]  ret_from_fork_asm+0x1a/0x30
-[Wed May 20 15:54:58 2026]  </TASK>
-[Wed May 20 15:54:58 2026] ---[ end trace ]---
-[Wed May 20 15:54:58 2026] vwifi: vw1 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 15:54:58 2026] cap = 2, beacon_ie_len = 35
-[Wed May 20 15:54:58 2026] vwifi: vw1 performs scan, found vw4 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 15:54:58 2026] cap = 2, beacon_ie_len = 35
-[Wed May 20 15:54:58 2026] Dump station at the idx 0
-[Wed May 20 15:54:58 2026] Dump station at the idx 1
-[Wed May 20 15:54:58 2026] Dump station at the idx 2
-[Wed May 20 15:55:03 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:55:03 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 15:55:03 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 15:55:03 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 15:55:12 2026] Dump station at the idx 0
-[Wed May 20 15:55:12 2026] Dump station at the idx 1
-[Wed May 20 15:55:12 2026] Dump station at the idx 2
-[Wed May 20 15:55:12 2026] vwifi: vw0 stop acting in AP mode.
-[Wed May 20 15:55:12 2026] vwifi: vw1 disconnected from AP vw0
-[Wed May 20 15:55:12 2026] vwifi: vw2 disconnected from AP vw0
-[Wed May 20 15:55:12 2026] vwifi : vw3 leave ibss1.
-[Wed May 20 15:55:12 2026] vwifi : vw4 leave ibss1.
-[Wed May 20 15:55:12 2026] vwifi : vw5 leave ibss2.
-[Wed May 20 16:09:09 2026] vwifi: vw0 start acting in AP mode.
-[Wed May 20 16:09:09 2026] ctrlchn=6, center=2437, bw=0, beacon_interval=100, dtim_period=1,
-[Wed May 20 16:09:09 2026] ssid=test\x08(4), auth_type=8, inactivity_timeout=0
-[Wed May 20 16:09:09 2026] vwifi_start_ap: privacy = 1, head_ie_len (before TIM IE) = 15, tail_ie_len = 28
-[Wed May 20 16:09:09 2026] vwifi: vw0 center freq: 2437
-[Wed May 20 16:09:09 2026] vwifi: init beacon_timer.
-[Wed May 20 16:09:12 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 16:09:12 2026] vwifi: vw1 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] vwifi: vw2 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 16:09:12 2026] vwifi: vw2 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: is_multicast_ether_addr
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:12 2026] vwifi: STA vw2 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:12 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:13 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:13 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:13 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:13 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:14 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:14 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:15 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:15 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:15 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:15 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:15 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:15 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: is_multicast_ether_addr
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:16 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:17 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:17 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:17 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:17 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 relay:
-[Wed May 20 16:09:18 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:18 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
-[Wed May 20 16:09:19 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:19 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:19 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:19 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:19 2026] vwifi: vw5 start acting in IBSS mode.
-[Wed May 20 16:09:19 2026] vwifi : vw5 join ibss2.
-[Wed May 20 16:09:19 2026] vwifi: vw3 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:19 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 16:09:19 2026] vwifi: vw3 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 16:09:19 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 16:09:19 2026] vwifi: vw3 start acting in IBSS mode.
-[Wed May 20 16:09:19 2026] vwifi : vw3 join ibss1.
-[Wed May 20 16:09:19 2026] vwifi: vw4 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:19 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 16:09:19 2026] vwifi: vw4 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 16:09:19 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 16:09:19 2026] vwifi: vw4 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 16:09:19 2026] cap = 18, beacon_ie_len = 35
-[Wed May 20 16:09:19 2026] vwifi: vw4 start acting in IBSS mode.
-[Wed May 20 16:09:19 2026] vwifi : vw4 join ibss1.
-[Wed May 20 16:09:20 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:20 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:21 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:21 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:21 2026] vwifi: AP vw0 (00:76:77:30:00:00) send packet to STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:21 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:21 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:30:00:00)
-[Wed May 20 16:09:21 2026] vwifi: AP vw0 (00:76:77:30:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
-[Wed May 20 16:09:22 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:22 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:23 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:23 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:24 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:24 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 16:09:25 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
-[Wed May 20 16:09:25 2026] cap = 17, beacon_ie_len = 43
-[Wed May 20 16:09:25 2026] vwifi: vw1 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
-[Wed May 20 16:09:25 2026] cap = 2, beacon_ie_len = 0
-[Wed May 20 16:09:25 2026] ------------[ cut here ]------------
-[Wed May 20 16:09:25 2026] UBSAN: invalid-load in vwifi.c:652:17
-[Wed May 20 16:09:25 2026] load of value 119 is not a valid value for type '_Bool'
-[Wed May 20 16:09:25 2026] CPU: 1 UID: 0 PID: 3271 Comm: kworker/1:3 Tainted: G           OE       6.17.0-23-generic #23~24.04.1-Ubuntu PREEMPT(voluntary) 
-[Wed May 20 16:09:25 2026] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[Wed May 20 16:09:25 2026] Hardware name: ASUSTeK COMPUTER INC. ESC500 G4/P10S WS, BIOS 3801 11/19/2019
-[Wed May 20 16:09:25 2026] Workqueue: events vwifi_scan_timeout_work [vwifi]
-[Wed May 20 16:09:25 2026] Call Trace:
-[Wed May 20 16:09:25 2026]  <TASK>
-[Wed May 20 16:09:25 2026]  dump_stack_lvl+0x76/0xa0
-[Wed May 20 16:09:25 2026]  dump_stack+0x10/0x20
-[Wed May 20 16:09:25 2026]  __ubsan_handle_load_invalid_value+0xea/0x110
-[Wed May 20 16:09:25 2026]  vwifi_scan_timeout_work.cold+0x10/0x2a [vwifi]
-[Wed May 20 16:09:25 2026]  process_one_work+0x18e/0x3e0
-[Wed May 20 16:09:25 2026]  worker_thread+0x2e3/0x420
-[Wed May 20 16:09:25 2026]  ? __pfx_worker_thread+0x10/0x10
-[Wed May 20 16:09:25 2026]  kthread+0x10a/0x230
-[Wed May 20 16:09:25 2026]  ? __pfx_kthread+0x10/0x10
-[Wed May 20 16:09:25 2026]  ret_from_fork+0x121/0x140
-[Wed May 20 16:09:25 2026]  ? __pfx_kthread+0x10/0x10
-[Wed May 20 16:09:25 2026]  ret_from_fork_asm+0x1a/0x30
-[Wed May 20 16:09:25 2026]  </TASK>
-[Wed May 20 16:09:25 2026] ---[ end trace ]---
-[Wed May 20 16:09:25 2026] vwifi: vw1 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] cap = 18, beacon_ie_len = 35
-[Wed May 20 16:09:25 2026] vwifi: vw1 performs scan, found vw4 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
-[Wed May 20 16:09:25 2026] cap = 18, beacon_ie_len = 35
-[Wed May 20 16:09:25 2026] Dump station at the idx 0
-[Wed May 20 16:09:25 2026] Dump station at the idx 1
-[Wed May 20 16:09:25 2026] Dump station at the idx 2
-[Wed May 20 16:09:30 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:30 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 16:09:30 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00)
-[Wed May 20 16:09:30 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
-[Wed May 20 16:09:38 2026] Dump station at the idx 0
-[Wed May 20 16:09:38 2026] Dump station at the idx 1
-[Wed May 20 16:09:38 2026] Dump station at the idx 2
-[Wed May 20 16:09:38 2026] vwifi: vw0 stop acting in AP mode.
-[Wed May 20 16:09:38 2026] vwifi: vw1 disconnected from AP vw0
-[Wed May 20 16:09:38 2026] vwifi: vw2 disconnected from AP vw0
-[Wed May 20 16:09:38 2026] vwifi : vw3 leave ibss1.
-[Wed May 20 16:09:38 2026] vwifi : vw4 leave ibss1.
-[Wed May 20 16:09:38 2026] vwifi : vw5 leave ibss2.
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2019): c0746fd6c5da3ae827864651ad66ae47fe24b3e8'
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v1): a8d54bbb3825cfb94fa13c9f8a594a195c107b8d'
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v2): 4cf046892d6fd3c9a5b03f98d845f90851dc6a8c'
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v3): 100437bb6de6e469b581e61cd66bce3ef4ed53af'
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (Ubuntu Core 2019): c1d57b8f6b743f23ee41f4f7ee292f06eecadfb9'
+[Wed May 27 14:38:13 2026] Demotion targets for Node 0: null
+[Wed May 27 14:38:13 2026] Key type .fscrypt registered
+[Wed May 27 14:38:13 2026] Key type fscrypt-provisioning registered
+[Wed May 27 14:38:13 2026] Key type big_key registered
+[Wed May 27 14:38:13 2026] Key type encrypted registered
+[Wed May 27 14:38:13 2026] AppArmor: AppArmor sha256 policy hashing enabled
+[Wed May 27 14:38:13 2026] integrity: Loading X.509 certificate: UEFI:db
+[Wed May 27 14:38:13 2026] integrity: Loaded X.509 cert 'ASUSTeK MotherBoard SW Key Certificate: da83b990422ebc8c441f8d8b039a65a2'
+[Wed May 27 14:38:13 2026] integrity: Loading X.509 certificate: UEFI:db
+[Wed May 27 14:38:13 2026] integrity: Loaded X.509 cert 'ASUSTeK Notebook SW Key Certificate: b8e581e4df77a5bb4282d5ccfc00c071'
+[Wed May 27 14:38:13 2026] integrity: Loading X.509 certificate: UEFI:db
+[Wed May 27 14:38:13 2026] integrity: Loaded X.509 cert 'Microsoft Corporation UEFI CA 2011: 13adbf4309bd82709c8cd54f316ed522988a1bd4'
+[Wed May 27 14:38:13 2026] integrity: Loading X.509 certificate: UEFI:db
+[Wed May 27 14:38:13 2026] integrity: Loaded X.509 cert 'Microsoft Windows Production PCA 2011: a92902398e16c49778cd90f99e4f9ae17c55af53'
+[Wed May 27 14:38:13 2026] integrity: Loading X.509 certificate: UEFI:db
+[Wed May 27 14:38:13 2026] integrity: Loaded X.509 cert 'Canonical Ltd. Master Certificate Authority: ad91990bc22ab1f517048c23b6655a268e345a63'
+[Wed May 27 14:38:13 2026] ima: No TPM chip found, activating TPM-bypass!
+[Wed May 27 14:38:13 2026] Loading compiled-in module X.509 certificates
+[Wed May 27 14:38:13 2026] Loaded X.509 cert 'Build time autogenerated kernel key: cf7054f547b89e3a3f3b3ab2f90770a81a5401c9'
+[Wed May 27 14:38:13 2026] ima: Allocated hash algorithm: sha256
+[Wed May 27 14:38:13 2026] ima: No architecture policies found
+[Wed May 27 14:38:13 2026] evm: Initialising EVM extended attributes:
+[Wed May 27 14:38:13 2026] evm: security.selinux
+[Wed May 27 14:38:13 2026] evm: security.SMACK64
+[Wed May 27 14:38:13 2026] evm: security.SMACK64EXEC
+[Wed May 27 14:38:13 2026] evm: security.SMACK64TRANSMUTE
+[Wed May 27 14:38:13 2026] evm: security.SMACK64MMAP
+[Wed May 27 14:38:13 2026] evm: security.apparmor
+[Wed May 27 14:38:13 2026] evm: security.ima
+[Wed May 27 14:38:13 2026] evm: security.capability
+[Wed May 27 14:38:13 2026] evm: HMAC attrs: 0x1
+[Wed May 27 14:38:13 2026] PM:   Magic number: 10:239:621
+[Wed May 27 14:38:13 2026] acpi INT0E0C:00: hash matches
+[Wed May 27 14:38:13 2026] RAS: Correctable Errors collector initialized.
+[Wed May 27 14:38:13 2026] clk: Disabling unused clocks
+[Wed May 27 14:38:13 2026] PM: genpd: Disabling unused power domains
+[Wed May 27 14:38:13 2026] Freeing unused decrypted memory: 2028K
+[Wed May 27 14:38:13 2026] Freeing unused kernel image (initmem) memory: 5264K
+[Wed May 27 14:38:13 2026] Write protecting the kernel read-only data: 38912k
+[Wed May 27 14:38:13 2026] Freeing unused kernel image (text/rodata gap) memory: 308K
+[Wed May 27 14:38:13 2026] Freeing unused kernel image (rodata/data gap) memory: 88K
+[Wed May 27 14:38:13 2026] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+[Wed May 27 14:38:13 2026] x86/mm: Checking user space page tables
+[Wed May 27 14:38:13 2026] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+[Wed May 27 14:38:13 2026] Run /init as init process
+[Wed May 27 14:38:13 2026]   with arguments:
+[Wed May 27 14:38:13 2026]     /init
+[Wed May 27 14:38:13 2026]     splash
+[Wed May 27 14:38:13 2026]   with environment:
+[Wed May 27 14:38:13 2026]     HOME=/
+[Wed May 27 14:38:13 2026]     TERM=linux
+[Wed May 27 14:38:13 2026] usb 1-10: new high-speed USB device number 2 using xhci_hcd
+[Wed May 27 14:38:13 2026] dca service started, version 1.12.1
+[Wed May 27 14:38:13 2026] ahci 0000:00:17.0: AHCI vers 0001.0301, 32 command slots, 6 Gbps, SATA mode
+[Wed May 27 14:38:13 2026] ahci 0000:00:17.0: 8/8 ports implemented (port mask 0xff)
+[Wed May 27 14:38:13 2026] ahci 0000:00:17.0: flags: 64bit ncq sntf led clo only pio slum part ems deso sadm sds apst 
+[Wed May 27 14:38:13 2026] scsi host0: ahci
+[Wed May 27 14:38:13 2026] scsi host1: ahci
+[Wed May 27 14:38:13 2026] scsi host2: ahci
+[Wed May 27 14:38:13 2026] igb: Intel(R) Gigabit Ethernet Network Driver
+[Wed May 27 14:38:13 2026] igb: Copyright (c) 2007-2014 Intel Corporation.
+[Wed May 27 14:38:13 2026] scsi host3: ahci
+[Wed May 27 14:38:13 2026] scsi host4: ahci
+[Wed May 27 14:38:13 2026] scsi host5: ahci
+[Wed May 27 14:38:13 2026] scsi host6: ahci
+[Wed May 27 14:38:13 2026] scsi host7: ahci
+[Wed May 27 14:38:13 2026] ata1: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b100 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata2: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b180 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata3: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b200 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata4: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b280 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata5: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b300 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata6: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b380 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata7: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b400 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] ata8: SATA max UDMA/133 abar m2048@0xdf32b000 port 0xdf32b480 irq 131 lpm-pol 3
+[Wed May 27 14:38:13 2026] igb 0000:04:00.0: added PHC on eth0
+[Wed May 27 14:38:13 2026] igb 0000:04:00.0: Intel(R) Gigabit Ethernet Network Connection
+[Wed May 27 14:38:13 2026] igb 0000:04:00.0: eth0: (PCIe:2.5Gb/s:Width x1) 18:31:bf:45:76:82
+[Wed May 27 14:38:13 2026] igb 0000:04:00.0: eth0: PBA No: 000300-000
+[Wed May 27 14:38:13 2026] igb 0000:04:00.0: Using MSI-X interrupts. 4 rx queue(s), 4 tx queue(s)
+[Wed May 27 14:38:13 2026] usb 1-10: New USB device found, idVendor=0bda, idProduct=0169, bcdDevice=61.23
+[Wed May 27 14:38:13 2026] usb 1-10: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[Wed May 27 14:38:13 2026] usb 1-10: Product: USB2.0-CRW
+[Wed May 27 14:38:13 2026] usb 1-10: Manufacturer: Generic
+[Wed May 27 14:38:13 2026] usb 1-10: SerialNumber: 20070818000000000
+[Wed May 27 14:38:13 2026] usb-storage 1-10:1.1: USB Mass Storage device detected
+[Wed May 27 14:38:13 2026] scsi host8: usb-storage 1-10:1.1
+[Wed May 27 14:38:13 2026] usbcore: registered new interface driver usb-storage
+[Wed May 27 14:38:13 2026] igb 0000:05:00.0: added PHC on eth1
+[Wed May 27 14:38:13 2026] igb 0000:05:00.0: Intel(R) Gigabit Ethernet Network Connection
+[Wed May 27 14:38:13 2026] igb 0000:05:00.0: eth1: (PCIe:2.5Gb/s:Width x1) 18:31:bf:45:76:83
+[Wed May 27 14:38:13 2026] igb 0000:05:00.0: eth1: PBA No: 000300-000
+[Wed May 27 14:38:13 2026] igb 0000:05:00.0: Using MSI-X interrupts. 4 rx queue(s), 4 tx queue(s)
+[Wed May 27 14:38:14 2026] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[Wed May 27 14:38:14 2026] ata8: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+[Wed May 27 14:38:14 2026] ata3: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata2: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata4: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata5: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata6: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata7: SATA link down (SStatus 4 SControl 300)
+[Wed May 27 14:38:14 2026] ata1.00: ATA-8: ST1000DM010-2EP102, CC43, max UDMA/133
+[Wed May 27 14:38:14 2026] ata1.00: 1953525168 sectors, multi 16: LBA48 NCQ (depth 32), AA
+[Wed May 27 14:38:14 2026] ata8.00: ATAPI: ASUS DVD RAM GHD1N, AS02, max UDMA/133
+[Wed May 27 14:38:14 2026] ata1.00: configured for UDMA/133
+[Wed May 27 14:38:14 2026] ata8.00: configured for UDMA/133
+[Wed May 27 14:38:14 2026] scsi 0:0:0:0: Direct-Access     ATA      ST1000DM010-2EP1 CC43 PQ: 0 ANSI: 5
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] 1953525168 512-byte logical blocks: (1.00 TB/932 GiB)
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] 4096-byte physical blocks
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] Write Protect is off
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+[Wed May 27 14:38:14 2026] scsi 7:0:0:0: CD-ROM            ASUS DVD RAM GHD1N        AS02 PQ: 0 ANSI: 5
+[Wed May 27 14:38:14 2026] sr 7:0:0:0: [sr0] scsi3-mmc drive: 48x/12x writer dvd-ram cd/rw xa/form2 cdda tray
+[Wed May 27 14:38:14 2026] cdrom: Uniform CD-ROM driver Revision: 3.20
+[Wed May 27 14:38:14 2026] sr 7:0:0:0: Attached scsi CD-ROM sr0
+[Wed May 27 14:38:14 2026] sr 7:0:0:0: Attached scsi generic sg1 type 5
+[Wed May 27 14:38:14 2026]  sda: sda1 sda2 sda3 sda4 sda5 sda6 sda7 sda8 sda9 sda10 sda11
+[Wed May 27 14:38:14 2026] sd 0:0:0:0: [sda] Attached SCSI disk
+[Wed May 27 14:38:14 2026] usbcore: registered new interface driver uas
+[Wed May 27 14:38:14 2026] igb 0000:04:00.0 enp4s0: renamed from eth0
+[Wed May 27 14:38:14 2026] igb 0000:05:00.0 enp5s0: renamed from eth1
+[Wed May 27 14:38:14 2026] tsc: Refined TSC clocksource calibration: 3407.999 MHz
+[Wed May 27 14:38:14 2026] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x311fd336761, max_idle_ns: 440795243819 ns
+[Wed May 27 14:38:14 2026] clocksource: Switched to clocksource tsc
+[Wed May 27 14:38:14 2026] scsi 8:0:0:0: Direct-Access     Generic- Multi-Card       1.00 PQ: 0 ANSI: 0 CCS
+[Wed May 27 14:38:14 2026] sd 8:0:0:0: Attached scsi generic sg2 type 0
+[Wed May 27 14:38:14 2026] sd 8:0:0:0: [sdb] Media removed, stopped polling
+[Wed May 27 14:38:14 2026] sd 8:0:0:0: [sdb] Attached SCSI removable disk
+[Wed May 27 14:38:17 2026] EXT4-fs (sda11): mounted filesystem 098bfbc9-9b25-4128-a17d-1f6e7e43619e ro with ordered data mode. Quota mode: none.
+[Wed May 27 14:38:18 2026] systemd[1]: Inserted module 'autofs4'
+[Wed May 27 14:38:18 2026] systemd[1]: systemd 255.4-1ubuntu8.14 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+[Wed May 27 14:38:18 2026] systemd[1]: Detected architecture x86-64.
+[Wed May 27 14:38:18 2026] systemd[1]: Hostname set to <suniachiu>.
+[Wed May 27 14:38:19 2026] systemd[1]: Queued start job for default target graphical.target.
+[Wed May 27 14:38:20 2026] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[Wed May 27 14:38:20 2026] systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+[Wed May 27 14:38:20 2026] systemd[1]: Created slice user.slice - User and Session Slice.
+[Wed May 27 14:38:20 2026] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[Wed May 27 14:38:20 2026] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[Wed May 27 14:38:20 2026] systemd[1]: Expecting device dev-disk-by\x2duuid-FA84\x2d3762.device - /dev/disk/by-uuid/FA84-3762...
+[Wed May 27 14:38:20 2026] systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+[Wed May 27 14:38:20 2026] systemd[1]: Reached target remote-fs.target - Remote File Systems.
+[Wed May 27 14:38:20 2026] systemd[1]: Reached target slices.target - Slice Units.
+[Wed May 27 14:38:20 2026] systemd[1]: Reached target snapd.mounts-pre.target - Mounting snaps.
+[Wed May 27 14:38:20 2026] systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on syslog.socket - Syslog Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-fsckd.socket - fsck to fsckd communication Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-journald.socket - Journal Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-oomd.socket - Userspace Out-Of-Memory (OOM) Killer Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: systemd-pcrextend.socket - TPM2 PCR Extension (Varlink) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting systemd-journald.service - Journal Service...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting keyboard-setup.service - Set the console keyboard layout...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[Wed May 27 14:38:20 2026] systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+[Wed May 27 14:38:20 2026] systemd[1]: systemd-fsck-root.service - File System Check on Root Device was skipped because of an unmet condition check (ConditionPathExists=!/run/initramfs/fsck-root).
+[Wed May 27 14:38:20 2026] systemd-journald[297]: Collecting audit messages is disabled.
+[Wed May 27 14:38:20 2026] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[Wed May 27 14:38:20 2026] systemd[1]: systemd-pcrmachine.service - TPM2 PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Wed May 27 14:38:20 2026] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[Wed May 27 14:38:20 2026] systemd[1]: systemd-tpm2-setup-early.service - TPM2 SRK Setup (Early) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[Wed May 27 14:38:20 2026] pstore: Using crash dump compression: deflate
+[Wed May 27 14:38:20 2026] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[Wed May 27 14:38:20 2026] systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+[Wed May 27 14:38:20 2026] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[Wed May 27 14:38:20 2026] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[Wed May 27 14:38:20 2026] systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@configfs.service - Load Kernel Module configfs.
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@dm_mod.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@dm_mod.service - Load Kernel Module dm_mod.
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@drm.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@fuse.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@fuse.service - Load Kernel Module fuse.
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@loop.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+[Wed May 27 14:38:20 2026] systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+[Wed May 27 14:38:20 2026] systemd[1]: systemd-repart.service - Repartition Root Disk was skipped because no trigger condition checks were met.
+[Wed May 27 14:38:20 2026] systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+[Wed May 27 14:38:20 2026] pstore: Registered efi_pstore as persistent store backend
+[Wed May 27 14:38:20 2026] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[Wed May 27 14:38:20 2026] systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+[Wed May 27 14:38:20 2026] systemd[1]: Started systemd-journald.service - Journal Service.
+[Wed May 27 14:38:20 2026] EXT4-fs (sda11): re-mounted 098bfbc9-9b25-4128-a17d-1f6e7e43619e r/w.
+[Wed May 27 14:38:20 2026] lp: driver loaded but no devices found
+[Wed May 27 14:38:20 2026] ppdev: user-space parallel port driver
+[Wed May 27 14:38:20 2026] systemd-journald[297]: Received client request to flush runtime journal.
+[Wed May 27 14:38:20 2026] Adding 4194300k swap on /swap.img.  Priority:-2 extents:5 across:11124732k 
+[Wed May 27 14:38:20 2026] systemd-journald[297]: File /var/log/journal/a70dac143fc740ed9562e8c4bcffb4db/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[Wed May 27 14:38:20 2026] loop0: detected capacity change from 0 to 151456
+[Wed May 27 14:38:20 2026] loop1: detected capacity change from 0 to 151512
+[Wed May 27 14:38:21 2026] loop2: detected capacity change from 0 to 136904
+[Wed May 27 14:38:21 2026] loop3: detected capacity change from 0 to 8
+[Wed May 27 14:38:21 2026] loop4: detected capacity change from 0 to 10504
+[Wed May 27 14:38:21 2026] loop5: detected capacity change from 0 to 505096
+[Wed May 27 14:38:21 2026] loop6: detected capacity change from 0 to 136816
+[Wed May 27 14:38:21 2026] loop7: detected capacity change from 0 to 507040
+[Wed May 27 14:38:21 2026] loop8: detected capacity change from 0 to 33688
+[Wed May 27 14:38:21 2026] loop9: detected capacity change from 0 to 33792
+[Wed May 27 14:38:23 2026] RAPL PMU: API unit is 2^-32 Joules, 4 fixed counters, 655360 ms ovfl timer
+[Wed May 27 14:38:23 2026] RAPL PMU: hw unit of domain pp0-core 2^-14 Joules
+[Wed May 27 14:38:23 2026] RAPL PMU: hw unit of domain package 2^-14 Joules
+[Wed May 27 14:38:23 2026] RAPL PMU: hw unit of domain dram 2^-14 Joules
+[Wed May 27 14:38:23 2026] RAPL PMU: hw unit of domain pp1-gpu 2^-14 Joules
+[Wed May 27 14:38:23 2026] i801_smbus 0000:00:1f.4: SPD Write Disable is set
+[Wed May 27 14:38:23 2026] i801_smbus 0000:00:1f.4: SMBus using PCI interrupt
+[Wed May 27 14:38:23 2026] i2c i2c-0: Successfully instantiated SPD at 0x50
+[Wed May 27 14:38:23 2026] i2c i2c-0: Successfully instantiated SPD at 0x51
+[Wed May 27 14:38:23 2026] resource: resource sanity check: requesting [mem 0x00000000fdffe800-0x00000000fe0007ff], which spans more than pnp 00:06 [mem 0xfdb00000-0xfdffffff]
+[Wed May 27 14:38:23 2026] caller get_primary_reg_base+0x4e/0xb0 [intel_pmc_core] mapping multiple BARs
+[Wed May 27 14:38:23 2026] intel_pmc_core INT33A1:00:  initialized
+[Wed May 27 14:38:23 2026] mei_me 0000:00:16.0: enabling device (0000 -> 0002)
+[Wed May 27 14:38:24 2026] asus_wmi: ASUS WMI generic driver loaded
+[Wed May 27 14:38:24 2026] asus_wmi: Initialization: 0x0
+[Wed May 27 14:38:24 2026] asus_wmi: BIOS WMI version: 0.9
+[Wed May 27 14:38:24 2026] asus_wmi: SFUN value: 0x0
+[Wed May 27 14:38:24 2026] eeepc-wmi eeepc-wmi: Detected ASUSWMI, use DCTS
+[Wed May 27 14:38:24 2026] input: Eee PC WMI hotkeys as /devices/platform/eeepc-wmi/input/input3
+[Wed May 27 14:38:26 2026] ee1004 0-0050: 512 byte EE1004-compliant SPD EEPROM, read-only
+[Wed May 27 14:38:26 2026] ee1004 0-0051: 512 byte EE1004-compliant SPD EEPROM, read-only
+[Wed May 27 14:38:26 2026] intel_tcc_cooling: Programmable TCC Offset detected
+[Wed May 27 14:38:27 2026] intel_rapl_common: Found RAPL domain package
+[Wed May 27 14:38:27 2026] intel_rapl_common: Found RAPL domain core
+[Wed May 27 14:38:27 2026] intel_rapl_common: Found RAPL domain uncore
+[Wed May 27 14:38:27 2026] intel_rapl_common: Found RAPL domain dram
+[Wed May 27 14:38:27 2026] i915 0000:00:02.0: [drm] Found kabylake (device ID 5912) integrated display version 9.00 stepping C0
+[Wed May 27 14:38:27 2026] i915 0000:00:02.0: vgaarb: deactivate vga console
+[Wed May 27 14:38:27 2026] i915 0000:00:02.0: vgaarb: VGA decodes changed: olddecodes=io+mem,decodes=io+mem:owns=io+mem
+[Wed May 27 14:38:27 2026] mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: bound 0000:00:02.0 (ops i915_hdcp_ops [i915])
+[Wed May 27 14:38:28 2026] i915 0000:00:02.0: [drm] Finished loading DMC firmware i915/kbl_dmc_ver1_04.bin (v1.4)
+[Wed May 27 14:38:28 2026] i915 0000:00:02.0: [drm] Registered 3 planes with drm panic
+[Wed May 27 14:38:28 2026] [drm] Initialized i915 1.6.0 for 0000:00:02.0 on minor 1
+[Wed May 27 14:38:28 2026] ACPI: video: Video Device [GFX0] (multi-head: yes  rom: no  post: no)
+[Wed May 27 14:38:28 2026] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:00/input/input4
+[Wed May 27 14:38:28 2026] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+[Wed May 27 14:38:28 2026] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+[Wed May 27 14:38:28 2026] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+[Wed May 27 14:38:28 2026] snd_hda_intel 0000:00:1f.3: enabling device (0000 -> 0002)
+[Wed May 27 14:38:28 2026] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops intel_audio_component_bind_ops [i915])
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0: ALC1150: SKU not ready 0x00000000
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0: autoconfig for ALC1150: line_outs=4 (0x14/0x15/0x16/0x17/0x0) type:line
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:    hp_outs=1 (0x1b/0x0/0x0/0x0/0x0)
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:    mono: mono_out=0x0
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:    dig-out=0x11/0x1e
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:    inputs:
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:      Rear Mic=0x18
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:      Front Mic=0x19
+[Wed May 27 14:38:28 2026] snd_hda_codec_alc882 hdaudioC0D0:      Line=0x1a
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Rear Mic as /devices/pci0000:00/0000:00:1f.3/sound/card0/input5
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Front Mic as /devices/pci0000:00/0000:00:1f.3/sound/card0/input6
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Line as /devices/pci0000:00/0000:00:1f.3/sound/card0/input7
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Line Out Front as /devices/pci0000:00/0000:00:1f.3/sound/card0/input8
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Line Out Surround as /devices/pci0000:00/0000:00:1f.3/sound/card0/input9
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Line Out CLFE as /devices/pci0000:00/0000:00:1f.3/sound/card0/input10
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Line Out Side as /devices/pci0000:00/0000:00:1f.3/sound/card0/input11
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH Front Headphone as /devices/pci0000:00/0000:00:1f.3/sound/card0/input12
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:1f.3/sound/card0/input13
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sound/card0/input14
+[Wed May 27 14:38:29 2026] input: HDA Intel PCH HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:1f.3/sound/card0/input15
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.885:2): apparmor="STATUS" operation="profile_load" profile="unconfined" name="1password" pid=825 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.885:3): apparmor="STATUS" operation="profile_load" profile="unconfined" name="QtWebEngineProcess" pid=828 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.885:4): apparmor="STATUS" operation="profile_load" profile="unconfined" name="Discord" pid=826 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.885:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name=4D6F6E676F444220436F6D70617373 pid=827 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.889:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="balena-etcher" pid=829 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.890:7): apparmor="STATUS" operation="profile_load" profile="unconfined" name="brave" pid=830 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.890:8): apparmor="STATUS" operation="profile_load" profile="unconfined" name="buildah" pid=831 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.891:9): apparmor="STATUS" operation="profile_load" profile="unconfined" name="busybox" pid=832 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.896:10): apparmor="STATUS" operation="profile_load" profile="unconfined" name="cam" pid=833 comm="apparmor_parser"
+[Wed May 27 14:38:30 2026] audit: type=1400 audit(1779863910.896:11): apparmor="STATUS" operation="profile_load" profile="unconfined" name="ch-checkns" pid=834 comm="apparmor_parser"
+[Wed May 27 14:38:38 2026] NET: Registered PF_QIPCRTR protocol family
+[Wed May 27 14:38:38 2026] set_capacity_and_notify: 12 callbacks suppressed
+[Wed May 27 14:38:38 2026] loop22: detected capacity change from 0 to 8
+[Wed May 27 14:38:42 2026] kauditd_printk_skb: 165 callbacks suppressed
+[Wed May 27 14:38:42 2026] audit: type=1400 audit(1779863922.021:177): apparmor="DENIED" operation="capable" class="cap" profile="/usr/sbin/cupsd" pid=1365 comm="cupsd" capability=12  capname="net_admin"
+[Wed May 27 14:38:43 2026] igb 0000:05:00.0 enp5s0: igb: enp5s0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[Wed May 27 14:38:54 2026] rfkill: input handler disabled
+[Wed May 27 14:38:57 2026] systemd-journald[297]: File /var/log/journal/a70dac143fc740ed9562e8c4bcffb4db/user-1000.journal corrupted or uncleanly shut down, renaming and replacing.

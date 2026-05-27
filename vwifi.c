@@ -113,9 +113,6 @@ struct vwifi_vif {
     struct list_head list;
 
     struct mutex lock;
-    /* Whether it's on the list */
-    bool on_ibss_list;
-    bool on_ap_list;
 
     /* Split logic for the interface mode */
     union {
@@ -1265,52 +1262,41 @@ static void vwifi_virtio_disconnect(struct vwifi_vif *vif);
  * it simple as possible. This routine is called through workqueue, when the
  * kernel asks to disconnect through cfg80211_ops.
  */
+
 static void vwifi_disconnect_routine(struct work_struct *w)
 {
-    struct vwifi_vif *vif = container_of(w, struct vwifi_vif, ws_disconnect);
-    unsigned long flags;
+    struct vwifi_vif *vif =
+        container_of(w, struct vwifi_vif, ws_disconnect);
+    struct vwifi_vif *ap;
+    u16 reason;
 
-    spin_lock_irqsave(&vwifi_virtio_lock, flags);
+    mutex_lock(&vif->lock);
 
-    if (vwifi_virtio_enabled) {
-        spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
-        vwifi_virtio_disconnect(vif);
-        return;
-    }
+    ap = vif->ap;
+    reason = vif->disconnect_reason_code;
 
-    spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
-
-    pr_info("vwifi: %s disconnected from AP %s\n", vif->ndev->name,
-            vif->ap->ndev->name);
-
-    if (mutex_lock_interruptible(&vif->lock))
-        return;
-
-    /* STA cleanup stuff */
-    cfg80211_disconnected(vif->ndev, vif->disconnect_reason_code, NULL, 0, true,
-                          GFP_KERNEL);
-
+    vif->ap = NULL;
     vif->disconnect_reason_code = 0;
     vif->sme_state = SME_DISCONNECTED;
 
-    /* AP cleanup stuff */
-    if (vwifi->state != VWIFI_SHUTDOWN) {
-        if (mutex_lock_interruptible(&vif->ap->lock)) {
-            mutex_unlock(&vif->lock);
-            return;
-        }
+    mutex_unlock(&vif->lock);
 
-        if (vif->ap->ap_enabled && !list_empty(&vif->bss_list)) {
-            cfg80211_del_sta(vif->ap->ndev, vif->ndev->dev_addr, GFP_KERNEL);
-            list_del(&vif->bss_list);
-        }
+    cfg80211_disconnected(vif->ndev, reason, NULL, 0, true, GFP_KERNEL);
 
-        mutex_unlock(&vif->ap->lock);
+    if (!ap)
+        return;
 
-        vif->ap = NULL;
+    if (READ_ONCE(vwifi->state) == VWIFI_SHUTDOWN)
+        return;
+
+    mutex_lock(&ap->lock);
+
+    if (ap->ap_enabled && !list_empty(&vif->bss_list)) {
+        cfg80211_del_sta(ap->ndev, vif->ndev->dev_addr, GFP_KERNEL);
+        list_del_init(&vif->bss_list);
     }
 
-    mutex_unlock(&vif->lock);
+    mutex_unlock(&ap->lock);
 }
 
 /* callback called by the kernel when user decided to scan.
