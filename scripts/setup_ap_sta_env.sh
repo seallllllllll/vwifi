@@ -244,6 +244,3 @@ echo "  bash tests/test_bitrate_mask.sh"
 echo
 echo "Logs:"
 echo "  $LOG_DIR"
-echo
-echo "Reset policy:"
-echo "  use sudo reboot before rerunning this setup"

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "message": "packet loss parameter affects AP/STA data path",
+  "loss_0": "logs/packet_loss_0.txt",
+  "loss_20": "logs/packet_loss_20.txt",
+  "loss_100": "logs/packet_loss_100.txt",
+  "stats": "logs/packet_loss_stats.txt",
+  "dmesg": "logs/packet_loss_dmesg.txt"
+}

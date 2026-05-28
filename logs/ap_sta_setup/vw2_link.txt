@@ -3,6 +3,6 @@ Connected to 00:76:77:30:00:00 (on vw2)
 	freq: 2437.0
 	RX: 113 bytes (1 packets)
 	TX: 0 bytes (0 packets)
-	signal: -32 dBm
+	signal: -70 dBm
 	rx bitrate: 260.0 MBit/s MCS 31
 	tx bitrate: 260.0 MBit/s MCS 31

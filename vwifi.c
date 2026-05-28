@@ -278,12 +278,14 @@ static void vwifi_init_rate_state(struct vwifi_vif *vif)
     vif->rate_state.configured = false;
 }
 
-
-
-
 static int station = 2;
 module_param(station, int, 0444);
 MODULE_PARM_DESC(station, "Number of virtual interfaces running in STA mode.");
+
+static int loss_percent;
+module_param(loss_percent, int, 0644);
+MODULE_PARM_DESC(loss_percent,
+                 "Global packet loss percentage for non-virtio TX path.");
 
 /* Global context */
 static struct vwifi_context *vwifi = NULL;
@@ -887,6 +889,33 @@ pkt_free:
     kfree(pkt);
 }
 
+/**
+ * vwifi_should_drop_packet - Determine whether to simulate packet loss
+ *
+ * This function checks the global module parameter `loss_percent` and
+ * decides if the current TX packet should be dropped to simulate network
+ * fault injection.
+ *
+ * Return: true if the packet should be dropped, false otherwise.
+ */
+static bool vwifi_should_drop_packet(void)
+{
+    u32 r;
+    /* If packet loss is disabled (0% or less), never drop packets */
+    if (loss_percent <= 0)
+        return false;
+    /* If packet loss is absolute (100% or more), always drop packets */
+    if (loss_percent >= 100)
+        return true;
+    /* Generate a random number between 0 and 99 */
+    r = get_random_u32() % 100;
+
+    /** Return true (drop) if the random number falls within the loss percentage.
+     * For example, if loss_percent is 20, r must be 0-19 to trigger a drop.
+     */
+    return r < loss_percent;
+}
+
 static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
                                   struct vwifi_vif *dest_vif,
                                   struct sk_buff *skb)
@@ -909,12 +938,42 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
                 eth_hdr->h_dest);
     }
 
+    /* Save the packet length before any further processing */
+    datalen = skb->len;
+
+    /** Fault Injection: Check if we should simulate packet loss based on 
+     * the global 'loss_percent' parameter. 
+     */
+    if (vwifi_should_drop_packet()) {
+        if (!mutex_lock_interruptible(&vif->lock)) {
+            vif->stats.tx_dropped++;
+            vif->active_time = jiffies;
+            mutex_unlock(&vif->lock);
+        }
+
+        pr_info_ratelimited("vwifi: drop packet by loss_percent=%d from %s to %s len=%d\n",
+                            loss_percent,
+                            vif->ndev->name,
+                            dest_vif->ndev->name,
+                            datalen);
+
+	/* * CRITICAL: Return 'datalen' instead of 0 or an error code. 
+         * This tricks the caller (vwifi_ndo_start_xmit) into believing the 
+         * packet was successfully delivered and processed. If we returned 0, 
+         * the caller would double-count this as a failure and mess up the stats.
+         */
+        return datalen;
+    }
+
+    /** The packet survived the drop gate. 
+     * Allocate memory for the internal packet structure to enqueue it. 
+     */
     pkt = kmalloc(sizeof(struct vwifi_packet), GFP_KERNEL);
     if (!pkt) {
         pr_info("Ran out of memory allocating packet pool\n");
         return NETDEV_TX_OK;
     }
-    datalen = skb->len;
+
     memcpy(pkt->data, skb->data, datalen);
     pkt->datalen = datalen;
 

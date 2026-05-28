@@ -1,0 +1,41 @@
+==== station dump ====
+Station 00:76:77:31:00:00 (on vw0)
+	inactive time:	1335 ms
+	rx bytes:	14998
+	rx packets:	173
+	tx bytes:	23450
+	tx packets:	265
+	tx failed:	100
+	signal:  	-58 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	1357 seconds
+	current time:	1779963781418 ms
+Station 00:76:77:32:00:00 (on vw0)
+	inactive time:	1335 ms
+	rx bytes:	19590
+	rx packets:	221
+	tx bytes:	17192
+	tx packets:	200
+	tx failed:	42
+	signal:  	-58 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	1356 seconds
+	current time:	1779963781418 ms
+
+==== vw1 stats ====
+6: vw1: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT mode DORMANT group default qlen 1000
+    link/ether 00:76:77:31:00:00 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast           
+         14998     173      0       4       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         23450     265      0     100       0       0 
+
+==== vw2 stats ====
+7: vw2: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT mode DORMANT group default qlen 1000
+    link/ether 00:76:77:32:00:00 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast           
+         19590     221      0       4       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         17192     200      0      42       0       0 

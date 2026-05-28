@@ -1,0 +1,120 @@
+[ 1153.791483] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 1153.983436] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=42
+[ 1161.151455] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=42
+[ 1162.175425] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=42
+[ 1294.944611] VWIFI_TEST_PACKET_LOSS: check AP/STA environment
+[ 1295.197892] VWIFI_TEST_PACKET_LOSS: loss_percent=0 should pass
+[ 1299.464850] VWIFI_TEST_PACKET_LOSS: loss_percent=100 should fail completely
+[ 1299.641223] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1300.414727] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 1300.414735] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 1300.670764] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1301.438714] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 1301.438719] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 1301.694752] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1302.462705] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 1302.462710] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 1302.718746] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1304.752540] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[ 1304.766727] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 1305.790684] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1306.981992] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=42
+[ 1308.030686] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=42
+[ 1309.054673] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=42
+[ 1310.078701] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1311.102665] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1313.150661] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1314.174634] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1316.286575] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=42
+[ 1317.246618] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1317.310576] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1318.270599] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1319.294581] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1320.318577] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1321.342577] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1322.366555] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1324.414544] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1325.438521] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1326.462514] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1327.486503] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1329.534477] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1331.582456] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1333.630434] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1334.654419] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1335.667284] VWIFI_TEST_PACKET_LOSS: reset loss_percent to 0
+[ 1335.916145] VWIFI_TEST_PACKET_LOSS: collect stats and dmesg
+[ 1783.003617] VWIFI_TEST_PACKET_LOSS: warm up ARP before probabilistic loss
+[ 1787.264085] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[ 1788.342670] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1789.366648] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1789.430676] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1790.390614] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 1790.454651] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1792.502611] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1793.526588] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1794.550566] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1795.574542] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1796.598520] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 1799.670463] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1800.694436] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1803.766376] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1804.790356] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1805.814350] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1806.838318] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1811.958205] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1814.006169] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1818.088358] VWIFI_TEST_PACKET_LOSS: check AP/STA environment
+[ 1818.297868] VWIFI_TEST_PACKET_LOSS: loss_percent=0 should pass
+[ 1822.595077] VWIFI_TEST_PACKET_LOSS: loss_percent=100 should fail completely
+[ 1822.736918] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1823.797966] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1824.821942] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1825.845933] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1826.869902] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 1827.880997] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[ 1828.030376] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 1829.045862] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 1831.093839] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 1832.117813] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 1836.213705] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 1837.332188] VWIFI_TEST_PACKET_LOSS: reset loss_percent to 0
+[ 1837.492375] VWIFI_TEST_PACKET_LOSS: collect stats and dmesg
+[ 2066.056870] VWIFI_TEST_PACKET_LOSS: check AP/STA environment
+[ 2066.232841] VWIFI_TEST_PACKET_LOSS: loss_percent=0 should pass
+[ 2070.530645] VWIFI_TEST_PACKET_LOSS: loss_percent=100 should fail completely
+[ 2070.704888] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 2071.472661] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 2071.472669] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 2071.728703] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 2072.496655] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 2072.496659] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 2072.752697] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 2073.520661] vwifi: drop packet by loss_percent=100 from vw2 to vw0 len=42
+[ 2073.520665] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 2073.776663] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[ 2075.811002] VWIFI_TEST_PACKET_LOSS: warm up ARP before probabilistic loss
+[ 2075.824698] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=42
+[ 2080.058544] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[ 2080.210090] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 2081.264667] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2082.224646] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=42
+[ 2082.288673] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 2083.312661] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 2084.336676] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 2085.360665] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 2086.384649] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2087.408644] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2093.552618] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2095.600617] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2096.624579] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2099.696603] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 2100.720592] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2101.744643] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[ 2104.752531] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=42
+[ 2105.776555] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=42
+[ 2105.840587] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 2106.864565] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[ 2108.912563] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[ 2109.936575] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[ 2110.949179] VWIFI_TEST_PACKET_LOSS: reset loss_percent to 0
+[ 2111.133664] VWIFI_TEST_PACKET_LOSS: collect stats and dmesg
