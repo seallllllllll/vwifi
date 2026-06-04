@@ -48,8 +48,22 @@ static const u32 vwifi_cipher_suites[] = {
 
 struct vwifi_packet {
     int datalen;
-    u8 data[ETH_DATA_LEN];
+
+    /*
+     * skb->len includes the Ethernet header. ETH_DATA_LEN is only payload
+     * length, so use ETH_FRAME_LEN to avoid overflow for full-size frames.
+     */
+    u8 data[ETH_FRAME_LEN];
     struct list_head list;
+
+    /* Scheduled delivery time for rate-based TX delay simulation. */
+    ktime_t deliver_at;
+
+    /* Debug metadata captured at TX time. */
+    u64 tx_delay_us;
+    u32 tx_rate_kbps;
+    u8 tx_mcs;
+    bool tx_short_gi;
 };
 
 enum vwifi_state { VWIFI_READY, VWIFI_SHUTDOWN };
@@ -106,6 +120,14 @@ struct vwifi_vif {
 
     struct list_head rx_queue; /**< Head of received packet queue */
     /* Store all vwifi_vif which is in the same BSS (AP will be the head). */
+
+    /*
+     * RX delivery is deferred by a timer so TX can simulate nominal
+     * serialization delay derived from the selected HT bitrate.
+     */
+    struct hrtimer rx_timer;
+    struct work_struct rx_work;
+
     struct list_head bss_list;
     /* List entry for maintaining all vwifi_vif, which can be accessed via
      * vwifi->vif_list.
@@ -262,7 +284,60 @@ static u32 vwifi_ht_mcs_rate_kbps(u8 mcs, bool short_gi, enum rate_info_bw bw)
     return short_gi ? vwifi_ht20_sgi_kbps[mcs] : vwifi_ht20_lgi_kbps[mcs];
 }
 
+/**
+ * vwifi_tx_serialization_delay_us() - Calculate nominal packet transmission time
+ * @rs: Pointer to the current rate state containing the bit rate (kbps)
+ * @len: Length of the packet payload in bytes
+ *
+ * Calculates the theoretical time (in microseconds) required to transmit a
+ * packet of a given length over the air at a specified bit rate. This
+ * serves as the core physical delay model for the virtual interface.
+ *
+ * Return: Calculated transmission delay in microseconds, or 0 if the delay
+ * simulation is disabled or if invalid parameters are provided.
+ */
+static u64 vwifi_tx_serialization_delay_us(const struct vwifi_rate_state *rs,
+                                           unsigned int len)
+{
+    u32 kbps;
+    u32 scale;
+    u64 delay_us;
 
+    /* Fallback to 0 delay if the rate state is uninitialized */
+    if (!rs)
+        return 0;
+
+    kbps = rs->bitrate_kbps;
+
+    /*
+     * Read the dynamic scale factor safely. This allows runtime injection
+     * of exaggerated delays for testing purposes via module parameters.
+     */
+    scale = READ_ONCE(tx_delay_scale);
+
+    /* Avoid division by zero or bypass calculation if delay is disabled */
+    if (!kbps || !scale)
+        return 0;
+
+    /*
+     * len bytes at kbps:
+     *
+     * delay_us = len * 8 bits / (kbps * 1000 bits/sec) * 1,000,000
+     * = len * 8 * 1000 / kbps
+     *
+     * This is only nominal serialization delay. It intentionally excludes
+     * preamble, PLCP, SIFS/DIFS/AIFS, ACK/BA, contention, retry, RTS/CTS,
+     * aggregation, and channel busy time.
+     */
+    /* * Calculate base delay. Use DIV_ROUND_UP_ULL to ensure we don't truncate 
+     * to 0 for very small packets at extremely high bit rates, preventing 
+     * integer overflow using 64-bit math.
+     */
+    delay_us = DIV_ROUND_UP_ULL((u64)len * 8ULL * 1000ULL, kbps);
+
+    /* Apply the dynamic scaling factor to magnify the delay */
+    return delay_us * scale;
+}
 
 /* Initialize the default transmission rate parameters for the virtual interface. */
 static void vwifi_init_rate_state(struct vwifi_vif *vif)
@@ -286,6 +361,11 @@ static int loss_percent;
 module_param(loss_percent, int, 0644);
 MODULE_PARM_DESC(loss_percent,
                  "Global packet loss percentage for non-virtio TX path.");
+
+static unsigned int tx_delay_scale = 1;
+module_param(tx_delay_scale, uint, 0644);
+MODULE_PARM_DESC(tx_delay_scale,
+                 "Scale factor for nominal TX serialization delay; 0 disables TX delay.");
 
 /* Global context */
 static struct vwifi_context *vwifi = NULL;
@@ -775,6 +855,10 @@ static int vwifi_ndo_stop(struct net_device *dev)
 {
     struct vwifi_vif *vif = ndev_get_vwifi_vif(dev);
     struct vwifi_packet *pkt, *is = NULL;
+
+    hrtimer_cancel(&vif->rx_timer);
+    cancel_work_sync(&vif->rx_work);
+
     list_for_each_entry_safe (pkt, is, &vif->rx_queue, list) {
         list_del(&pkt->list);
         kfree(pkt);
@@ -889,6 +973,69 @@ pkt_free:
     kfree(pkt);
 }
 
+/*
+ * hrtimer callback: Executes in atomic context.
+ * Defers the actual packet processing to a workqueue to avoid sleeping 
+ * or taking locks in atomic context.
+ */
+static enum hrtimer_restart vwifi_rx_timer_cb(struct hrtimer *timer)
+{
+    struct vwifi_vif *vif = container_of(timer, struct vwifi_vif, rx_timer);
+
+    schedule_work(&vif->rx_work);
+
+    return HRTIMER_NORESTART;
+}
+
+/*
+ * workqueue handler: Executes in process context.
+ * Dequeues and processes packets according to their simulated delivery time.
+ */
+static void vwifi_rx_work(struct work_struct *work)
+{
+    struct vwifi_vif *vif = container_of(work, struct vwifi_vif, rx_work);
+
+    while (true) {
+        struct vwifi_packet *pkt;
+        ktime_t now;
+        ktime_t deliver_at;
+
+        /* Safely acquire lock to inspect the queue */
+        if (mutex_lock_interruptible(&vif->lock))
+            return;
+
+        /* Exit if no packets are waiting */
+        if (list_empty(&vif->rx_queue)) {
+            mutex_unlock(&vif->lock);
+            return;
+        }
+
+        /* Inspect the next packet in line */
+        pkt = list_first_entry(&vif->rx_queue, struct vwifi_packet, list);
+        deliver_at = pkt->deliver_at;
+        now = ktime_get();
+
+        /*
+         * If the packet is still "in the air", re-arm the timer for its 
+         * exact delivery time and yield the context.
+         */
+        if (ktime_before(now, deliver_at)) {
+            mutex_unlock(&vif->lock);
+            hrtimer_start(&vif->rx_timer, deliver_at, HRTIMER_MODE_ABS);
+            return;
+        }
+
+        /* Packet has arrived, unlock and pass it to the network stack */
+        mutex_unlock(&vif->lock);
+
+        /*
+         * vwifi_rx() consumes the first packet from rx_queue.
+         * It may also relay AP packets by calling vwifi_ndo_start_xmit().
+         */
+        vwifi_rx(vif->ndev);
+    }
+}
+
 /**
  * vwifi_should_drop_packet - Determine whether to simulate packet loss
  *
@@ -923,6 +1070,8 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
     struct vwifi_packet *pkt = NULL;
     struct ethhdr *eth_hdr = (struct ethhdr *) skb->data;
     int datalen;
+    bool rx_queue_was_empty;
+    u64 delay_us;
 
     if (vif->wdev.iftype == NL80211_IFTYPE_STATION) {
         pr_info("vwifi: STA %s (%pM) send packet to AP %s (%pM)\n",
@@ -970,30 +1119,60 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
      */
     pkt = kmalloc(sizeof(struct vwifi_packet), GFP_KERNEL);
     if (!pkt) {
-        pr_info("Ran out of memory allocating packet pool\n");
+        pr_info("vwifi: failed to allocate packet\n");
         return NETDEV_TX_OK;
+    }
+
+    /* Drop oversized packets to prevent buffer overflow. */
+    if (datalen > sizeof(pkt->data)) {
+        pr_info_ratelimited("vwifi: drop oversized packet len=%d max=%zu\n",
+                            datalen,
+                            sizeof(pkt->data));
+        /* Free the allocated memory to prevent memory leaks before dropping */
+        kfree(pkt);
+        return 0;
     }
 
     memcpy(pkt->data, skb->data, datalen);
     pkt->datalen = datalen;
+    INIT_LIST_HEAD(&pkt->list);
 
-    /* enqueue packet to destination vif's rx_queue */
-    if (mutex_lock_interruptible(&dest_vif->lock))
-        goto error_before_rx_queue;
-
-    list_add_tail(&pkt->list, &dest_vif->rx_queue);
-
-    mutex_unlock(&dest_vif->lock);
-
+    /*
+     * Snapshot TX rate state and update TX stats under the source vif lock.
+     * The bitrate mask is per-interface in this MVP, so source vif is used.
+     */
     if (mutex_lock_interruptible(&vif->lock))
-        goto erorr_after_rx_queue;
+        goto error_free_pkt;
 
+    rate_state = vif->rate_state;
+    
     /* Update interface statistics */
     vif->stats.tx_packets++;
     vif->stats.tx_bytes += datalen;
     vif->active_time = jiffies;
 
     mutex_unlock(&vif->lock);
+
+    /*
+     * Calculate simulated airtime delay and stamp the packet with TX 
+     * metadata and its absolute delivery time for deferred RX processing.
+     */
+    delay_us = vwifi_tx_serialization_delay_us(&rate_state, datalen);
+
+    pkt->tx_delay_us = delay_us;
+    pkt->tx_rate_kbps = rate_state.bitrate_kbps;
+    pkt->tx_mcs = rate_state.mcs;
+    pkt->tx_short_gi = rate_state.short_gi;
+    pkt->deliver_at = ktime_add_us(ktime_get(), delay_us);
+
+    pr_info_ratelimited("vwifi: tx delay %s -> %s len=%d mcs=%u gi=%s rate=%u delay_us=%llu\n",
+                        vif->ndev->name,
+                        dest_vif->ndev->name,
+                        datalen,
+                        pkt->tx_mcs,
+                        pkt->tx_short_gi ? "short" : "long",
+                        pkt->tx_rate_kbps,
+                        (unsigned long long)pkt->tx_delay_us);
 
     if (dest_vif->wdev.iftype == NL80211_IFTYPE_STATION) {
         pr_info("vwifi: STA %s (%pM) receive packet from AP %s (%pM)\n",
@@ -1009,14 +1188,31 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
                 eth_hdr->h_source);
     }
 
-    /* Directly send to rx_queue, simulate the rx interrupt */
-    vwifi_rx(dest_vif->ndev);
+    if (mutex_lock_interruptible(&dest_vif->lock))
+        goto error_free_pkt;
+
+    rx_queue_was_empty = list_empty(&dest_vif->rx_queue);
+    list_add_tail(&pkt->list, &dest_vif->rx_queue);
+
+    mutex_unlock(&dest_vif->lock);
+
+    /*
+     * If the queue was empty, this packet is now the head packet, so it owns
+     * the next RX wakeup. If the queue was non-empty, the existing head packet
+     * already has a timer/work pending, and this packet will be handled later.
+     */
+    if (rx_queue_was_empty) {
+        if (delay_us)
+            hrtimer_start(&dest_vif->rx_timer,
+                          pkt->deliver_at,
+                          HRTIMER_MODE_ABS);
+        else
+            schedule_work(&dest_vif->rx_work);
+    }
 
     return datalen;
 
-erorr_after_rx_queue:
-    list_del(&pkt->list);
-error_before_rx_queue:
+error_free_pkt:
     kfree(pkt);
     return 0;
 }
@@ -1694,6 +1890,11 @@ static struct wireless_dev *vwifi_interface_add(struct wiphy *wiphy, int if_idx)
     INIT_WORK(&vif->ws_scan, vwifi_scan_routine);
     INIT_WORK(&vif->ws_scan_timeout, vwifi_scan_timeout_work);
 
+    /* Initialize deferred RX delivery. */
+    hrtimer_init(&vif->rx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
+    vif->rx_timer.function = vwifi_rx_timer_cb;
+    INIT_WORK(&vif->rx_work, vwifi_rx_work);
+
     /* Initialize rx_queue */
     INIT_LIST_HEAD(&vif->rx_queue);
 
@@ -2104,6 +2305,9 @@ static int vwifi_delete_interface(struct vwifi_vif *vif)
     struct bss_sta_entry *sta_ent;
     struct hlist_node *tmp;
     int bkt;
+
+    hrtimer_cancel(&vif->rx_timer);
+    cancel_work_sync(&vif->rx_work);
 
     /* Stop TX queue, and delete the pending packets */
     netif_stop_queue(vif->ndev);

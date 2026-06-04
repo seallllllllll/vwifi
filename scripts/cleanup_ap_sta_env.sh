@@ -62,10 +62,7 @@ fi
 echo "==== module unload / reboot policy ===="
 
 if [ "$TOUCHED_IBSS" = "1" ]; then
-    echo "IBSS was touched; skip rmmod vwifi to avoid unstable unload path."
-    echo "Reboot is required to reset vwifi."
-    sync
-    sudo reboot
+    echo "IBSS was touched; kernel panic issue is fixed, continue normal cleanup."
 fi
 
 if [ "$ALLOW_RMMOD" = "1" ]; then
