@@ -1,9 +1,9 @@
 BSS 00:76:77:30:00:00(on vw1)
-	TSF: 754323011 usec (0d, 00:12:34)
+	TSF: 176563041119 usec (2d, 01:02:43)
 	freq: 2437.0
 	beacon interval: 100 TUs
 	capability: ESS Privacy (0x0011)
-	signal: -85.00 dBm
+	signal: -100.00 dBm
 	last seen: 0 ms ago
 	SSID: test
 	Supported rates: 1.0* 2.0* 5.5 11.0 

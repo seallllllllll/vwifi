@@ -284,6 +284,12 @@ static u32 vwifi_ht_mcs_rate_kbps(u8 mcs, bool short_gi, enum rate_info_bw bw)
     return short_gi ? vwifi_ht20_sgi_kbps[mcs] : vwifi_ht20_lgi_kbps[mcs];
 }
 
+static unsigned int tx_delay_scale = 1;
+module_param(tx_delay_scale, uint, 0644);
+MODULE_PARM_DESC(tx_delay_scale,
+                 "Scale factor for nominal TX serialization delay; 0 disables TX delay.");
+
+
 /**
  * vwifi_tx_serialization_delay_us() - Calculate nominal packet transmission time
  * @rs: Pointer to the current rate state containing the bit rate (kbps)
@@ -328,12 +334,10 @@ static u64 vwifi_tx_serialization_delay_us(const struct vwifi_rate_state *rs,
      * This is only nominal serialization delay. It intentionally excludes
      * preamble, PLCP, SIFS/DIFS/AIFS, ACK/BA, contention, retry, RTS/CTS,
      * aggregation, and channel busy time.
+     * Calculate base delay. Use DIV_ROUND_UP to ensure we don't truncate 
+     * to 0 for very small packets at extremely high bit rates
      */
-    /* * Calculate base delay. Use DIV_ROUND_UP_ULL to ensure we don't truncate 
-     * to 0 for very small packets at extremely high bit rates, preventing 
-     * integer overflow using 64-bit math.
-     */
-    delay_us = DIV_ROUND_UP_ULL((u64)len * 8ULL * 1000ULL, kbps);
+    delay_us = DIV_ROUND_UP(len * 8U * 1000U, kbps);
 
     /* Apply the dynamic scaling factor to magnify the delay */
     return delay_us * scale;
@@ -361,11 +365,6 @@ static int loss_percent;
 module_param(loss_percent, int, 0644);
 MODULE_PARM_DESC(loss_percent,
                  "Global packet loss percentage for non-virtio TX path.");
-
-static unsigned int tx_delay_scale = 1;
-module_param(tx_delay_scale, uint, 0644);
-MODULE_PARM_DESC(tx_delay_scale,
-                 "Scale factor for nominal TX serialization delay; 0 disables TX delay.");
 
 /* Global context */
 static struct vwifi_context *vwifi = NULL;
@@ -1072,6 +1071,7 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
     int datalen;
     bool rx_queue_was_empty;
     u64 delay_us;
+    struct vwifi_rate_state rate_state;
 
     if (vif->wdev.iftype == NL80211_IFTYPE_STATION) {
         pr_info("vwifi: STA %s (%pM) send packet to AP %s (%pM)\n",
@@ -1509,8 +1509,6 @@ static void vwifi_connect_routine(struct work_struct *w)
     mutex_unlock(&vif->lock);
 }
 
-static void vwifi_virtio_disconnect(struct vwifi_vif *vif);
-
 /* Invoke cfg80211_disconnected() that informs the kernel that disconnect is
  * complete. Overall disconnect may call cfg80211_connect_timeout() if
  * disconnect interrupting connection routine, but for this module let's keep
@@ -1891,8 +1889,7 @@ static struct wireless_dev *vwifi_interface_add(struct wiphy *wiphy, int if_idx)
     INIT_WORK(&vif->ws_scan_timeout, vwifi_scan_timeout_work);
 
     /* Initialize deferred RX delivery. */
-    hrtimer_init(&vif->rx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
-    vif->rx_timer.function = vwifi_rx_timer_cb;
+    hrtimer_setup(&vif->rx_timer, vwifi_rx_timer_cb, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
     INIT_WORK(&vif->rx_work, vwifi_rx_work);
 
     /* Initialize rx_queue */
@@ -2025,8 +2022,7 @@ static int vwifi_start_ap(struct wiphy *wiphy,
     hrtimer_setup(&vif->beacon_timer, vwifi_beacon, CLOCK_MONOTONIC,
                   HRTIMER_MODE_ABS_SOFT);
 #else
-    hrtimer_init(&vif->beacon_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS_SOFT);
-    vif->beacon_timer.function = vwifi_beacon;
+    hrtimer_setup(&vif->beacon_timer, vwifi_beacon_timer_cb, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
 #endif
 
     if (!hrtimer_is_queued(&vif->beacon_timer)) {
@@ -3015,25 +3011,6 @@ static void vwifi_virtio_connect_request(struct vwifi_vif *vif)
     memcpy(conn_req->ssid, vif->req_ssid, vif->ssid_len);
 
     vwifi_virtio_tx(vif, skb);
-}
-
-static void vwifi_virtio_disconnect_tx(struct vwifi_vif *vif);
-
-static void vwifi_virtio_disconnect(struct vwifi_vif *vif)
-{
-    vwifi_virtio_disconnect_tx(vif);
-
-    cfg80211_disconnected(vif->ndev, vif->disconnect_reason_code, NULL, 0, true,
-                          GFP_KERNEL);
-
-    if (mutex_lock_interruptible(&vif->lock))
-        return;
-
-    vif->disconnect_reason_code = 0;
-    vif->sme_state = SME_DISCONNECTED;
-    memset(vif->bssid, 0, ETH_ALEN);
-
-    mutex_unlock(&vif->lock);
 }
 
 static void vwifi_virtio_disconnect_tx(struct vwifi_vif *vif)
