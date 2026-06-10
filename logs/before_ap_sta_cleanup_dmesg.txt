@@ -1,0 +1,300 @@
+[Wed Jun 10 14:03:08 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:08 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:08 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:09 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:09 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[Wed Jun 10 14:03:10 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:10 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:10 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[Wed Jun 10 14:03:11 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:11 2026] __vwifi_ndo_start_xmit: 15 callbacks suppressed
+[Wed Jun 10 14:03:11 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:11 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:11 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:11 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:11 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:12 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:12 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:13 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:13 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:13 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:13 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:13 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:15 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:15 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:15 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[Wed Jun 10 14:03:16 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:16 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:16 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:17 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:17 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:18 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:18 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:19 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:19 2026] __vwifi_ndo_start_xmit: 5 callbacks suppressed
+[Wed Jun 10 14:03:19 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:19 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:19 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:19 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:19 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:20 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:20 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:20 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:21 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:21 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:22 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:22 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:22 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:22 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:22 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:23 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:23 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] __vwifi_ndo_start_xmit: 2 callbacks suppressed
+[Wed Jun 10 14:03:24 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[Wed Jun 10 14:03:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: tx delay vw2 -> vw0 len=42 mcs=3 gi=long rate=26000 delay_us=13
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: tx delay vw0 -> vw1 len=42 mcs=31 gi=long rate=260000 delay_us=2
+[Wed Jun 10 14:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: tx delay vw1 -> vw0 len=42 mcs=31 gi=long rate=260000 delay_us=2
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:24 2026] vwifi: tx delay vw0 -> vw2 len=42 mcs=31 gi=long rate=260000 delay_us=2
+[Wed Jun 10 14:03:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:25 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:25 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:26 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:26 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:26 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:26 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:26 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:26 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[Wed Jun 10 14:03:27 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:27 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:27 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:27 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:27 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:27 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[Wed Jun 10 14:03:28 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:28 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:28 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:28 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:28 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:28 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:28 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:28 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:28 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:29 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:29 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:29 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:29 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:29 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:30 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:30 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:30 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:30 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:31 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:31 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:31 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:31 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:31 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:31 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:31 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:31 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:31 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:32 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:32 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:33 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:33 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:33 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:33 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:34 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:34 2026] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[Wed Jun 10 14:03:35 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:35 2026] __vwifi_ndo_start_xmit: 2 callbacks suppressed
+[Wed Jun 10 14:03:35 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:35 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:35 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:35 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:35 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:36 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: tx delay vw2 -> vw0 len=98 mcs=3 gi=long rate=26000 delay_us=31
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:36 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:36 2026] vwifi: tx delay vw0 -> vw1 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:36 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:37 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:37 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:37 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:37 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:38 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:38 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:38 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:38 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:38 2026] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[Wed Jun 10 14:03:39 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:39 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:39 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:40 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:40 2026] __vwifi_ndo_start_xmit: 5 callbacks suppressed
+[Wed Jun 10 14:03:40 2026] vwifi: tx delay vw1 -> vw0 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:40 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:40 2026] vwifi: AP vw0 relay:
+[Wed Jun 10 14:03:40 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00)
+[Wed Jun 10 14:03:40 2026] vwifi: tx delay vw0 -> vw2 len=98 mcs=31 gi=long rate=260000 delay_us=4
+[Wed Jun 10 14:03:40 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:40 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00)
+[Wed Jun 10 14:03:40 2026] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[Wed Jun 10 14:03:41 2026] VWIFI_TEST_PACKET_LOSS: reset loss_percent to 0
+[Wed Jun 10 14:03:41 2026] VWIFI_TEST_PACKET_LOSS: collect stats and dmesg
+[Wed Jun 10 14:03:41 2026] Dump station at the idx 0
+[Wed Jun 10 14:03:41 2026] Dump station at the idx 1
+[Wed Jun 10 14:03:41 2026] Dump station at the idx 2

@@ -1,0 +1,143 @@
+
+==== check AP/STA environment ====
+
+==== loss_percent=0 should pass ====
+0
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.150 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.082 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.080 ms
+64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.087 ms
+64 bytes from 10.0.0.3: icmp_seq=5 ttl=64 time=0.094 ms
+
+--- 10.0.0.3 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4087ms
+rtt min/avg/max/mdev = 0.080/0.098/0.150/0.026 ms
+
+==== loss_percent=100 should fail completely ====
+100
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+
+--- 10.0.0.3 ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4119ms
+
+
+==== warm up ARP before probabilistic loss ====
+0
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=0.217 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.100 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=0.087 ms
+
+--- 10.0.0.3 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2080ms
+rtt min/avg/max/mdev = 0.087/0.134/0.217/0.058 ms
+PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.085 ms
+64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.087 ms
+64 bytes from 10.0.0.2: icmp_seq=3 ttl=64 time=0.082 ms
+
+--- 10.0.0.2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2038ms
+rtt min/avg/max/mdev = 0.082/0.084/0.087/0.002 ms
+
+==== loss_percent=20 should run with probabilistic loss ====
+20
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=0.084 ms
+64 bytes from 10.0.0.3: icmp_seq=4 ttl=64 time=0.093 ms
+64 bytes from 10.0.0.3: icmp_seq=6 ttl=64 time=0.078 ms
+64 bytes from 10.0.0.3: icmp_seq=9 ttl=64 time=0.096 ms
+64 bytes from 10.0.0.3: icmp_seq=12 ttl=64 time=0.087 ms
+64 bytes from 10.0.0.3: icmp_seq=19 ttl=64 time=0.241 ms
+64 bytes from 10.0.0.3: icmp_seq=23 ttl=64 time=0.087 ms
+64 bytes from 10.0.0.3: icmp_seq=25 ttl=64 time=0.093 ms
+64 bytes from 10.0.0.3: icmp_seq=26 ttl=64 time=0.086 ms
+64 bytes from 10.0.0.3: icmp_seq=29 ttl=64 time=0.089 ms
+
+--- 10.0.0.3 ping statistics ---
+30 packets transmitted, 10 received, 66.6667% packet loss, time 29733ms
+rtt min/avg/max/mdev = 0.078/0.103/0.241/0.046 ms
+
+==== reset loss_percent to 0 ====
+0
+
+==== collect stats and dmesg ====
+==== station dump ====
+Station 00:76:77:31:00:00 (on vw0)
+	inactive time:	1345 ms
+	rx bytes:	3070
+	rx packets:	33
+	tx bytes:	3850
+	tx packets:	41
+	tx failed:	12
+	signal:  	-31 dBm
+	tx bitrate:	260.0 MBit/s MCS 31
+	rx bitrate:	260.0 MBit/s MCS 31
+	connected time:	53 seconds
+	current time:	1781071421942 ms
+Station 00:76:77:32:00:00 (on vw0)
+	inactive time:	1345 ms
+	rx bytes:	4288
+	rx packets:	46
+	tx bytes:	3150
+	tx packets:	35
+	tx failed:	7
+	signal:  	-31 dBm
+	tx bitrate:	26.0 MBit/s MCS 3
+	rx bitrate:	26.0 MBit/s MCS 3
+	connected time:	53 seconds
+	current time:	1781071421942 ms
+
+==== vw1 stats ====
+6: vw1: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT mode DORMANT group default qlen 1000
+    link/ether 00:76:77:31:00:00 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast           
+          3070      33      0       4       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+          3850      41      0      12       0       0 
+
+==== vw2 stats ====
+7: vw2: <NO-CARRIER,BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state DORMANT mode DORMANT group default qlen 1000
+    link/ether 00:76:77:32:00:00 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast           
+          4288      46      0       4       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+          3150      35      0       7       0       0 
+[    0.540756] simple-framebuffer simple-framebuffer.0: [drm] Registered 1 planes with drm panic
+[   14.533201] i915 0000:00:02.0: [drm] Registered 3 planes with drm panic
+[  223.122155] VWIFI_TEST_PACKET_LOSS: check AP/STA environment
+[  223.298943] VWIFI_TEST_PACKET_LOSS: loss_percent=0 should pass
+[  227.629472] VWIFI_TEST_PACKET_LOSS: loss_percent=100 should fail completely
+[  227.787855] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[  228.834432] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[  229.858466] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[  230.882507] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[  231.906546] vwifi: drop packet by loss_percent=100 from vw1 to vw0 len=98
+[  232.916881] VWIFI_TEST_PACKET_LOSS: warm up ARP before probabilistic loss
+[  237.228285] VWIFI_TEST_PACKET_LOSS: loss_percent=20 should run with probabilistic loss
+[  237.374953] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[  239.458808] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  241.506971] vwifi: drop packet by loss_percent=20 from vw0 to vw1 len=98
+[  243.554951] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  244.578984] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  246.627116] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  247.651111] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  249.699198] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  250.723211] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[  251.747223] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  252.771278] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[  253.795306] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[  254.819357] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  256.867441] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  257.891475] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  258.915478] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  260.963514] vwifi: drop packet by loss_percent=20 from vw1 to vw0 len=98
+[  264.035666] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  265.059654] vwifi: drop packet by loss_percent=20 from vw0 to vw2 len=98
+[  267.107759] vwifi: drop packet by loss_percent=20 from vw2 to vw0 len=98
+[  268.127991] VWIFI_TEST_PACKET_LOSS: reset loss_percent to 0
+[  268.287611] VWIFI_TEST_PACKET_LOSS: collect stats and dmesg
+
+PASS: packet loss test finished
+Result JSON: logs/packet_loss_result.json

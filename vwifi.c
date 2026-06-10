@@ -13,7 +13,7 @@
 #include <linux/workqueue.h>
 #include <net/cfg80211.h>
 #include <uapi/linux/virtio_net.h>
-
+#include <linux/compiler.h>
 #include <linux/netlink.h>
 #include <net/sock.h>
 
@@ -893,17 +893,19 @@ static void vwifi_rx(struct net_device *dev)
     struct sk_buff *skb;
     /* socket buffer will be transmitted to another STA */
     struct sk_buff *skb1 = NULL;
-    struct vwifi_packet *pkt;
+    struct vwifi_packet *pkt = NULL;
+
+    if (mutex_lock_interruptible(&vif->lock))
+        return;
 
     if (list_empty(&vif->rx_queue)) {
-        pr_info("vwifi rx: No packet in rx_queue\n");
+        mutex_unlock(&vif->lock);
+	pr_info("vwifi rx: No packet in rx_queue\n");
         return;
     }
 
-    if (mutex_lock_interruptible(&vif->lock))
-        goto pkt_free;
-
     pkt = list_first_entry(&vif->rx_queue, struct vwifi_packet, list);
+    list_del_init(&pkt->list);
 
     vif->stats.rx_packets++;
     vif->stats.rx_bytes += pkt->datalen;
@@ -916,12 +918,11 @@ static void vwifi_rx(struct net_device *dev)
     if (!skb) {
         pr_info("vwifi rx: low on mem - packet dropped\n");
         vif->stats.rx_dropped++;
-        goto pkt_free;
+        kfree(pkt);
+        return;
     }
     skb_reserve(skb, 2); /* align IP address on 16B boundary */
     memcpy(skb_put(skb, pkt->datalen), pkt->data, pkt->datalen);
-
-    list_del(&pkt->list);
     kfree(pkt);
 
     if (vif->wdev.iftype == NL80211_IFTYPE_AP) {
@@ -1035,6 +1036,26 @@ static void vwifi_rx_work(struct work_struct *work)
     }
 }
 
+static void vwifi_account_tx_drop(struct vwifi_vif *vif, int datalen)
+{
+    if (mutex_lock_interruptible(&vif->lock)) {
+        vif->stats.tx_dropped++;
+        return;
+    }
+
+    /*
+     * Packet-loss injection simulates an over-the-air loss.
+     * From the TX side, the packet has been consumed by the driver,
+     * but it will not be delivered to the destination RX queue.
+     */
+    vif->stats.tx_packets++;
+    vif->stats.tx_bytes += datalen;
+    vif->stats.tx_dropped++;
+    vif->active_time = jiffies;
+
+    mutex_unlock(&vif->lock);
+}
+
 /**
  * vwifi_should_drop_packet - Determine whether to simulate packet loss
  *
@@ -1046,12 +1067,16 @@ static void vwifi_rx_work(struct work_struct *work)
  */
 static bool vwifi_should_drop_packet(void)
 {
+    int percent;
     u32 r;
+
+    percent = READ_ONCE(loss_percent);
+
     /* If packet loss is disabled (0% or less), never drop packets */
-    if (loss_percent <= 0)
+    if (percent <= 0)
         return false;
     /* If packet loss is absolute (100% or more), always drop packets */
-    if (loss_percent >= 100)
+    if (percent >= 100)
         return true;
     /* Generate a random number between 0 and 99 */
     r = get_random_u32() % 100;
@@ -1059,7 +1084,7 @@ static bool vwifi_should_drop_packet(void)
     /** Return true (drop) if the random number falls within the loss percentage.
      * For example, if loss_percent is 20, r must be 0-19 to trigger a drop.
      */
-    return r < loss_percent;
+    return r < percent;
 }
 
 static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
@@ -1090,15 +1115,24 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
     /* Save the packet length before any further processing */
     datalen = skb->len;
 
+    if (unlikely(datalen > ETH_FRAME_LEN)) {
+        pr_info_ratelimited("vwifi: drop oversized packet from %s to %s len=%d\n",
+                            vif->ndev->name,
+                            dest_vif->ndev->name,
+                            datalen);
+
+        vwifi_account_tx_drop(vif, datalen);
+        return datalen;
+    }
+
+
     /** Fault Injection: Check if we should simulate packet loss based on 
      * the global 'loss_percent' parameter. 
      */
     if (vwifi_should_drop_packet()) {
-        if (!mutex_lock_interruptible(&vif->lock)) {
-            vif->stats.tx_dropped++;
-            vif->active_time = jiffies;
-            mutex_unlock(&vif->lock);
-        }
+        int percent = READ_ONCE(loss_percent);
+
+        vwifi_account_tx_drop(vif, datalen);
 
         pr_info_ratelimited("vwifi: drop packet by loss_percent=%d from %s to %s len=%d\n",
                             loss_percent,
@@ -1121,16 +1155,6 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
     if (!pkt) {
         pr_info("vwifi: failed to allocate packet\n");
         return NETDEV_TX_OK;
-    }
-
-    /* Drop oversized packets to prevent buffer overflow. */
-    if (datalen > sizeof(pkt->data)) {
-        pr_info_ratelimited("vwifi: drop oversized packet len=%d max=%zu\n",
-                            datalen,
-                            sizeof(pkt->data));
-        /* Free the allocated memory to prevent memory leaks before dropping */
-        kfree(pkt);
-        return 0;
     }
 
     memcpy(pkt->data, skb->data, datalen);
@@ -2307,10 +2331,15 @@ static int vwifi_delete_interface(struct vwifi_vif *vif)
 
     /* Stop TX queue, and delete the pending packets */
     netif_stop_queue(vif->ndev);
+
+    mutex_lock(&vif->lock);
+
     list_for_each_entry_safe (pkt, safe, &vif->rx_queue, list) {
         list_del(&pkt->list);
         kfree(pkt);
     }
+
+    mutex_unlock(&vif->lock);
 
     hash_for_each_safe (vif->bss_sta_table, bkt, tmp, sta_ent, node)
         kfree(sta_ent);
