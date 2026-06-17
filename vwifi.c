@@ -48,7 +48,7 @@ static const u32 vwifi_cipher_suites[] = {
 
 struct vwifi_packet {
     int datalen;
-    u8 data[ETH_DATA_LEN];
+    u8 data[ETH_FRAME_LEN];
     struct list_head list;
 };
 
@@ -789,9 +789,12 @@ static struct net_device_stats *vwifi_ndo_get_stats(struct net_device *dev)
     return &vif->stats;
 }
 
+static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
+                                  struct vwifi_vif *dest_vif,
+                                  struct sk_buff *skb);
+
 static netdev_tx_t vwifi_ndo_start_xmit(struct sk_buff *skb,
                                         struct net_device *dev);
-
 /* Receive a packet: retrieve, encapsulate it in an skb, and perform the
  * following operations based on the interface mode:
  *   - STA mode: Pass the skb to the upper level (protocol stack).
@@ -805,22 +808,31 @@ static netdev_tx_t vwifi_ndo_start_xmit(struct sk_buff *skb,
  */
 static void vwifi_rx(struct net_device *dev)
 {
-    struct vwifi_vif *vif = ndev_get_vwifi_vif(dev);
+    struct vwifi_vif *vif;
+
+    if (unlikely(!dev))
+        return;
+
+    vif = ndev_get_vwifi_vif(dev);
+    if (unlikely(!vif))
+        return;
     /* socket buffer will be sended to protocol stack */
     struct sk_buff *skb;
     /* socket buffer will be transmitted to another STA */
     struct sk_buff *skb1 = NULL;
     struct vwifi_packet *pkt;
 
+    if (!mutex_trylock(&vif->lock))
+        return;
+
     if (list_empty(&vif->rx_queue)) {
         pr_info("vwifi rx: No packet in rx_queue\n");
+        mutex_unlock(&vif->lock);
         return;
     }
 
-    if (mutex_lock_interruptible(&vif->lock))
-        goto pkt_free;
-
     pkt = list_first_entry(&vif->rx_queue, struct vwifi_packet, list);
+    list_del(&pkt->list);
 
     vif->stats.rx_packets++;
     vif->stats.rx_bytes += pkt->datalen;
@@ -832,13 +844,18 @@ static void vwifi_rx(struct net_device *dev)
     skb = dev_alloc_skb(pkt->datalen + 2);
     if (!skb) {
         pr_info("vwifi rx: low on mem - packet dropped\n");
-        vif->stats.rx_dropped++;
-        goto pkt_free;
+
+        if (!mutex_trylock(&vif->lock)) {
+            vif->stats.rx_dropped++;
+            mutex_unlock(&vif->lock);
+        }
+
+        kfree(pkt);
+        return;
     }
     skb_reserve(skb, 2); /* align IP address on 16B boundary */
     memcpy(skb_put(skb, pkt->datalen), pkt->data, pkt->datalen);
 
-    list_del(&pkt->list);
     kfree(pkt);
 
     if (vif->wdev.iftype == NL80211_IFTYPE_AP) {
@@ -883,10 +900,6 @@ static void vwifi_rx(struct net_device *dev)
 #endif
 
     return;
-
-pkt_free:
-    list_del(&pkt->list);
-    kfree(pkt);
 }
 
 /**
@@ -900,12 +913,14 @@ pkt_free:
  */
 static bool vwifi_should_drop_packet(void)
 {
+    int p = READ_ONCE(loss_percent);
     u32 r;
+
     /* If packet loss is disabled (0% or less), never drop packets */
-    if (loss_percent <= 0)
+    if (p <= 0)
         return false;
     /* If packet loss is absolute (100% or more), always drop packets */
-    if (loss_percent >= 100)
+    if (p >= 100)
         return true;
     /* Generate a random number between 0 and 99 */
     r = get_random_u32() % 100;
@@ -913,7 +928,7 @@ static bool vwifi_should_drop_packet(void)
     /** Return true (drop) if the random number falls within the loss percentage.
      * For example, if loss_percent is 20, r must be 0-19 to trigger a drop.
      */
-    return r < loss_percent;
+    return r < p;
 }
 
 static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
@@ -921,104 +936,171 @@ static int __vwifi_ndo_start_xmit(struct vwifi_vif *vif,
                                   struct sk_buff *skb)
 {
     struct vwifi_packet *pkt = NULL;
-    struct ethhdr *eth_hdr = (struct ethhdr *) skb->data;
+    struct ethhdr _eth;
+    const struct ethhdr *eth_hdr;
+    const char *src_type = "UNKNOWN";
+    const char *dst_type = "UNKNOWN";
     int datalen;
 
-    if (vif->wdev.iftype == NL80211_IFTYPE_STATION) {
-        pr_info("vwifi: STA %s (%pM) send packet to AP %s (%pM)\n",
-                vif->ndev->name, eth_hdr->h_source, dest_vif->ndev->name,
-                eth_hdr->h_dest);
-    } else if (vif->wdev.iftype == NL80211_IFTYPE_AP) {
-        pr_info("vwifi: AP %s (%pM) send packet to STA %s (%pM)\n",
-                vif->ndev->name, eth_hdr->h_source, dest_vif->ndev->name,
-                eth_hdr->h_dest);
-    } else if (vif->wdev.iftype == NL80211_IFTYPE_ADHOC) {
-        pr_info("vwifi: IBSS %s (%pM) send packet to IBSS %s (%pM)\n",
-                vif->ndev->name, eth_hdr->h_source, dest_vif->ndev->name,
-                eth_hdr->h_dest);
-    }
+    /*
+     * Never touch skb/vif/dest_vif before these checks.
+     */
+    if (unlikely(!skb || !vif || !dest_vif || !vif->ndev || !dest_vif->ndev))
+        return 0;
 
-    /* Save the packet length before any further processing */
     datalen = skb->len;
 
-    /** Fault Injection: Check if we should simulate packet loss based on 
-     * the global 'loss_percent' parameter. 
+    /*
+     * Need at least a complete Ethernet header.
+     */
+    if (unlikely(datalen < ETH_HLEN)) {
+        pr_info_ratelimited("vwifi: drop short packet len=%d\n", datalen);
+        return 0;
+    }
+
+    /*
+     * struct vwifi_packet.data is ETH_FRAME_LEN bytes.
+     * Do not allow memcpy/skb_copy_bits to overflow it.
+     */
+    if (unlikely(datalen > ETH_FRAME_LEN)) {
+        pr_info_ratelimited("vwifi: drop oversized packet len=%d max=%d\n",
+                            datalen, ETH_FRAME_LEN);
+        return 0;
+    }
+
+    /*
+     * Safe even if skb is non-linear.
+     */
+    eth_hdr = skb_header_pointer(skb, 0, ETH_HLEN, &_eth);
+    if (unlikely(!eth_hdr)) {
+        pr_info_ratelimited("vwifi: failed to read ethernet header\n");
+        return 0;
+    }
+
+    switch (vif->wdev.iftype) {
+    case NL80211_IFTYPE_STATION:
+        src_type = "STA";
+        dst_type = "AP";
+        break;
+    case NL80211_IFTYPE_AP:
+        src_type = "AP";
+        dst_type = "STA";
+        break;
+    case NL80211_IFTYPE_ADHOC:
+        src_type = "IBSS";
+        dst_type = "IBSS";
+        break;
+    default:
+        break;
+    }
+
+    pr_info_ratelimited("vwifi: %s %s (%pM) send packet to %s %s (%pM), len=%d\n",
+                        src_type, vif->ndev->name, eth_hdr->h_source,
+                        dst_type, dest_vif->ndev->name, eth_hdr->h_dest,
+                        datalen);
+
+    /*
+     * Fault injection: simulate packet loss.
+     *
+     * Do not use mutex_lock_interruptible() here.
+     * ndo_start_xmit path should not sleep.
      */
     if (vwifi_should_drop_packet()) {
-        if (!mutex_lock_interruptible(&vif->lock)) {
+        if (mutex_trylock(&vif->lock)) {
             vif->stats.tx_dropped++;
             vif->active_time = jiffies;
             mutex_unlock(&vif->lock);
         }
 
         pr_info_ratelimited("vwifi: drop packet by loss_percent=%d from %s to %s len=%d\n",
-                            loss_percent,
+                            READ_ONCE(loss_percent),
                             vif->ndev->name,
                             dest_vif->ndev->name,
                             datalen);
 
-	/* * CRITICAL: Return 'datalen' instead of 0 or an error code. 
-         * This tricks the caller (vwifi_ndo_start_xmit) into believing the 
-         * packet was successfully delivered and processed. If we returned 0, 
-         * the caller would double-count this as a failure and mess up the stats.
+        /*
+         * Return datalen so caller treats this as handled.
          */
         return datalen;
     }
 
-    /** The packet survived the drop gate. 
-     * Allocate memory for the internal packet structure to enqueue it. 
+    /*
+     * Allocate packet storage.
+     * Use GFP_ATOMIC in TX path.
      */
-    pkt = kmalloc(sizeof(struct vwifi_packet), GFP_KERNEL);
+    pkt = kmalloc(sizeof(*pkt), GFP_ATOMIC);
     if (!pkt) {
-        pr_info("Ran out of memory allocating packet pool\n");
-        return NETDEV_TX_OK;
+        pr_info_ratelimited("vwifi: failed to allocate packet\n");
+        return 0;
     }
 
-    memcpy(pkt->data, skb->data, datalen);
+    INIT_LIST_HEAD(&pkt->list);
     pkt->datalen = datalen;
 
-    /* enqueue packet to destination vif's rx_queue */
-    if (mutex_lock_interruptible(&dest_vif->lock))
-        goto error_before_rx_queue;
-
-    list_add_tail(&pkt->list, &dest_vif->rx_queue);
-
-    mutex_unlock(&dest_vif->lock);
-
-    if (mutex_lock_interruptible(&vif->lock))
-        goto erorr_after_rx_queue;
-
-    /* Update interface statistics */
-    vif->stats.tx_packets++;
-    vif->stats.tx_bytes += datalen;
-    vif->active_time = jiffies;
-
-    mutex_unlock(&vif->lock);
-
-    if (dest_vif->wdev.iftype == NL80211_IFTYPE_STATION) {
-        pr_info("vwifi: STA %s (%pM) receive packet from AP %s (%pM)\n",
-                dest_vif->ndev->name, eth_hdr->h_dest, vif->ndev->name,
-                eth_hdr->h_source);
-    } else if (dest_vif->wdev.iftype == NL80211_IFTYPE_AP) {
-        pr_info("vwifi: AP %s (%pM) receive packet from STA %s (%pM)\n",
-                dest_vif->ndev->name, eth_hdr->h_dest, vif->ndev->name,
-                eth_hdr->h_source);
-    } else if (dest_vif->wdev.iftype == NL80211_IFTYPE_ADHOC) {
-        pr_info("vwifi: IBSS %s (%pM) receive packet from IBSS %s (%pM)\n",
-                dest_vif->ndev->name, eth_hdr->h_dest, vif->ndev->name,
-                eth_hdr->h_source);
+    /*
+     * Use skb_copy_bits() instead of memcpy(pkt->data, skb->data, datalen).
+     * This is safer for non-linear skb.
+     */
+    if (unlikely(skb_copy_bits(skb, 0, pkt->data, datalen))) {
+        pr_info_ratelimited("vwifi: failed to copy skb data\n");
+        kfree(pkt);
+        return 0;
     }
 
-    /* Directly send to rx_queue, simulate the rx interrupt */
+    /*
+     * Do not sleep in TX path.
+     * If we cannot get the lock immediately, drop this packet.
+     */
+    if (!mutex_trylock(&dest_vif->lock)) {
+        pr_info_ratelimited("vwifi: failed to lock dest_vif, drop packet\n");
+        kfree(pkt);
+        return 0;
+    }
+
+    list_add_tail(&pkt->list, &dest_vif->rx_queue);
+    mutex_unlock(&dest_vif->lock);
+
+    /*
+     * Update TX statistics. If lock is busy, skip stats update rather than sleep.
+     */
+    if (mutex_trylock(&vif->lock)) {
+        vif->stats.tx_packets++;
+        vif->stats.tx_bytes += datalen;
+        vif->active_time = jiffies;
+        mutex_unlock(&vif->lock);
+    }
+
+    switch (dest_vif->wdev.iftype) {
+    case NL80211_IFTYPE_STATION:
+        pr_info_ratelimited("vwifi: STA %s (%pM) receive packet from AP %s (%pM)\n",
+                            dest_vif->ndev->name, eth_hdr->h_dest,
+                            vif->ndev->name, eth_hdr->h_source);
+        break;
+    case NL80211_IFTYPE_AP:
+        pr_info_ratelimited("vwifi: AP %s (%pM) receive packet from STA %s (%pM)\n",
+                            dest_vif->ndev->name, eth_hdr->h_dest,
+                            vif->ndev->name, eth_hdr->h_source);
+        break;
+    case NL80211_IFTYPE_ADHOC:
+        pr_info_ratelimited("vwifi: IBSS %s (%pM) receive packet from IBSS %s (%pM)\n",
+                            dest_vif->ndev->name, eth_hdr->h_dest,
+                            vif->ndev->name, eth_hdr->h_source);
+        break;
+    default:
+        break;
+    }
+
+    /*
+     * Existing driver design: enqueue packet then trigger RX.
+     *
+     * Warning:
+     * vwifi_rx() itself still has a bug:
+     *     if mutex_lock_interruptible() fails, pkt may be uninitialized.
+     * You should fix vwifi_rx() too.
+     */
     vwifi_rx(dest_vif->ndev);
 
     return datalen;
-
-erorr_after_rx_queue:
-    list_del(&pkt->list);
-error_before_rx_queue:
-    kfree(pkt);
-    return 0;
 }
 
 static netdev_tx_t vwifi_virtio_tx(struct vwifi_vif *vif, struct sk_buff *skb);
@@ -1312,8 +1394,6 @@ static void vwifi_connect_routine(struct work_struct *w)
     vif->sme_state = SME_DISCONNECTED;
     mutex_unlock(&vif->lock);
 }
-
-static void vwifi_virtio_disconnect(struct vwifi_vif *vif);
 
 /* Invoke cfg80211_disconnected() that informs the kernel that disconnect is
  * complete. Overall disconnect may call cfg80211_connect_timeout() if
@@ -2815,6 +2895,7 @@ static void vwifi_virtio_connect_request(struct vwifi_vif *vif)
 
 static void vwifi_virtio_disconnect_tx(struct vwifi_vif *vif);
 
+/*
 static void vwifi_virtio_disconnect(struct vwifi_vif *vif)
 {
     vwifi_virtio_disconnect_tx(vif);
@@ -2831,6 +2912,7 @@ static void vwifi_virtio_disconnect(struct vwifi_vif *vif)
 
     mutex_unlock(&vif->lock);
 }
+*/
 
 static void vwifi_virtio_disconnect_tx(struct vwifi_vif *vif)
 {
