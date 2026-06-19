@@ -121,6 +121,15 @@ struct vwifi_vif {
      */
     unsigned long active_time;
 
+    /*
+     * These flags make list cleanup idempotent.
+     * They prevent double list_del/list_del_init during cleanup,
+     * ip link down, namespace deletion, or rmmod.
+     */
+    bool bss_list_linked;
+    bool ap_list_linked;
+    bool ibss_list_linked;
+
     /* Split logic for the interface mode */
     union {
         /* Structure for STA mode */
@@ -1156,88 +1165,152 @@ static netdev_tx_t vwifi_ndo_start_xmit(struct sk_buff *skb,
     }
     /* TX by interface of AP mode */
     else if (vif->wdev.iftype == NL80211_IFTYPE_AP) {
-        /* Find the source interface */
-        struct vwifi_vif *src_vif;
-        list_for_each_entry (src_vif, &vif->bss_list, bss_list) {
-            if (ether_addr_equal(eth_hdr->h_source, src_vif->ndev->dev_addr))
-                break;
+        struct vwifi_vif *src_vif = NULL;
+        struct vwifi_vif *iter = NULL;
+        bool from_ap = false;
+
+        /*
+         * AP TX has two different cases:
+         *
+         * 1. AP-originated packet:
+         *      source MAC == AP's own MAC
+         *      Example: ARP reply / ICMP reply from vw0 to vw2
+         *
+         * 2. AP-relayed packet:
+         *      source MAC == one associated STA's MAC
+         *      Example: vw1 -> AP -> vw2
+         *
+         * The old logic only handled case 2. If we drop when src_vif is NULL,
+         * AP-originated traffic will fail, which breaks ping STA -> AP.
+         */
+        if (ether_addr_equal(eth_hdr->h_source, vif->ndev->dev_addr))
+            from_ap = true;
+
+        if (!mutex_trylock(&vif->lock)) {
+            pr_info_ratelimited("vwifi: AP bss_list busy, drop TX packet\n");
+            goto out_drop;
         }
 
-        /* Check if the packet is broadcasting */
-        if (is_broadcast_ether_addr(eth_hdr->h_dest)) {
-            list_for_each_entry (dest_vif, &vif->bss_list, bss_list) {
-                /* Don't send broadcast packet back to the source interface.
-                 */
+        if (!from_ap) {
+            list_for_each_entry(iter, &vif->bss_list, bss_list) {
                 if (ether_addr_equal(eth_hdr->h_source,
-                                     dest_vif->ndev->dev_addr))
-                    continue;
-
-                /* Don't send packet from dest_vif's denylist */
-                if (denylist_check(dest_vif->ndev->name, src_vif->ndev->name))
-                    continue;
-
-                if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
-                    count++;
-            }
-        }
-        /* The packet is unicasting */
-        else {
-            list_for_each_entry (dest_vif, &vif->bss_list, bss_list) {
-                if (ether_addr_equal(eth_hdr->h_dest,
-                                     dest_vif->ndev->dev_addr)) {
-                    if (!denylist_check(dest_vif->ndev->name,
-                                        src_vif->ndev->name) &&
-                        __vwifi_ndo_start_xmit(vif, dest_vif, skb))
-                        count++;
+                                     iter->ndev->dev_addr)) {
+                    src_vif = iter;
                     break;
                 }
             }
+
+            /*
+             * If this is not AP-originated and not from an associated STA,
+             * it is invalid for this virtual AP.
+             */
+            if (!src_vif) {
+                mutex_unlock(&vif->lock);
+                goto out_drop;
+            }
         }
-    }
-    /* TX by interface of IBSS(ad-hoc) mode */
-    else if (vif->wdev.iftype == NL80211_IFTYPE_ADHOC) {
-        /* Check if the packet is broadcasting */
-        if (is_broadcast_ether_addr(eth_hdr->h_dest)) {
-            list_for_each_entry (dest_vif, &vwifi->ibss_list, ibss_list) {
-                /* Don't send broadcast packet back to the source interface.
+
+        /* Broadcast or multicast packet */
+        if (is_multicast_ether_addr(eth_hdr->h_dest)) {
+            list_for_each_entry(dest_vif, &vif->bss_list, bss_list) {
+                /*
+                 * For relayed STA traffic, don't send the packet back to
+                 * the source STA.
+                 *
+                 * For AP-originated traffic, src_vif is NULL, so send to all
+                 * associated STAs.
                  */
-                if (ether_addr_equal(eth_hdr->h_source,
+                if (src_vif &&
+                    ether_addr_equal(eth_hdr->h_source,
                                      dest_vif->ndev->dev_addr))
                     continue;
-                /* Don't send packet from dest_vif's denylist */
-                if (denylist_check(dest_vif->ndev->name, vif->ndev->name))
+
+                /*
+                 * Apply denylist only for STA-originated relay traffic.
+                 * AP-originated traffic has no source STA vif.
+                 */
+                if (src_vif &&
+                    denylist_check(dest_vif->ndev->name,
+                                   src_vif->ndev->name))
                     continue;
-                /* Don't send packet to device with different SSID. */
-                if (strcmp(vif->ssid, dest_vif->ssid))
-                    continue;
-                /* Don't send packet to device with different BSSID. */
-                if (!ether_addr_equal(vif->bssid, dest_vif->bssid))
-                    continue;
+
                 if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
                     count++;
             }
         }
-        /* The packet is unicasting */
+        /* Unicast packet */
         else {
-            list_for_each_entry (dest_vif, &vwifi->ibss_list, ibss_list) {
-                if (ether_addr_equal(eth_hdr->h_dest,
-                                     dest_vif->ndev->dev_addr)) {
-                    /* Don't send packet from dest_vif's denylist */
-                    if (denylist_check(dest_vif->ndev->name, vif->ndev->name))
-                        continue;
-                    /* Don't send packet to device with different SSID. */
-                    if (strcmp(vif->ssid, dest_vif->ssid))
-                        continue;
-                    /* Don't send packet to device with different BSSID. */
-                    if (!ether_addr_equal(vif->bssid, dest_vif->bssid))
-                        continue;
-                    if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
-                        count++;
-                }
+            list_for_each_entry(dest_vif, &vif->bss_list, bss_list) {
+                if (!ether_addr_equal(eth_hdr->h_dest,
+                                      dest_vif->ndev->dev_addr))
+                    continue;
+
+                /*
+                 * Apply denylist only for STA-originated relay traffic.
+                 * AP-originated traffic should be allowed to its associated
+                 * STA destination.
+                 */
+                if (src_vif &&
+                    denylist_check(dest_vif->ndev->name,
+                                   src_vif->ndev->name))
+                    break;
+
+                if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
+                    count++;
+
+                break;
             }
         }
+
+        mutex_unlock(&vif->lock);
+    }
+    else if (vif->wdev.iftype == NL80211_IFTYPE_ADHOC) {
+        if (!mutex_trylock(&vwifi->lock))
+            goto out_drop;
+
+        /* Check if the packet is broadcasting */
+        if (is_broadcast_ether_addr(eth_hdr->h_dest)) {
+            list_for_each_entry(dest_vif, &vwifi->ibss_list, ibss_list) {
+                if (ether_addr_equal(eth_hdr->h_source,
+                                     dest_vif->ndev->dev_addr))
+                    continue;
+
+                if (denylist_check(dest_vif->ndev->name, vif->ndev->name))
+                    continue;
+
+                if (strcmp(vif->ssid, dest_vif->ssid))
+                    continue;
+
+                if (!ether_addr_equal(vif->bssid, dest_vif->bssid))
+                    continue;
+
+                if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
+                    count++;
+            }
+        } else {
+            list_for_each_entry(dest_vif, &vwifi->ibss_list, ibss_list) {
+                if (!ether_addr_equal(eth_hdr->h_dest,
+                                      dest_vif->ndev->dev_addr))
+                    continue;
+
+                if (denylist_check(dest_vif->ndev->name, vif->ndev->name))
+                    continue;
+
+                if (strcmp(vif->ssid, dest_vif->ssid))
+                    continue;
+
+                if (!ether_addr_equal(vif->bssid, dest_vif->bssid))
+                    continue;
+
+                if (__vwifi_ndo_start_xmit(vif, dest_vif, skb))
+                    count++;
+            }
+        }
+
+        mutex_unlock(&vwifi->lock);
     }
 
+out_drop:
     if (!count)
         vif->stats.tx_dropped++;
 
@@ -1793,6 +1866,17 @@ static struct wireless_dev *vwifi_interface_add(struct wiphy *wiphy, int if_idx)
 
     /* Initialize rx_queue */
     INIT_LIST_HEAD(&vif->rx_queue);
+    INIT_LIST_HEAD(&vif->bss_list);
+
+    /*
+     * Mode-specific list nodes are linked later:
+     * - bss_list: when STA connects to AP
+     * - ap_list: when AP starts
+     * - ibss_list: when IBSS joins
+     */
+    vif->bss_list_linked = false;
+    vif->ap_list_linked = false;
+    vif->ibss_list_linked = false;
 
     hash_init(vif->bss_sta_table);
 
@@ -2227,80 +2311,178 @@ static int vwifi_delete_interface(struct vwifi_vif *vif)
     struct wiphy *wiphy = vif->wdev.wiphy;
     struct bss_sta_entry *sta_ent;
     struct hlist_node *tmp;
+    struct cfg80211_scan_request *scan_request = NULL;
+    struct vwifi_vif *ap = NULL;
+    struct vwifi_vif *pos = NULL, *safe_vif = NULL;
+    bool cancel_beacon = false;
     int bkt;
 
-    /* Stop TX queue, and delete the pending packets */
+    /*
+     * Stop TX first. After this, the netdev should not accept new packets
+     * from upper layers.
+     */
     netif_stop_queue(vif->ndev);
-    list_for_each_entry_safe (pkt, safe, &vif->rx_queue, list) {
-        list_del(&pkt->list);
-        kfree(pkt);
-    }
 
-    hash_for_each_safe (vif->bss_sta_table, bkt, tmp, sta_ent, node)
-        kfree(sta_ent);
-
+    /*
+     * Mode-specific cleanup.
+     *
+     * This is necessary because namespace deletion and rmmod can reach here
+     * without userspace cleanly calling disconnect, stop_ap, or leave_ibss.
+     */
     if (vif->wdev.iftype == NL80211_IFTYPE_STATION) {
-        struct cfg80211_scan_request *scan_request = NULL;
-
-	/*
-	* ws_scan may arm scan_timeout, so cancel ws_scan first.
-	*/
-	cancel_work_sync(&vif->ws_scan);
+        /*
+         * ws_scan may arm scan_timeout, so cancel ws_scan first.
+         */
+        cancel_work_sync(&vif->ws_scan);
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 84)
         timer_delete_sync(&vif->scan_complete);
-	timer_delete_sync(&vif->scan_timeout);
+        timer_delete_sync(&vif->scan_timeout);
 #else
         del_timer_sync(&vif->scan_complete);
-	del_timer_sync(&vif->scan_timeout);
+        del_timer_sync(&vif->scan_timeout);
 #endif
 
-    /*
-     * scan_timeout timer may have already queued ws_scan_timeout,
-     * so wait for it after deleting the timer.
-     */
-    cancel_work_sync(&vif->ws_scan_timeout);
+        /*
+         * scan_timeout may have queued ws_scan_timeout.
+         */
+        cancel_work_sync(&vif->ws_scan_timeout);
 
-    /*
-     * These workers also take vif->lock internally, so do not hold
-     * vif->lock while waiting for them.
-     */
-    cancel_work_sync(&vif->ws_connect);
-    cancel_work_sync(&vif->ws_disconnect);
+        /*
+         * These workers can touch vif->ap and vif->bss_list.
+         * Do not hold vif->lock while waiting for them.
+         */
+        cancel_work_sync(&vif->ws_connect);
+        cancel_work_sync(&vif->ws_disconnect);
 
-    /*
-     * Now no scan worker/timer should still touch scan_request.
-     * Steal the pointer under lock, then call cfg80211_scan_done()
-     * outside the lock.
-     */
-    mutex_lock(&vif->lock);
+        /*
+         * Steal scan_request and association state under vif->lock.
+         */
+        mutex_lock(&vif->lock);
 
-    if (vif->scan_request) {
-        scan_request = vif->scan_request;
-        vif->scan_request = NULL;
+        if (vif->scan_request) {
+            scan_request = vif->scan_request;
+            vif->scan_request = NULL;
+        }
+
+        ap = vif->ap;
+        vif->ap = NULL;
+        vif->sme_state = SME_DISCONNECTED;
+        vif->disconnect_reason_code = 0;
+
+        mutex_unlock(&vif->lock);
+
+        if (scan_request) {
+            struct cfg80211_scan_info info = {
+                .aborted = true,
+            };
+
+            cfg80211_scan_done(scan_request, &info);
+        }
+
+        /*
+         * Detach this STA from its AP bss_list.
+         * During teardown, do not call cfg80211_del_sta(); just unlink
+         * the driver's internal list state.
+         */
+        if (ap) {
+            mutex_lock(&ap->lock);
+
+            if (vif->bss_list_linked) {
+                list_del_init(&vif->bss_list);
+                vif->bss_list_linked = false;
+            }
+
+            mutex_unlock(&ap->lock);
+        }
+    } else if (vif->wdev.iftype == NL80211_IFTYPE_AP) {
+        /*
+         * Prevent beacon callback from re-arming itself, then cancel it.
+         * Only cancel if this AP was actually started/listed.
+         */
+        cancel_beacon = vif->ap_list_linked || READ_ONCE(vif->ap_enabled);
+        WRITE_ONCE(vif->ap_enabled, false);
+
+        if (cancel_beacon)
+            hrtimer_cancel(&vif->beacon_timer);
+
+        /*
+         * Detach all associated STAs from this AP.
+         */
+        mutex_lock(&vif->lock);
+
+        list_for_each_entry_safe(pos, safe_vif, &vif->bss_list, bss_list) {
+            list_del_init(&pos->bss_list);
+            pos->bss_list_linked = false;
+
+            if (pos->ap == vif)
+                pos->ap = NULL;
+
+            pos->sme_state = SME_DISCONNECTED;
+        }
+
+        mutex_unlock(&vif->lock);
+
+        /*
+         * Remove AP from global ap_list once.
+         */
+        mutex_lock(&vwifi->lock);
+
+        if (vif->ap_list_linked) {
+            list_del_init(&vif->ap_list);
+            vif->ap_list_linked = false;
+        }
+
+        mutex_unlock(&vwifi->lock);
+    } else if (vif->wdev.iftype == NL80211_IFTYPE_ADHOC) {
+        /*
+         * Remove IBSS interface from global ibss_list once.
+         */
+        mutex_lock(&vwifi->lock);
+
+        if (vif->ibss_list_linked) {
+            list_del_init(&vif->ibss_list);
+            vif->ibss_list_linked = false;
+        }
+
+        mutex_unlock(&vwifi->lock);
     }
 
-    mutex_unlock(&vif->lock);
-
-    if (scan_request) {
-        struct cfg80211_scan_info info = {
-            .aborted = true,
-        };
-
-        cfg80211_scan_done(scan_request, &info);
+    /*
+     * Delete pending packets.
+     */
+    list_for_each_entry_safe(pkt, safe, &vif->rx_queue, list) {
+        list_del_init(&pkt->list);
+        kfree(pkt);
     }
-}
 
-    /* Deallocate net_device */
+    /*
+     * Delete station table entries.
+     * Use hlist_del_init() before kfree() so the hash table does not keep
+     * dangling nodes.
+     */
+    hash_for_each_safe(vif->bss_sta_table, bkt, tmp, sta_ent, node) {
+        hlist_del_init(&sta_ent->node);
+        kfree(sta_ent);
+    }
+
+    vif->bss_sta_table_entry_num = 0;
+
+    /*
+     * Deallocate net_device.
+     */
     unregister_netdev(vif->ndev);
     free_netdev(vif->ndev);
 
-    /* Deallocate wiphy device */
+    /*
+     * Deallocate wiphy device.
+     */
     wiphy_unregister(wiphy);
     wiphy_free(wiphy);
 
     return 0;
 }
+
 
 /* Set transmit power for the virtual interface */
 static int vwifi_set_tx_power(struct wiphy *wiphy,
@@ -2375,34 +2557,35 @@ static int vwifi_join_ibss(struct wiphy *wiphy,
                            struct cfg80211_ibss_params *params)
 {
     struct vwifi_vif *vif = ndev_get_vwifi_vif(ndev);
+    struct vwifi_vif *ibss_vif = NULL;
+    bool need_auto_bssid = false;
+
     /* Validate vif pointer */
     if (!vif)
         return -EINVAL;
+
+    /*
+     * First copy all IBSS parameters into this vif.
+     * This protects this vif's own state.
+     */
     if (mutex_lock_interruptible(&vif->lock))
         return -ERESTARTSYS;
-    /* Retrieve IBSS configuration parameters */
+
     memcpy(vif->ssid, params->ssid, params->ssid_len);
     vif->ibss_chandef = params->chandef;
     vif->ssid_len = params->ssid_len;
-    /* When the BSSID is automatically generated by the system, it will not be
-     * passed as a parameter to the join function. */
-    if (params->bssid)
+
+    /*
+     * When the BSSID is automatically generated by the system,
+     * it will not be passed as a parameter to the join function.
+     */
+    if (params->bssid) {
         memcpy(vif->bssid, params->bssid, ETH_ALEN);
-    else {
-        /* Search for IBSS networks with WPA settings in the IBSS list. If a
-         * matching network exists, join it. Otherwise, create one. */
+    } else {
         memcpy(vif->bssid, ndev->dev_addr, ETH_ALEN);
-        struct vwifi_vif *ibss_vif = NULL;
-        list_for_each_entry (ibss_vif, &vwifi->ibss_list, ibss_list) {
-            if (ibss_vif->ssid_len == vif->ssid_len &&
-                !memcmp(ibss_vif->ssid, vif->ssid, vif->ssid_len) &&
-                ibss_vif->ibss_chandef.center_freq1 ==
-                    vif->ibss_chandef.center_freq1) {
-                memcpy(vif->bssid, ibss_vif->bssid, ETH_ALEN);
-                break;
-            }
-        }
+        need_auto_bssid = true;
     }
+
     vif->beacon_ie_len = params->ie_len;
     memcpy(vif->beacon_ie, params->ie, params->ie_len);
     vif->ibss_beacon_int = params->beacon_interval;
@@ -2421,11 +2604,49 @@ static int vwifi_join_ibss(struct wiphy *wiphy,
 
     mutex_unlock(&vif->lock);
 
-    /* Insert ibss into global ibss_list */
+    /*
+     * Now access the global IBSS list.
+     *
+     * vwifi->ibss_list is shared by:
+     * - join_ibss()
+     * - leave_ibss()
+     * - delete_interface()
+     * - IBSS TX path in vwifi_ndo_start_xmit()
+     *
+     * Therefore both searching and insertion must be protected by
+     * vwifi->lock.
+     */
     if (mutex_lock_interruptible(&vwifi->lock))
         return -ERESTARTSYS;
 
-    list_add_tail(&vif->ibss_list, &vwifi->ibss_list);
+    /*
+     * If BSSID was not explicitly provided, try to join an existing IBSS
+     * with the same SSID and channel.
+     */
+    if (need_auto_bssid) {
+        list_for_each_entry(ibss_vif, &vwifi->ibss_list, ibss_list) {
+            if (ibss_vif == vif)
+                continue;
+
+            if (ibss_vif->ssid_len == vif->ssid_len &&
+                !memcmp(ibss_vif->ssid, vif->ssid, vif->ssid_len) &&
+                ibss_vif->ibss_chandef.center_freq1 ==
+                    vif->ibss_chandef.center_freq1) {
+                memcpy(vif->bssid, ibss_vif->bssid, ETH_ALEN);
+                break;
+            }
+        }
+    }
+
+    /*
+     * Insert this vif into the global IBSS list only once.
+     * This prevents duplicate list_add_tail() on the same list node.
+     */
+    if (!vif->ibss_list_linked) {
+        INIT_LIST_HEAD(&vif->ibss_list);
+        list_add_tail(&vif->ibss_list, &vwifi->ibss_list);
+        vif->ibss_list_linked = true;
+    }
 
     mutex_unlock(&vwifi->lock);
 
@@ -2438,14 +2659,19 @@ static int vwifi_join_ibss(struct wiphy *wiphy,
 static int vwifi_leave_ibss(struct wiphy *wiphy, struct net_device *ndev)
 {
     struct vwifi_vif *vif = ndev_get_vwifi_vif(ndev);
+
     /* Validate vif pointer */
     if (!vif)
         return -EINVAL;
+
     /* Remove ibss from global ibss_list */
     if (mutex_lock_interruptible(&vwifi->lock))
         return -ERESTARTSYS;
 
-    list_del(&vif->ibss_list);
+    if (vif->ibss_list_linked) {
+        list_del_init(&vif->ibss_list);
+        vif->ibss_list_linked = false;
+    }
 
     mutex_unlock(&vwifi->lock);
 

@@ -1,0 +1,145 @@
+[Fri Jun 19 18:03:21 2026] vwifi: vw0 start acting in AP mode.
+[Fri Jun 19 18:03:21 2026] ctrlchn=6, center=2437, bw=0, beacon_interval=100, dtim_period=1,
+[Fri Jun 19 18:03:21 2026] ssid=test\x08(4), auth_type=8, inactivity_timeout=0
+[Fri Jun 19 18:03:21 2026] vwifi_start_ap: privacy = 1, head_ie_len (before TIM IE) = 15, tail_ie_len = 28
+[Fri Jun 19 18:03:21 2026] vwifi: vw0 center freq: 2437
+[Fri Jun 19 18:03:21 2026] vwifi: init beacon_timer.
+[Fri Jun 19 18:03:24 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:24 2026] cap = 17, beacon_ie_len = 43
+[Fri Jun 19 18:03:24 2026] vwifi: vw1 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: vw2 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:24 2026] cap = 17, beacon_ie_len = 43
+[Fri Jun 19 18:03:24 2026] vwifi: vw2 is connected to AP vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw2 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00), len=42
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00), len=42
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00), len=98
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00), len=98
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00), len=98
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:24 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00), len=98
+[Fri Jun 19 18:03:24 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:25 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00), len=98
+[Fri Jun 19 18:03:25 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:25 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:25 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00), len=98
+[Fri Jun 19 18:03:25 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:25 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:25 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:25 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:27 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:27 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:27 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:27 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:27 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:27 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:28 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:28 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:28 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:28 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:28 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:28 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:28 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:28 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:29 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:29 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:30 2026] __vwifi_ndo_start_xmit: 14 callbacks suppressed
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:30 2026] __vwifi_ndo_start_xmit: 2 callbacks suppressed
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:30 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:30 2026] __vwifi_ndo_start_xmit: 2 callbacks suppressed
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (00:76:77:31:00:00), len=42
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (00:76:77:31:00:00) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (00:76:77:31:00:00), len=42
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw1 (00:76:77:31:00:00) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw1 (00:76:77:31:00:00) send packet to AP vw0 (00:76:77:32:00:00), len=42
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (00:76:77:32:00:00) receive packet from STA vw1 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:30 2026] vwifi: AP vw0 (00:76:77:31:00:00) send packet to STA vw2 (00:76:77:32:00:00), len=42
+[Fri Jun 19 18:03:30 2026] vwifi: STA vw2 (00:76:77:32:00:00) receive packet from AP vw0 (00:76:77:31:00:00)
+[Fri Jun 19 18:03:31 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:31 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:31 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:31 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:31 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:31 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:32 2026] vwifi: STA vw2 (00:76:77:32:00:00) send packet to AP vw0 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:32 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:32 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:32 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:32 2026] vwifi: AP vw0 (00:76:77:32:00:00) send packet to STA vw1 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:32 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:33 2026] vwifi: AP vw0 (ff:ff:ff:ff:ff:ff) receive packet from STA vw2 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:33 2026] vwifi: is_multicast_ether_addr
+[Fri Jun 19 18:03:33 2026] vwifi: AP vw0 relay:
+[Fri Jun 19 18:03:33 2026] vwifi: STA vw1 (ff:ff:ff:ff:ff:ff) receive packet from AP vw0 (00:76:77:32:00:00)
+[Fri Jun 19 18:03:34 2026] vwifi: vw5 start acting in IBSS mode.
+[Fri Jun 19 18:03:34 2026] vwifi : vw5 join ibss2.
+[Fri Jun 19 18:03:34 2026] vwifi: vw3 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:34 2026] cap = 17, beacon_ie_len = 43
+[Fri Jun 19 18:03:34 2026] vwifi: vw3 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Fri Jun 19 18:03:34 2026] cap = 2, beacon_ie_len = 0
+[Fri Jun 19 18:03:34 2026] vwifi: vw3 start acting in IBSS mode.
+[Fri Jun 19 18:03:34 2026] vwifi : vw3 join ibss1.
+[Fri Jun 19 18:03:34 2026] vwifi: vw4 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:34 2026] cap = 17, beacon_ie_len = 43
+[Fri Jun 19 18:03:34 2026] vwifi: vw4 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Fri Jun 19 18:03:34 2026] cap = 2, beacon_ie_len = 0
+[Fri Jun 19 18:03:34 2026] vwifi: vw4 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Fri Jun 19 18:03:34 2026] cap = 18, beacon_ie_len = 35
+[Fri Jun 19 18:03:34 2026] vwifi: vw4 start acting in IBSS mode.
+[Fri Jun 19 18:03:34 2026] vwifi : vw4 join ibss1.
+[Fri Jun 19 18:03:35 2026] __vwifi_ndo_start_xmit: 2 callbacks suppressed
+[Fri Jun 19 18:03:35 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:35 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:36 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:36 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:37 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:37 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:38 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:38 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:39 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:39 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (ff:ff:ff:ff:ff:ff), len=42
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw4 (ff:ff:ff:ff:ff:ff) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00), len=42
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00), len=98
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00), len=98
+[Fri Jun 19 18:03:40 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Fri Jun 19 18:03:40 2026] vwifi: vw1 performs scan, found vw0 (SSID: test, BSSID: 00:76:77:30:00:00)
+[Fri Jun 19 18:03:40 2026] cap = 17, beacon_ie_len = 43
+[Fri Jun 19 18:03:40 2026] vwifi: vw1 performs scan, found vw5 (SSID: ibss2, BSSID: 00:76:77:35:00:00)
+[Fri Jun 19 18:03:40 2026] cap = 2, beacon_ie_len = 0
+[Fri Jun 19 18:03:40 2026] vwifi: vw1 performs scan, found vw3 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Fri Jun 19 18:03:40 2026] cap = 18, beacon_ie_len = 35
+[Fri Jun 19 18:03:40 2026] vwifi: vw1 performs scan, found vw4 (SSID: ibss1, BSSID: 00:76:77:33:00:00)
+[Fri Jun 19 18:03:40 2026] cap = 18, beacon_ie_len = 35
+[Fri Jun 19 18:03:40 2026] Dump station at the idx 0
+[Fri Jun 19 18:03:40 2026] Dump station at the idx 1
+[Fri Jun 19 18:03:40 2026] Dump station at the idx 2
+[Fri Jun 19 18:03:45 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) send packet to IBSS vw3 (00:76:77:33:00:00), len=42
+[Fri Jun 19 18:03:45 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) receive packet from IBSS vw4 (00:76:77:34:00:00)
+[Fri Jun 19 18:03:45 2026] vwifi: IBSS vw3 (00:76:77:33:00:00) send packet to IBSS vw4 (00:76:77:34:00:00), len=42
+[Fri Jun 19 18:03:45 2026] vwifi: IBSS vw4 (00:76:77:34:00:00) receive packet from IBSS vw3 (00:76:77:33:00:00)
+[Fri Jun 19 18:03:52 2026] Dump station at the idx 0
+[Fri Jun 19 18:03:52 2026] Dump station at the idx 1
+[Fri Jun 19 18:03:52 2026] Dump station at the idx 2
