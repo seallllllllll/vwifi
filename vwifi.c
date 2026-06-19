@@ -114,6 +114,13 @@ struct vwifi_vif {
 
     struct mutex lock;
 
+    /*
+     * Generic last activity timestamp.
+     * RX/TX paths update this for STA/AP/IBSS, so it must not live
+     * inside the mode-specific union.
+     */
+    unsigned long active_time;
+
     /* Split logic for the interface mode */
     union {
         /* Structure for STA mode */
@@ -125,7 +132,6 @@ struct vwifi_vif {
             enum sme_state sme_state; /* connection information */
             /* last connection time to a AP (in jiffies) */
             unsigned long conn_time;
-            unsigned long active_time; /**< last tx/rx time (in jiffies) */
             u16 disconnect_reason_code;
 
             struct timer_list scan_timeout;
@@ -707,6 +713,12 @@ static enum hrtimer_restart vwifi_beacon(struct hrtimer *timer)
 {
     struct vwifi_vif *vif = container_of(timer, struct vwifi_vif, beacon_timer);
 
+    if (unlikely(!vwifi || READ_ONCE(vwifi->state) == VWIFI_SHUTDOWN))
+        return HRTIMER_NORESTART;
+
+    if (unlikely(!READ_ONCE(vif->ap_enabled)))
+        return HRTIMER_NORESTART;
+
     if (vif->wdev.iftype != NL80211_IFTYPE_AP &&
         vif->wdev.iftype != NL80211_IFTYPE_MESH_POINT &&
         vif->wdev.iftype != NL80211_IFTYPE_ADHOC &&
@@ -845,7 +857,7 @@ static void vwifi_rx(struct net_device *dev)
     if (!skb) {
         pr_info("vwifi rx: low on mem - packet dropped\n");
 
-        if (!mutex_trylock(&vif->lock)) {
+        if (mutex_trylock(&vif->lock)) {
             vif->stats.rx_dropped++;
             mutex_unlock(&vif->lock);
         }
@@ -1117,6 +1129,11 @@ static netdev_tx_t vwifi_ndo_start_xmit(struct sk_buff *skb,
     unsigned long flags;
     int err;
     int count = 0;
+
+    if (unlikely(READ_ONCE(vwifi->state) == VWIFI_SHUTDOWN)) {
+        dev_kfree_skb(skb);
+        return NETDEV_TX_OK;
+    }
 
     spin_lock_irqsave(&vwifi_virtio_lock, flags);
 
@@ -1852,6 +1869,12 @@ static int vwifi_start_ap(struct wiphy *wiphy,
     /* AP is the head of vif->bss_list */
     INIT_LIST_HEAD(&vif->bss_list);
 
+    /*
+     * Initialize AP list node before adding it.
+     * This makes later list_del_init() safe.
+     */
+    INIT_LIST_HEAD(&vif->ap_list);
+
     /* Add AP to global ap_list */
     list_add_tail(&vif->ap_list, &vwifi->ap_list);
 
@@ -1960,8 +1983,26 @@ static int vwifi_stop_ap(struct wiphy *wiphy, struct net_device *ndev)
     struct hlist_node *tmp;
     unsigned long flags;
     int bkt;
+    bool was_enabled;
 
     pr_info("vwifi: %s stop acting in AP mode.\n", ndev->name);
+
+
+    /*
+     * stop_ap() can be called during normal hostapd shutdown,
+     * not only during module unload.
+     *
+     * Mark AP disabled first so a concurrent beacon callback will not
+     * re-arm itself.
+     */
+    was_enabled = READ_ONCE(vif->ap_enabled);
+    WRITE_ONCE(vif->ap_enabled, false);
+
+    /*
+     * Always cancel beacon_timer when AP stops.
+     * Do not restrict this to VWIFI_SHUTDOWN only.
+     */
+    hrtimer_cancel(&vif->beacon_timer);
 
     spin_lock_irqsave(&vwifi_virtio_lock, flags);
     if (vwifi_virtio_enabled) {
@@ -1972,28 +2013,31 @@ static int vwifi_stop_ap(struct wiphy *wiphy, struct net_device *ndev)
 	    hlist_del_init(&sta_ent->node);
             kfree(sta_ent);
 	}
+
         vif->bss_sta_table_entry_num = 0;
-	return 0;
+    } else {
+        spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
     }
-    spin_unlock_irqrestore(&vwifi_virtio_lock, flags);
 
-    if (vwifi->state == VWIFI_SHUTDOWN) {
-        hrtimer_cancel(&vif->beacon_timer);
+    if (was_enabled) {
+        /*
+         * Destroy bss_list first.
+         * Use list_del_init(), not list_del(), so repeated cleanup is safer.
+         */
+        list_for_each_entry_safe(pos, safe, &vif->bss_list, bss_list) {
+            list_del_init(&pos->bss_list);
 
-        /* Destroy bss_list first */
-        list_for_each_entry_safe (pos, safe, &vif->bss_list, bss_list)
-            list_del(&pos->bss_list);
+            if (pos->ap == vif)
+                pos->ap = NULL;
+        }
 
-        /* Remove ap from global ap_list */
-        if (mutex_lock_interruptible(&vwifi->lock))
-            return -ERESTARTSYS;
-
-        list_del(&vif->ap_list);
-
+        /*
+         * Remove AP from global ap_list.
+         */
+        mutex_lock(&vwifi->lock);
+        list_del_init(&vif->ap_list);
         mutex_unlock(&vwifi->lock);
     }
-
-    vif->ap_enabled = false;
 
     return 0;
 }
